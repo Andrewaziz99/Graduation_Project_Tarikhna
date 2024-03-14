@@ -1,12 +1,16 @@
 
 
-// void signOut(context) {
-//   CacheHelper.removeData(key: 'token').then((value) {
-//     if (value) {
-//       navigateAndFinish(context, ShopLoginScreen());
-//     }
-//   });
-// }
+import 'package:tarikhna/modules/login/login_screen.dart';
+import 'package:tarikhna/shared/components/components.dart';
+import 'package:tarikhna/shared/network/local/cache_helper.dart';
+
+void signOut(context) {
+  CacheHelper.removeData(key: 'token').then((value) {
+    if (value) {
+      navigateAndFinish(context, LoginScreen());
+    }
+  });
+}
 
 void printFullText(String text) {
   final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
@@ -15,7 +19,9 @@ void printFullText(String text) {
 
 String TOKEN = '';
 String AI_summarization = 'AI_Summary';
-
-var SavedItemsModel ="AI_Summary/saveSummarizedItem";
-
-var GetAllSavedItem ="AI_Summary/summarizedItems";
+String SavedItemsModel ="AI_Summary/saveSummarizedItem";
+String GetAllSavedItem ="AI_Summary/summarizedItems";
+String REGISTER = 'auth/register';
+String LOGIN = 'auth/login';
+String LESSONS = 'lesson/getlessons';
+String SEARCH = 'search';

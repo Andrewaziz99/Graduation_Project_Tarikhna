@@ -68,17 +68,16 @@ class AiInputScreen extends StatelessWidget {
                 Container(
                   color: HexColor('E8EA8D'),
                   height: 350.0,
-                  child: defaultFormField(
-                      bordercoler: Colors.black,
-                      textDir: TextDirection.rtl,
-                      controller: inputTextController,
-                      type: TextInputType.text,
-                      label: 'Text Input',
-                      numOfLines: 20,
-                      validate: (value) {
-                        print('valid');
-                        return null;
-                      }),
+                  child: TextFormField(
+                    controller: inputTextController,
+                    keyboardType: TextInputType.multiline,
+                    textDirection: TextDirection.rtl,
+                    maxLines: 20,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Enter the text here',
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 30.0,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tarikhna/layout/home_layout.dart';
-import 'package:tarikhna/modules/ai/Saved_Item_Screen/Saved_Item_Screen.dart';
-import 'package:tarikhna/modules/ai/ai_input_screen.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
+import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
+import 'package:tarikhna/modules/lessons/lessons_screen.dart';
+import 'package:tarikhna/modules/login/login_screen.dart';
+import 'package:tarikhna/modules/register/register_screen.dart';
 import 'package:tarikhna/shared/bloc_observer.dart';
-import 'package:tarikhna/shared/cubit/cubit.dart';
+import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
 import 'package:tarikhna/shared/styles/themes.dart';
 
@@ -14,8 +15,10 @@ void main() async {
 
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
-  // await CacheHelper.init();
-  //
+  await CacheHelper.init();
+
+
+
 
   runApp(const MyApp());
 }
@@ -26,14 +29,19 @@ class MyApp extends StatelessWidget {
 
   const MyApp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => AICubit()..getAllSavedItem(),
+    var token = CacheHelper.getData(key: 'token');
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LessonsCubit()..getLessons()),
+        BlocProvider(create: (context) => AICubit()..getAllSavedItem()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
-        home: AiInputScreen(),
+        home:LoginScreen(),
       ),
     );
   }

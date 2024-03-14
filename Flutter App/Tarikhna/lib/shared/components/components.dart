@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:tarikhna/shared/styles/colors.dart';
 
 void navigateTo(context, widget) => Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ),
-    );
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
+);
 
 void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ),
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
       (route) => false,
-    );
+);
 
 Widget myDivider() => Padding(
-      padding: const EdgeInsetsDirectional.only(
-        start: 20.0,
-      ),
-      child: Container(
-        width: double.infinity,
-        height: 1.0,
-        color: Colors.amberAccent,
-      ),
-    );
+  padding: const EdgeInsetsDirectional.only(
+    start: 20.0,
+  ),
+  child: Container(
+    width: double.infinity,
+    height: 1.0,
+    color: Colors.amberAccent,
+  ),
+);
 
 Widget myVerticalDivider() => Padding(
   padding: const EdgeInsets.symmetric(
@@ -43,6 +43,7 @@ Widget defaultButton({
   bool isUpperCase = true,
   double radius = 0.0,
   double? fSize,
+  Color tColor = Colors.white,
   required Function()? function,
   required String text,
 }) =>
@@ -57,8 +58,8 @@ Widget defaultButton({
         onPressed: function,
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(color: Colors.white,
-          fontSize: fSize),
+          style: TextStyle(color: tColor,
+              fontSize: fSize),
         ),
       ),
     );
@@ -72,18 +73,13 @@ Widget defaultFormField({
   Function(String)? onChange,
   Function()? suffixPressed,
   Function()? onTap,
-  int? numOfLines,
   bool isPassword = false,
   IconData? prefix,
   IconData? suffix,
   bool isClickable = true,
-  TextDirection? textDir,
-  Color bordercoler= DefaultColor,
-
+  BorderRadius radius = BorderRadius.zero,
 }) =>
     TextFormField(
-      textDirection: textDir,
-      maxLines: numOfLines,
       controller: controller,
       keyboardType: type,
       obscureText: isPassword,
@@ -93,20 +89,20 @@ Widget defaultFormField({
       onTap: onTap,
       validator: validate,
       decoration: InputDecoration(
-        focusedBorder:  OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: bordercoler,
+            color: DefaultColor,
           ),
         ),
         labelText: label,
         prefixIcon: Icon(prefix),
         suffixIcon: suffix != null
             ? IconButton(
-                onPressed: suffixPressed,
-                icon: Icon(suffix),
-              )
+          onPressed: suffixPressed,
+          icon: Icon(suffix),
+        )
             : null,
-        border:  OutlineInputBorder(),
+        border: OutlineInputBorder(borderRadius: radius),
       ),
     );
 
@@ -229,7 +225,7 @@ Widget defaultFormField({
 
 
 buildSettingItem(
-{
+    {
       required IconData icon,
       required String text,
       required Function function,
