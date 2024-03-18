@@ -126,7 +126,7 @@ class LessonsScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: ConditionalBuilder(
-                        condition: cubit.lesson != null,
+                        condition: lesson != null,
                         builder: (BuildContext context) => ListView.separated(
                             itemBuilder: (context, index) =>
                                 lessonItemBuilder(lesson![index]),
@@ -136,8 +136,10 @@ class LessonsScreen extends StatelessWidget {
                                 ),
                             itemCount: lesson!.length),
                         fallback: (BuildContext context) {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          if(cubit.lesson?.status == false)
+                            return Center(child: Text('${cubit.lesson!.message}'));
+                          else
+                            return Center(child: CircularProgressIndicator());
                         },
                       ),
                     ),
