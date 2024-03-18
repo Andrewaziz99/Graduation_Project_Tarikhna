@@ -1,10 +1,11 @@
 const OpenAI = require('openai')
 const AI_DAO = require('./AI_DAO')
+require('dotenv').config()
 
 
 const summarizeText = async (historicalTest, done) => {
     const openai = new OpenAI({
-        apiKey: "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"
+        apiKey: process.env.API_KEY,
     })
     const jsonFormat = "extract all the characters in this text and all the events related to the characters and also all the dates and its events and given a title to the text in a json format like this :{ 'historicalORNot': /*boolean value if the text related to historical events*/, 'data': {characters': [{ 'nameOfCharacter': /*name of the character*/, 'Events': /*All events related to the character*/ }], 'dates': [{ 'date': /*The date*/, 'event': /*the event related to the date*/ }], 'Title': /*related title to the text*/ }}"
     historicalTest = JSON.stringify(historicalTest)
