@@ -24,4 +24,4 @@ String GetAllSavedItem ="AI_Summary/summarizedItems";
 String REGISTER = 'auth/register';
 String LOGIN = 'auth/login';
 String LESSONS = 'lesson/getlessons';
-String SEARCH = 'search';
+String SEARCH = 'lesson/search';

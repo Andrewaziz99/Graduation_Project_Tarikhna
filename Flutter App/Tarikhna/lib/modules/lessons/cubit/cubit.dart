@@ -11,9 +11,7 @@ class LessonsCubit extends Cubit<LessonsState> {
 
   static LessonsCubit get(context) => BlocProvider.of(context);
 
-
   LessonModel? lesson;
-
 
   void getLessons() {
     emit(LessonsLoadingState());
@@ -28,21 +26,24 @@ class LessonsCubit extends Cubit<LessonsState> {
     });
   }
 
+  LessonModel? searchLesson;
 
-
-
-
-  void search(String text) {
-    emit(LessonsLoadingState());
+  void search(value) {
+    searchLesson = null;
+    emit(LessonsSearchLoadingState());
     DioHelper.getData(
-      url: SEARCH,
-      query: {
-        'text': text,
-      },
-    ).then((value) {
-      emit(LessonsSuccessState(lesson!));
-    }).catchError((error) {
-      emit(LessonsErrorState(error.toString()));
+            url: SEARCH,
+            query: {
+              'wordToSearch': value,
+            },
+            token: CacheHelper.getData(key: 'token'))
+        .then((value) {
+      searchLesson = LessonModel.fromJson(value.data);
+      print(searchLesson!.data!);
+      emit(LessonsSearchSuccessState(searchLesson!));
+    })
+        .catchError((error) {
+      emit(LessonsSearchErrorState(error.toString()));
     });
   }
 }

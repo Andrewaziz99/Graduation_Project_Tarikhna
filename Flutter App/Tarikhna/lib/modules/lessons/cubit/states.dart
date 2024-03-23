@@ -17,3 +17,18 @@ class LessonsErrorState extends LessonsState {
 
   LessonsErrorState(this.error);
 }
+
+class LessonsSearchLoadingState extends LessonsState {}
+
+class LessonsSearchSuccessState extends LessonsState {
+  final LessonModel lesson;
+
+  LessonsSearchSuccessState(this.lesson);
+}
+
+class LessonsSearchErrorState extends LessonsState {
+  final String error;
+
+  LessonsSearchErrorState(this.error);
+}
+

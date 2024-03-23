@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/models/lesson_model.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
+import 'package:tarikhna/modules/lessons/search_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
 
 class LessonsScreen extends StatelessWidget {
@@ -28,35 +29,45 @@ class LessonsScreen extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 title: const Center(child: Text('Lessons')),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      navigateTo(context, SearchScreen());
+                    },
+                    icon: const Icon(Icons.search),
+                  ),
+                ],
               ),
               body: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: defaultFormField(
-                        radius: const BorderRadius.all(Radius.circular(20)),
-                        prefix: Icons.search_outlined,
-                        controller: searchController,
-                        type: TextInputType.text,
-                        label: 'Search for lessons',
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return 'Search must not be empty';
-                          }
-                          return null;
-                        },
-                        onChange: (value) {},
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(20.0),
+                  //   child: Container(
+                  //     width: double.infinity,
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.white.withOpacity(0.5),
+                  //       borderRadius: BorderRadius.circular(20.0),
+                  //     ),
+                  //     child: defaultFormField(
+                  //       radius: const BorderRadius.all(Radius.circular(20)),
+                  //       controller: searchController,
+                  //       type: TextInputType.text,
+                  //       label: 'Search for lessons',
+                  //       suffix: Icons.search_outlined,
+                  //       validate: (value) {
+                  //         if (value!.isEmpty) {
+                  //           return 'Search must not be empty';
+                  //         }
+                  //         return null;
+                  //       },
+                  //       // onChange: (value) {
+                  //       //   cubit.search(value);
+                  //       // },
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 30.0,
                   ),
@@ -136,8 +147,9 @@ class LessonsScreen extends StatelessWidget {
                                 ),
                             itemCount: lesson!.length),
                         fallback: (BuildContext context) {
-                          if(cubit.lesson?.status == false)
-                            return Center(child: Text('${cubit.lesson!.message}'));
+                          if (cubit.lesson?.status == false)
+                            return Center(
+                                child: Text('${cubit.lesson!.message}'));
                           else
                             return Center(child: CircularProgressIndicator());
                         },
@@ -153,65 +165,3 @@ class LessonsScreen extends StatelessWidget {
     );
   }
 }
-
-Widget lessonItemBuilder(Data model) => Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Center(
-            child: Container(
-              height: 120.0,
-              color: Colors.white.withOpacity(0.5),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${model.title}',
-                            style: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            textDirection: TextDirection.rtl,
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            'Unit ${model.unit}',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.grey[800],
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                    defaultButton(
-                      background: Colors.blue.withOpacity(0),
-                      tColor: Colors.blue,
-                      fSize: 16.0,
-                      radius: 20.0,
-                      width: 100,
-                      function: () {},
-                      text: 'Start',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );

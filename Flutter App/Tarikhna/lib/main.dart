@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var token = CacheHelper.getData(key: 'token');
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LessonsCubit()..getLessons()),
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
-        home:LoginScreen(),
+        home: LoginScreen(),
       ),
     );
   }

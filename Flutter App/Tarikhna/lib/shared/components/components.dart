@@ -260,3 +260,67 @@ buildSettingItem(
         ),
       ),
     );
+
+
+
+Widget lessonItemBuilder(model) => Row(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
+    Expanded(
+      child: Center(
+        child: Container(
+          height: 120.0,
+          color: Colors.white.withOpacity(0.5),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${model.title}',
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textDirection: TextDirection.rtl,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        'Unit ${model.unit}',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.grey[800],
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                defaultButton(
+                  background: Colors.blue.withOpacity(0),
+                  tColor: Colors.blue,
+                  fSize: 16.0,
+                  radius: 20.0,
+                  width: 100,
+                  function: () {},
+                  text: 'Start',
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  ],
+);
