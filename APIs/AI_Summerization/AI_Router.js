@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const AI_Controller = require('./AI_Controller')
 const AI_DAO = require('./AI_DAO')
+const authMiddleware = require('../authentication/authMiddleware')
 
 router.post('/', (req,res)=>{
     // console.log(req.body.data);
@@ -18,15 +19,14 @@ router.post('/', (req,res)=>{
             })
         }
     } catch (error) {
-        console.log("hey");
-        res.status(500).status("Error has occured, please try again after some time", error)
+        res.status(500).send("Error has occured, please try again after some time", error)
         
     }
 })
 
-router.get("/summarizedItems", (req,res)=>{
+router.get("/summarizedItems", authMiddleware, (req,res)=>{
     try {
-        AI_Controller.getAllSavedItems((error, result)=>{
+        AI_Controller.getAllSavedItems(req.claims.id,(error, result)=>{
             if (error) {
                 return res.status(400).send({message: error, data: null})
             }else{
@@ -44,14 +44,14 @@ router.get("/summarizedItems", (req,res)=>{
     }
 })
 
-router.post('/saveSummarizedItem', (req, res)=>{
+router.post('/saveSummarizedItem', authMiddleware, (req, res)=>{
     if (!req.body.Title) {
         console.log(req.body);
         return res.status(400).send({message: "inputs are required", data: null})
     }
     try {
-        // const data = 
-        AI_Controller.saveSummarizedItem(req.body, (error, result)=>{
+        req.body.userID = req.claims.id
+        AI_Controller.saveSummarizedItem(req.body ,(error, result)=>{
             if (error) {
                 return res.status(400).send({message: error, data: null})
             }else{

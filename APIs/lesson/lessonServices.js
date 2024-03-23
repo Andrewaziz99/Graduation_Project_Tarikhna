@@ -4,4 +4,8 @@ const getLessonsByYear = (year, done)=>{
     lessonDAO.getLessonsByYear(year, done)
 }
 
-module.exports = {getLessonsByYear}
+const searchLesson = (wordToSearch, year, done)=>{
+    lessonDAO.searchLesson(wordToSearch, year,done)
+}
+
+module.exports = {getLessonsByYear, searchLesson}

@@ -20,7 +20,8 @@ const AI_SummarizedTextSchema = mongoose.Schema({
     // historicalORNot: { type: Boolean, required: true },
     characters: { type: [characterSchema], required: true },
     dates: { type: [dateSchema], required: true },
-    Title: { type: String, required: true }
+    Title: { type: String, required: true },
+    userID: {type: String, required: true}
 });
 const AI_SummarizedTextModel = mongoose.model("ai_summarizedtexts", AI_SummarizedTextSchema);
 

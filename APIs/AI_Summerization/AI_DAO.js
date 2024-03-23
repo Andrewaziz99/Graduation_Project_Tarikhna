@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const AI_SummarizedTextModel =  require('./AI_SummarizedTextModel')
 
-const saveSummarizedItem = (data,done)=>{
+const saveSummarizedItem = (data ,done)=>{
     AI_SummarizedTextModel.create(data).then(data=>{
         console.log(data);
         done(undefined, data)
@@ -11,8 +11,8 @@ const saveSummarizedItem = (data,done)=>{
     })
 }
 
-const getAllSavedItems = (done)=>{
-    AI_SummarizedTextModel.find().then(data=>{
+const getAllSavedItems = (userID, done)=>{
+    AI_SummarizedTextModel.find({userID: userID}, {userID: false}).then(data=>{
         console.log(data);
         return done(undefined, data)
     }).catch(err=>{
