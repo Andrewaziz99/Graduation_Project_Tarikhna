@@ -6,6 +6,7 @@ import 'package:tarikhna/models/lesson_model.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/modules/lessons/search_screen.dart';
+import 'package:tarikhna/modules/quiz/quiz_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
 
 import 'Lesson_Navigate_screen.dart';
@@ -58,6 +59,8 @@ void showLessonBottomSheet(String id) {
           ),
           onPressed: () {
             // Action for the third button
+
+            navigateTo(context, QuizScreen(id));
           },
           child: Text('Quiz'),
         ),
@@ -282,15 +285,15 @@ Widget lessonItemBuilder(model) => Row(
                       ],
                     ),
                     const Spacer(),
-                    defaultButton(
-                      background: Colors.blue.withOpacity(0),
-                      tColor: Colors.blue,
-                      fSize: 16.0,
-                      radius: 20.0,
-                      width: 100,
-                      function: () {},
-                      text: 'Start',
-                    ),
+                    // defaultButton(
+                    //   background: Colors.blue.withOpacity(0),
+                    //   tColor: Colors.blue,
+                    //   fSize: 16.0,
+                    //   radius: 20.0,
+                    //   width: 100,
+                    //   function: () {},
+                    //   text: 'Start',
+                    // ),
                   ],
                 ),
               ),
