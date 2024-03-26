@@ -14,7 +14,7 @@ const getQuestionsByLessonAndLevel = (level, lessonID, done)=>{
     quesModel.aggregate([
         {$match: {level: parseInt(level)}},
         {$match: {lessonID: lessonID}}
-        ,{$sample: {size: 5}}
+        ,{$sample: {size: 10}}
     ]).then(data=>{
         console.log(data);
         if (data.length ===0) {
