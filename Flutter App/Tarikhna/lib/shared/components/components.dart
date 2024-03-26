@@ -1,41 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:tarikhna/shared/styles/colors.dart';
 
+import '../../modules/lessons/lessons_screen.dart';
+import '../../modules/lessons/search_screen.dart';
+
 void navigateTo(context, widget) => Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => widget,
-  ),
-);
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
+    );
 
 void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
-  context,
-  MaterialPageRoute(
-    builder: (context) => widget,
-  ),
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
       (route) => false,
-);
+    );
 
 Widget myDivider() => Padding(
-  padding: const EdgeInsetsDirectional.only(
-    start: 20.0,
-  ),
-  child: Container(
-    width: double.infinity,
-    height: 1.0,
-    color: Colors.amberAccent,
-  ),
-);
+      padding: const EdgeInsetsDirectional.only(
+        start: 20.0,
+      ),
+      child: Container(
+        width: double.infinity,
+        height: 1.0,
+        color: Colors.amberAccent,
+      ),
+    );
 
 Widget myVerticalDivider() => Padding(
-  padding: const EdgeInsets.symmetric(
-    vertical: 20.0,
-  ),
-  child: Container(
-    width: 1.0,
-    color: Colors.amberAccent,
-  ),
-);
+      padding: const EdgeInsets.symmetric(
+        vertical: 20.0,
+      ),
+      child: Container(
+        width: 1.0,
+        color: Colors.amberAccent,
+      ),
+    );
 
 Widget defaultButton({
   double width = double.infinity,
@@ -58,8 +61,7 @@ Widget defaultButton({
         onPressed: function,
         child: Text(
           isUpperCase ? text.toUpperCase() : text,
-          style: TextStyle(color: tColor,
-              fontSize: fSize),
+          style: TextStyle(color: tColor, fontSize: fSize),
         ),
       ),
     );
@@ -98,16 +100,13 @@ Widget defaultFormField({
         prefixIcon: Icon(prefix),
         suffixIcon: suffix != null
             ? IconButton(
-          onPressed: suffixPressed,
-          icon: Icon(suffix),
-        )
+                onPressed: suffixPressed,
+                icon: Icon(suffix),
+              )
             : null,
         border: OutlineInputBorder(borderRadius: radius),
       ),
     );
-
-
-
 
 // Widget newsBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
 //     condition: list.length > 0,
@@ -223,13 +222,11 @@ Widget defaultFormField({
 //   ),
 // );
 
-
-buildSettingItem(
-    {
-      required IconData icon,
-      required String text,
-      required Function function,
-    }) =>
+buildSettingItem({
+  required IconData icon,
+  required String text,
+  required Function function,
+}) =>
     InkWell(
       onTap: () {
         function();
@@ -261,66 +258,69 @@ buildSettingItem(
       ),
     );
 
-
-
-Widget lessonItemBuilder(model) => Row(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  mainAxisAlignment: MainAxisAlignment.start,
-  children: [
-    Expanded(
-      child: Center(
-        child: Container(
-          height: 120.0,
-          color: Colors.white.withOpacity(0.5),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${model.title}',
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textDirection: TextDirection.rtl,
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Unit ${model.unit}',
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.grey[800],
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-                const Spacer(),
-                defaultButton(
-                  background: Colors.blue.withOpacity(0),
-                  tColor: Colors.blue,
-                  fSize: 16.0,
-                  radius: 20.0,
-                  width: 100,
-                  function: () {},
-                  text: 'Start',
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    ),
-  ],
-);
+// Widget lessonItemBuilder(model) => Row(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       mainAxisAlignment: MainAxisAlignment.start,
+//       children: [
+//         Expanded(
+//           child: Center(
+//               child: GestureDetector(
+//             onTap: () {
+// // print(model.sId);
+//               showLessonBottomSheet(model!.sId!);
+//             },
+//             child: Container(
+//               height: 120.0,
+//               color: Colors.white.withOpacity(0.5),
+//               child: Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: Row(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   mainAxisAlignment: MainAxisAlignment.start,
+// // You might need this line
+//                   children: [
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           '${model.title}',
+//                           style: const TextStyle(
+//                             fontSize: 18.0,
+//                             fontWeight: FontWeight.bold,
+//                           ),
+//                           maxLines: 2,
+//                           overflow: TextOverflow.ellipsis,
+//                           textDirection: TextDirection.rtl,
+//                         ),
+//                         const SizedBox(
+//                           height: 10.0,
+//                         ),
+//                         Text(
+//                           'Unit ${model.unit}',
+//                           style: TextStyle(
+//                             fontSize: 15.0,
+//                             color: Colors.grey[800],
+//                           ),
+//                           maxLines: 2,
+//                           overflow: TextOverflow.ellipsis,
+//                         ),
+//                       ],
+//                     ),
+//                     const Spacer(),
+//                     defaultButton(
+//                       background: Colors.blue.withOpacity(0),
+//                       tColor: Colors.blue,
+//                       fSize: 16.0,
+//                       radius: 20.0,
+//                       width: 100,
+//                       function: () {},
+//                       text: 'Start',
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           )),
+//         ),
+//       ],
+//     );

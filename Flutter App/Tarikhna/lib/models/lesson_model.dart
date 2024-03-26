@@ -56,6 +56,8 @@
 // }
 
 
+import 'package:tarikhna/models/Get_All_SavedItemmodel.dart';
+
 class LessonModel {
   bool? status;
   List<Data>? data;
@@ -68,7 +70,7 @@ class LessonModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
     message = json['message'];
@@ -87,16 +89,16 @@ class LessonModel {
 
 class Data {
   String? sId;
-  List<Characters>? characters;
-  List<Dates>? dates;
+  List<CharacterModel>? Characters;
+  List<DateModel>? Dates;
   String? title;
   int? unit;
   int? year;
 
   Data(
       {this.sId,
-        this.characters,
-        this.dates,
+        this.Characters,
+        this.Dates,
         this.title,
         this.unit,
         this.year});
@@ -104,15 +106,15 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     if (json['characters'] != null) {
-      characters = <Characters>[];
+      Characters = <CharacterModel>[];
       json['characters'].forEach((v) {
-        characters!.add(new Characters.fromJson(v));
+        Characters!.add(CharacterModel.fromJson(v)); // Updated this line
       });
     }
     if (json['dates'] != null) {
-      dates = <Dates>[];
+      Dates = <DateModel>[];
       json['dates'].forEach((v) {
-        dates!.add(new Dates.fromJson(v));
+        Dates!.add(DateModel.fromJson(v));// Updated this line
       });
     }
     title = json['Title'];
@@ -120,14 +122,15 @@ class Data {
     year = json['year'];
   }
 
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
-    if (this.characters != null) {
-      data['characters'] = this.characters!.map((v) => v.toJson()).toList();
+    if (this.Characters != null) {
+      data['characters'] = this.Characters!.map((v) => v.toJson()).toList();
     }
-    if (this.dates != null) {
-      data['dates'] = this.dates!.map((v) => v.toJson()).toList();
+    if (this.Dates != null) {
+      // data['dates'] = this.dates!.map((v) => v.toJson()).toList();
     }
     data['Title'] = this.title;
     data['unit'] = this.unit;
@@ -136,17 +139,19 @@ class Data {
   }
 }
 
-class Characters {
+class CharacterModel {
   String? sId;
   String? nameOfCharacter;
   String? events;
 
-  Characters({this.sId, this.nameOfCharacter, this.events});
+  CharacterModel({this.sId, this.nameOfCharacter, this.events});
 
-  Characters.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    nameOfCharacter = json['nameOfCharacter'];
-    events = json['Events'];
+  factory CharacterModel.fromJson(Map<String, dynamic> json) {
+    return CharacterModel(
+      sId: json['_id'],
+      nameOfCharacter: json['nameOfCharacter'],
+      events: json['Events'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -158,17 +163,19 @@ class Characters {
   }
 }
 
-class Dates {
+class DateModel {
   String? sId;
   String? date;
   String? event;
 
-  Dates({this.sId, this.date, this.event});
+  DateModel({this.sId, this.date, this.event});
 
-  Dates.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    date = json['date'];
-    event = json['event'];
+  factory DateModel.fromJson(Map<String, dynamic> json) {
+    return DateModel(
+      sId: json['_id'],
+      date: json['date'],
+      event: json['event'],
+    );
   }
 
   Map<String, dynamic> toJson() {

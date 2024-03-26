@@ -45,6 +45,7 @@ dependencies:
   cherry_toast: ^1.7.0
   carousel_slider: ^4.2.1
   timeline_tile: ^2.0.0
+  card_swiper: ^3.0.1
 
 dev_dependencies:
   flutter_test:
