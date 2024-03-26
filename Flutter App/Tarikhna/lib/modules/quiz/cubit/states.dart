@@ -13,3 +13,15 @@ class QuizErrorState extends QuizStates {
 }
 
 class QuizChangeSelectedOptionState extends QuizStates {}
+
+class QuizCheckAnswerState extends QuizStates {}
+
+class QuizChangeLevelState extends QuizStates {}
+
+class QuizChangeLevelErrorState extends QuizStates {
+  final String error;
+
+  QuizChangeLevelErrorState(this.error);
+}
+
+class QuizChangeLevelSuccessState extends QuizStates {}
