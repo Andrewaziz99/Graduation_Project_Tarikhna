@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tarikhna/models/AI_model.dart';
 import 'package:tarikhna/modules/ai/ai_input_screen.dart';
 import 'package:tarikhna/modules/ai/ai_output_screen.dart';
 import 'package:tarikhna/shared/cubit/states.dart';
@@ -14,7 +13,7 @@ class AppCubit extends Cubit<AppStates> {
 
   List<Widget> screens = [
     AiInputScreen(),
-    AiOutputScreen(),
+    const AiOutputScreen(),
   ];
 
   void changeBottomNavBar(int index) {

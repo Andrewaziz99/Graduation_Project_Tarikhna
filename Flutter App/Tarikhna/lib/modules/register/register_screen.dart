@@ -151,8 +151,8 @@ class RegisterScreen extends StatelessWidget {
                                   label: 'Confirm Password',
                                   prefix: Icons.lock_outline,
                                   validate: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Confirm Password must not be empty';
+                                    if (value!.isEmpty || value != passwordController.text) {
+                                      return 'Password does not match';
                                     }
                                     return null;
                                   },

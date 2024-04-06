@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
+import 'package:tarikhna/modules/quiz/quiz_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
 
 import 'Lesson_Navigate_screen.dart';
@@ -22,42 +23,42 @@ void showLessonBottomSheet(String id) {
           children: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(100, 50),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
+                minimumSize: const Size(100, 50),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
                 backgroundColor: HexColor("FFF9F9"), // Change button color
               ),
               onPressed: () {
                 navigateTo(context, Lesson_Navigate_Screen(id));
               },
-              child: Text("Lesson Sum"),
+              child: const Text("Lesson Sum"),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(100, 50),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
+                minimumSize: const Size(100, 50),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
                 backgroundColor:HexColor("FFF9F9"), // Change button color
               ),
               onPressed: () {
                 // Action for the second button
               },
-              child: Text('Ar Model'),
+              child: const Text('Ar Model'),
             ),
           ],
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            minimumSize: Size(200, 50),
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
+            minimumSize: const Size(200, 50),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
             backgroundColor: HexColor("FFF9F9"), // Change button color
           ),
           onPressed: () {
-            // Action for the third button
+            navigateTo(context, QuizScreen(id));
           },
-          child: Text('Quiz'),
+          child: const Text('Quiz'),
         ),
       ],
     ),
@@ -70,6 +71,8 @@ class SearchScreen extends StatelessWidget {
 
 
   var searchController = TextEditingController();
+
+  SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -126,21 +129,21 @@ class SearchScreen extends StatelessWidget {
                       condition: searchLesson != null,
                       builder: (BuildContext context) => ListView.separated(
                           itemBuilder: (context, index) =>
-                              lessonItemBuilder(searchLesson![index]),
+                              lessonItemBuilder(searchLesson[index]),
                           separatorBuilder: (context, index) =>
                           const SizedBox(
                             height: 10.0,
                           ),
                           itemCount: searchLesson!.length),
                       fallback: (BuildContext context) {
-                        if (cubit.lesson?.status == false)
+                        if (cubit.lesson?.status == false) {
                           return Center(
                               child: Text('${cubit.lesson!.message}'));
-                        else if (searchController.text.isEmpty)
-                          return Center(
+                        } else if (searchController.text.isEmpty)
+                          return const Center(
                               child: Text('No lessons found yet!'));
                         else
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(child: CircularProgressIndicator());
                       },
                     ),
                   ),

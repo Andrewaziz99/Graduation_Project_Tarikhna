@@ -32,3 +32,4 @@ class LessonsSearchErrorState extends LessonsState {
   LessonsSearchErrorState(this.error);
 }
 
+class LessonsChangeDialogState extends LessonsState {}

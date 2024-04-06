@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/models/lesson_model.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
@@ -29,7 +28,6 @@ class LessonsCubit extends Cubit<LessonsState> {
   LessonModel? searchLesson;
 
   void search(value) {
-    searchLesson = null;
     emit(LessonsSearchLoadingState());
     DioHelper.getData(
             url: SEARCH,
@@ -46,4 +44,10 @@ class LessonsCubit extends Cubit<LessonsState> {
       emit(LessonsSearchErrorState(error.toString()));
     });
   }
+
+  void changeDialogState() {
+    emit(LessonsChangeDialogState());
+  }
+
+
 }
