@@ -1,19 +1,10 @@
 // Navigation_Screen.dart
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:tarikhna/modules/ai/Saved_Item_Screen/Ai_output_character_Screen.dart';
-import 'package:tarikhna/modules/ai/Saved_Item_Screen/Ai_output_date_Screen.dart';
-import 'package:tarikhna/modules/ai/cubit/cubit.dart';
-import 'package:tarikhna/modules/ai/cubit/states.dart';
-import 'package:tarikhna/modules/ai/ai_output_screen.dart';
-import 'package:tarikhna/modules/ai/ai_output_dates_screen.dart';
 import 'package:tarikhna/modules/lessons/Lesson_output_character_screen.dart';
 
 import 'package:tarikhna/shared/components/components.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 import 'Lesson_output_date_screen.dart';
 
@@ -22,7 +13,7 @@ import 'Lesson_output_date_screen.dart';
 class Lesson_Navigate_Screen extends StatelessWidget {
   final String? id;
 
-  Lesson_Navigate_Screen(this.id);
+  const Lesson_Navigate_Screen(this.id, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +25,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Material(
+          const Material(
             elevation: 10,
             shadowColor: Colors.white,
             borderOnForeground: true,
@@ -47,7 +38,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 100),
+          const SizedBox(height: 100),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -66,7 +57,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                     onPressed: () {
                       navigateTo(context, Lesson_output_character_screen(id));
                     },
-                    child: Text(
+                    child: const Text(
                       "Characters",
                       style: TextStyle(
                         color: Colors.white,
@@ -77,7 +68,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 30,),
+              const SizedBox(width: 30,),
 
               Material(
                 elevation: 15,
@@ -94,7 +85,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                     onPressed: () {
                       navigateTo(context, Lesson_output_date_screen(id));
                     },
-                    child: Text(
+                    child: const Text(
                       "Date",
                       style: TextStyle(
                         color: Colors.white,

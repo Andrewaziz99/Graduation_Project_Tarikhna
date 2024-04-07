@@ -25,3 +25,11 @@ class QuizChangeLevelErrorState extends QuizStates {
 }
 
 class QuizChangeLevelSuccessState extends QuizStates {}
+
+class QuizChangeIndexState extends QuizStates {
+  final int index;
+
+  QuizChangeIndexState(this.index);
+}
+
+class QuizChangeDialogState extends QuizStates {}

@@ -1,5 +1,6 @@
-import 'dart:ffi';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/models/Quiz_model.dart';
 import 'package:tarikhna/modules/quiz/cubit/states.dart';
@@ -12,12 +13,24 @@ class QuizCubit extends Cubit<QuizStates> {
 
   static QuizCubit get(context) => BlocProvider.of(context);
 
-  int? selectedOption = 5;
+  int? selectedOption;
+  int? duration = 180;
 
   void changeSelectedOption(value) {
     selectedOption = value;
     emit(QuizChangeSelectedOptionState());
   }
+
+  void changeIndex(index) {
+    emit(QuizChangeIndexState(index));
+  }
+
+  void changeDialogState() {
+    emit(QuizChangeDialogState());
+  }
+
+
+
 
   QuizModel? quizModel;
 
@@ -42,28 +55,47 @@ class QuizCubit extends Cubit<QuizStates> {
   int? correctAnswers = 0;
   int? wrongAnswers = 0;
 
-  void checkAnswer(index) {
+  void checkAnswer(index, context) {
     if(index == 0) index = quizModel?.data?.questions?.length;
     if (selectedOption == quizModel!.data!.questions![index - 1].correctAns!) {
       correctAnswers = correctAnswers! + 1;
-      print('Correct ans: ${correctAnswers} ');
-      print('index: ${index}');
+      print('Correct ans: $correctAnswers ');
+      print('index: $index');
     } else {
       wrongAnswers = wrongAnswers! + 1;
-      print('Wrong ans: ${wrongAnswers} ');
-      print('index: ${index}');
+      print('Wrong ans: $wrongAnswers ');
+      print('index: $index');
 
     }
     if(correctAnswers == quizModel!.data!.numberOfQuestions){
-     change_level(quizModel!.data!.questions![0].lessonID!);
-     getQuiz(quizModel!.data!.questions![0].lessonID!);
-     correctAnswers=0;
-     wrongAnswers=0;
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.success,
+        animType: AnimType.scale,
+        title: 'Congratulations',
+        desc: 'You have successfully passed the quiz',
+        btnOkOnPress: () {
+          change_level(quizModel!.data!.questions![0].lessonID!);
+          getQuiz(quizModel!.data!.questions![0].lessonID!);
+          correctAnswers=0;
+          wrongAnswers=0;
+        },
+      ).show();
     }
     else if(correctAnswers != quizModel!.data!.numberOfQuestions && index == quizModel!.data!.questions?.length){
-      getQuiz(quizModel!.data!.questions![0].lessonID!);
-      correctAnswers=0;
-      wrongAnswers=0;
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.scale,
+        title: 'Failed',
+        desc: 'You have failed the quiz',
+        btnOkOnPress: () {
+          change_level(quizModel!.data!.questions![0].lessonID!);
+          getQuiz(quizModel!.data!.questions![0].lessonID!);
+          correctAnswers=0;
+          wrongAnswers=0;
+        },
+      ).show();
     }
   }
 
@@ -74,6 +106,7 @@ class QuizCubit extends Cubit<QuizStates> {
           'lessonID': LId,
         }
     ).then((value) {
+      emit(QuizChangeLevelState());
       print(value.data);
       quizModel = QuizModel.fromJson(value.data);
       emit(QuizChangeLevelSuccessState());
