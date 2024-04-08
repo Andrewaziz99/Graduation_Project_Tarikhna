@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/login/login_screen.dart';
+import 'package:tarikhna/modules/quiz/cubit/cubit.dart';
 import 'package:tarikhna/shared/bloc_observer.dart';
 import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => LessonsCubit()..getLessons()),
         BlocProvider(create: (context) => AICubit()..getAllSavedItem()),
-        // BlocProvider(create: (context) => QuizCubit()),
+        BlocProvider(create: (context) => QuizCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

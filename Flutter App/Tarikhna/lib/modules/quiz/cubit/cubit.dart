@@ -1,9 +1,11 @@
-
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/models/Quiz_model.dart';
 import 'package:tarikhna/modules/quiz/cubit/states.dart';
+import 'package:tarikhna/modules/quiz/score_screen.dart';
+import 'package:tarikhna/shared/components/components.dart';
 import 'package:tarikhna/shared/components/constants.dart';
 import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
@@ -15,6 +17,7 @@ class QuizCubit extends Cubit<QuizStates> {
 
   int? selectedOption;
   int? duration = 180;
+  var countDownController = CountDownController();
 
   void changeSelectedOption(value) {
     selectedOption = value;
@@ -28,9 +31,6 @@ class QuizCubit extends Cubit<QuizStates> {
   void changeDialogState() {
     emit(QuizChangeDialogState());
   }
-
-
-
 
   QuizModel? quizModel;
 
@@ -56,18 +56,17 @@ class QuizCubit extends Cubit<QuizStates> {
   int? wrongAnswers = 0;
 
   void checkAnswer(index, context) {
-    if(index == 0) index = quizModel?.data?.questions?.length;
+    if (index == 0) index = quizModel?.data?.questions?.length;
     if (selectedOption == quizModel!.data!.questions![index - 1].correctAns!) {
       correctAnswers = correctAnswers! + 1;
       print('Correct ans: $correctAnswers ');
-      print('index: $index');
     } else {
       wrongAnswers = wrongAnswers! + 1;
       print('Wrong ans: $wrongAnswers ');
-      print('index: $index');
-
     }
-    if(correctAnswers == quizModel!.data!.numberOfQuestions){
+    if (correctAnswers == quizModel!.data!.numberOfQuestions) {
+      countDownController.pause();
+      change_level(quizModel!.data!.questions![0].lessonID!);
       AwesomeDialog(
         context: context,
         dialogType: DialogType.success,
@@ -75,44 +74,48 @@ class QuizCubit extends Cubit<QuizStates> {
         title: 'Congratulations',
         desc: 'You have successfully passed the quiz',
         btnOkOnPress: () {
-          change_level(quizModel!.data!.questions![0].lessonID!);
-          getQuiz(quizModel!.data!.questions![0].lessonID!);
-          correctAnswers=0;
-          wrongAnswers=0;
+          navigateAndFinish(
+              context,
+              ScoreScreen(
+                  correctAnswers: correctAnswers,
+                  wrongAnswers: wrongAnswers,
+                  lessonID: quizModel!.data!.questions![0].lessonID!));
+          // getQuiz(quizModel!.data!.questions![0].lessonID!);
+          // correctAnswers = 0;
+          // wrongAnswers = 0;
         },
       ).show();
-    }
-    else if(correctAnswers != quizModel!.data!.numberOfQuestions && index == quizModel!.data!.questions?.length){
+    } else if (wrongAnswers == quizModel!.data!.numberOfQuestions) {
+      countDownController.pause();
       AwesomeDialog(
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.scale,
         title: 'Failed',
         desc: 'You have failed the quiz',
+        btnOkText: 'Try Again',
         btnOkOnPress: () {
-          change_level(quizModel!.data!.questions![0].lessonID!);
           getQuiz(quizModel!.data!.questions![0].lessonID!);
-          correctAnswers=0;
-          wrongAnswers=0;
+          correctAnswers = 0;
+          wrongAnswers = 0;
+          countDownController.restart(duration: duration);
         },
       ).show();
     }
   }
 
-  void change_level(LId){
-    DioHelper.putData(url: changeLevel,
+  void change_level(LId) {
+      emit(QuizChangeLevelState());
+    DioHelper.putData(
+        url: changeLevel,
         token: CacheHelper.getData(key: 'token'),
         query: {
           'lessonID': LId,
-        }
-    ).then((value) {
-      emit(QuizChangeLevelState());
-      print(value.data);
-      quizModel = QuizModel.fromJson(value.data);
+        }).then((value) {
       emit(QuizChangeLevelSuccessState());
     }).catchError((error) {
       print(error.toString());
-    emit(QuizChangeLevelErrorState(error.toString()));
+      emit(QuizChangeLevelErrorState(error.toString()));
     });
   }
 }

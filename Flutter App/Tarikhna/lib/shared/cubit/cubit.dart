@@ -13,7 +13,7 @@ class AppCubit extends Cubit<AppStates> {
 
   List<Widget> screens = [
     AiInputScreen(),
-    const AiOutputScreen(),
+    AiOutputScreen(),
   ];
 
   void changeBottomNavBar(int index) {
