@@ -2,6 +2,7 @@ const quesModel = require('./quesModel')
 
 //This fuction takes the level, lessonID, and the number of questions to retrieve random number of questions 
 const getQuestionsByLessonAndLevel = (level, lessonID, done)=>{
+    console.log(lessonID);
     // quesModel.find({level: level, lessonID: lessonID}).then(data=>{
     //     console.log(level);
     //     console.log(lessonID);
@@ -13,7 +14,7 @@ const getQuestionsByLessonAndLevel = (level, lessonID, done)=>{
 
     quesModel.aggregate([
         {$match: {level: parseInt(level)}},
-        {$match: {lessonID: lessonID}}
+        {$match: {lessonID: {$in: lessonID}}}
         ,{$sample: {size: 10}}
     ]).then(data=>{
         console.log(data);
@@ -23,6 +24,7 @@ const getQuestionsByLessonAndLevel = (level, lessonID, done)=>{
             return done(undefined, data)
         }
     }).catch(err=>{
+        console.log(err);
         done(err, undefined)
     })
 }

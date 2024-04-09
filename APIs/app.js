@@ -7,6 +7,7 @@ const authMiddleware = require('./authentication/authMiddleware')
 const authRouter = require('./authentication')
 const lessonRouter =  require('./lesson/lessonRouter')
 const quizRouter = require('./quiz/quizRouter')
+const examRouter = require('./exam')
 const connectDb = require('./dbConnection')
 connectDb()
 
@@ -17,6 +18,7 @@ app.use('/auth', authRouter)
 app.use('/user', authMiddleware ,userRouter)
 app.use('/lesson',authMiddleware, lessonRouter)
 app.use('/quiz',authMiddleware ,quizRouter)
+app.use('/exam',authMiddleware, examRouter)
 
 
 

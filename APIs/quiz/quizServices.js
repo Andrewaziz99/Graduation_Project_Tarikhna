@@ -50,7 +50,7 @@ const getLevelOfQuiz = (quiz)=>{
     }
 }
 
-const updateToNextLevel = (lessonID, userID, levels, done)=>{
-    quizDAO.updateToNextLevel(lessonID, userID, levels, done)
+const updateToNextLevel = (lessonID, userID, newLevels, done)=>{
+    quizDAO.updateToNextLevel(lessonID, userID, newLevels, done)
 }
 module.exports = {getquizByLessonIDAndUserID,quizFound, createQuiz, getNumberOfQuestions, getLevelOfQuiz, updateToNextLevel}

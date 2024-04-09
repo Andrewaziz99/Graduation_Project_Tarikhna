@@ -6,22 +6,22 @@ const userController = require('./userController')
 router.get('/', (req, res)=>{
     const userData = req.claims
     if(!userData.email){
-        return res.status(400).send("The email is not found")
+        return res.status(200).send({status: false, message:"The email is not found", data: null})
     }
     try {
         userController.findUser(userData.email, (err, result)=>{
             if (err) {
-                return res.status(400).send(err)
+                return res.status(200).send({status: false, message: err, data: null})
             }
             console.log(result);
             if (!result) {
-                return res.status(404).send("This user is not found")
+                return res.status(200).send({status: false, message: "This user is not found", data: null})
             }
-            return res.status(200).send(result)
+            return res.status(200).send({status: true, message: "Data retrieved successfully", data: result})
 
         })
     } catch (error) {
-        return res.status(500).send("Unexpected error has occured please try again after sometime")
+        return res.send({ status: false, message: "Error has occured, please try again after some time", data: null })
     }
 
 })
