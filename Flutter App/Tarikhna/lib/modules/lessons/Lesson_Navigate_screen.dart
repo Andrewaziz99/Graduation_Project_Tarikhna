@@ -14,10 +14,8 @@ import 'package:tarikhna/modules/lessons/Lesson_output_character_screen.dart';
 
 import 'package:tarikhna/shared/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-
+export 'Lesson_Navigate_screen.dart';
 import 'Lesson_output_date_screen.dart';
-
-
 
 class Lesson_Navigate_Screen extends StatelessWidget {
   final String? id;
@@ -77,8 +75,9 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 30,),
-
+              SizedBox(
+                width: 30,
+              ),
               Material(
                 elevation: 15,
                 shadowColor: Colors.white,
@@ -105,7 +104,6 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                   ),
                 ),
               ),
-
             ],
           ),
         ],

@@ -111,7 +111,8 @@ class QuizScreen extends StatelessWidget {
                                                                     meduim),
                                                           ),
                                                           onChanged: (val) {
-                                                            cubit.selectedOption = val;
+                                                            cubit.selectedOption =
+                                                                val;
                                                             cubit
                                                                 .changeSelectedOption(
                                                                     val);
@@ -142,7 +143,8 @@ class QuizScreen extends StatelessWidget {
                                                                     meduim),
                                                           ),
                                                           onChanged: (val) {
-                                                            cubit.selectedOption = val;
+                                                            cubit.selectedOption =
+                                                                val;
                                                             cubit
                                                                 .changeSelectedOption(
                                                                     val);
@@ -176,7 +178,8 @@ class QuizScreen extends StatelessWidget {
                                                                       meduim),
                                                             ),
                                                             onChanged: (val) {
-                                                              cubit.selectedOption = val;
+                                                              cubit.selectedOption =
+                                                                  val;
                                                               cubit
                                                                   .changeSelectedOption(
                                                                       val);
@@ -207,7 +210,8 @@ class QuizScreen extends StatelessWidget {
                                                                       meduim),
                                                             ),
                                                             onChanged: (val) {
-                                                              cubit.selectedOption = val;
+                                                              cubit.selectedOption =
+                                                                  val;
                                                               cubit
                                                                   .changeSelectedOption(
                                                                       val);

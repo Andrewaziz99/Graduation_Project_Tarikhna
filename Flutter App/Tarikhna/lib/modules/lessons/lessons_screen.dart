@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/models/lesson_model.dart';
+import 'package:tarikhna/modules/arModule/ar_main_page.dart';
+import 'package:tarikhna/modules/arModule/ar_statless_main.dart';
+import 'package:tarikhna/modules/arModule/model_viewer.dart';
+import 'package:tarikhna/modules/home/homepage.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/modules/lessons/search_screen.dart';
@@ -11,69 +15,71 @@ import 'package:tarikhna/shared/components/components.dart';
 
 import 'Lesson_Navigate_screen.dart';
 
-
 void showLessonBottomSheet(String id) {
   scaffoldkey.currentState?.showBottomSheet((context) => Container(
-    width: double.infinity,
-    height: 300,
-    color: HexColor("D3C5C5"),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
+        width: double.infinity,
+        height: 300,
+        color: HexColor("D3C5C5"),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(100, 50),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 40), // Adjust button size
+                    backgroundColor: HexColor("FFF9F9"), // Change button color
+                  ),
+                  onPressed: () {
+                    navigateTo(context, Lesson_Navigate_Screen(id));
+                  },
+                  child: Text("Lesson Sum"),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(100, 50),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 40), // Adjust button size
+                    backgroundColor: HexColor("FFF9F9"), // Change button color
+                  ),
+                  onPressed: () {
+                    // Action for the second button
+                    navigateTo(context, Ar_Main_screen());
+                    //context.read<LessonsCubit>().getARScreen(context);
+                  },
+                  child: Text('Ar Model'),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(100, 50),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
+                minimumSize: Size(200, 50),
+                padding: EdgeInsets.symmetric(
+                    vertical: 20, horizontal: 40), // Adjust button size
                 backgroundColor: HexColor("FFF9F9"), // Change button color
               ),
               onPressed: () {
-                navigateTo(context, Lesson_Navigate_Screen(id));
+                // Action for the third button
+
+                navigateTo(context, QuizScreen(id));
               },
-              child: Text("Lesson Sum"),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(100, 50),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
-                backgroundColor:HexColor("FFF9F9"), // Change button color
-              ),
-              onPressed: () {
-                // Action for the second button
-              },
-              child: Text('Ar Model'),
+              child: Text('Quiz'),
             ),
           ],
         ),
-        SizedBox(height: 20),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(200, 50),
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
-            backgroundColor: HexColor("FFF9F9"), // Change button color
-          ),
-          onPressed: () {
-            // Action for the third button
-
-            navigateTo(context, QuizScreen(id));
-          },
-          child: Text('Quiz'),
-        ),
-      ],
-    ),
-  ));
+      ));
 }
 
 var scaffoldkey = GlobalKey<ScaffoldState>();
 
 class LessonsScreen extends StatelessWidget {
-
-
   var searchController = TextEditingController();
 
   @override
@@ -233,16 +239,13 @@ class LessonsScreen extends StatelessWidget {
   }
 }
 
-
-
-
 Widget lessonItemBuilder(model) => Row(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  mainAxisAlignment: MainAxisAlignment.start,
-  children: [
-    Expanded(
-      child: Center(
-          child: GestureDetector(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Center(
+              child: GestureDetector(
             onTap: () {
 // print(model.sId);
               showLessonBottomSheet(model!.sId!);
@@ -299,7 +302,6 @@ Widget lessonItemBuilder(model) => Row(
               ),
             ),
           )),
-    ),
-  ],
-);
-
+        ),
+      ],
+    );

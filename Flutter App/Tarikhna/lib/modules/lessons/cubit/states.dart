@@ -1,6 +1,6 @@
 import 'package:tarikhna/models/lesson_model.dart';
 
-abstract class LessonsState  {}
+abstract class LessonsState {}
 
 class LessonsInitialState extends LessonsState {}
 
@@ -32,3 +32,4 @@ class LessonsSearchErrorState extends LessonsState {
   LessonsSearchErrorState(this.error);
 }
 
+// class OpenARWidgetState extends LessonsState {}

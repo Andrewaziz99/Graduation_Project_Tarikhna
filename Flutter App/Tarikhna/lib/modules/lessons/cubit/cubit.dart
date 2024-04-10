@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/models/lesson_model.dart';
+import 'package:tarikhna/modules/arModule/ar_main_page.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
+import 'package:tarikhna/shared/components/components.dart';
 import 'package:tarikhna/shared/components/constants.dart';
 import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
@@ -26,6 +28,11 @@ class LessonsCubit extends Cubit<LessonsState> {
     });
   }
 
+  // void getARScreen(context) {
+  //   emit(OpenARWidgetState());
+  //   //navigateTo(context, AR_Main());
+  // }
+
   LessonModel? searchLesson;
 
   void search(value) {
@@ -41,8 +48,7 @@ class LessonsCubit extends Cubit<LessonsState> {
       searchLesson = LessonModel.fromJson(value.data);
       print(searchLesson!.data!);
       emit(LessonsSearchSuccessState(searchLesson!));
-    })
-        .catchError((error) {
+    }).catchError((error) {
       emit(LessonsSearchErrorState(error.toString()));
     });
   }
