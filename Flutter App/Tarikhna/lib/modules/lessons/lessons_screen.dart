@@ -1,12 +1,8 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:tarikhna/models/lesson_model.dart';
-import 'package:tarikhna/modules/arModule/ar_main_page.dart';
-import 'package:tarikhna/modules/arModule/ar_statless_main.dart';
-import 'package:tarikhna/modules/arModule/model_viewer.dart';
-import 'package:tarikhna/modules/home/homepage.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/modules/lessons/search_screen.dart';
@@ -15,72 +11,83 @@ import 'package:tarikhna/shared/components/components.dart';
 
 import 'Lesson_Navigate_screen.dart';
 
+
 void showLessonBottomSheet(String id) {
   scaffoldkey.currentState?.showBottomSheet((context) => Container(
-        width: double.infinity,
-        height: 300,
-        color: HexColor("D3C5C5"),
-        child: Column(
+    width: double.infinity,
+    height: 300,
+    color: HexColor("D3C5C5"),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(100, 50),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 40), // Adjust button size
-                    backgroundColor: HexColor("FFF9F9"), // Change button color
-                  ),
-                  onPressed: () {
-                    navigateTo(context, Lesson_Navigate_Screen(id));
-                  },
-                  child: Text("Lesson Sum"),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(100, 50),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 40), // Adjust button size
-                    backgroundColor: HexColor("FFF9F9"), // Change button color
-                  ),
-                  onPressed: () {
-                    // Action for the second button
-                    navigateTo(context, Ar_Main_screen());
-                    //context.read<LessonsCubit>().getARScreen(context);
-                  },
-                  child: Text('Ar Model'),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 50),
-                padding: EdgeInsets.symmetric(
-                    vertical: 20, horizontal: 40), // Adjust button size
+                minimumSize: const Size(100, 50),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
                 backgroundColor: HexColor("FFF9F9"), // Change button color
               ),
               onPressed: () {
-                // Action for the third button
-
-                navigateTo(context, QuizScreen(id));
+                navigateTo(context, Lesson_Navigate_Screen(id));
               },
-              child: Text('Quiz'),
+              child: const Text("Lesson Sum"),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(100, 50),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
+                backgroundColor:HexColor("FFF9F9"), // Change button color
+              ),
+              onPressed: () {
+                // Action for the second button
+              },
+              child: const Text('Ar Model'),
             ),
           ],
         ),
-      ));
+        const SizedBox(height: 20),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(200, 50),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
+            backgroundColor: HexColor("FFF9F9"), // Change button color
+          ),
+          onPressed: () {
+            LessonsCubit.get(context).changeDialogState();
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.infoReverse,
+              animType: AnimType.bottomSlide,
+              title: 'Quiz',
+              desc: 'You will have 3 minutes to answer 5 questions for each level.\nAre you ready to take the quiz?',
+              btnCancelOnPress: () {},
+              btnOkText: 'Start Quiz',
+              btnOkOnPress: () {
+                navigateTo(context, QuizScreen(id));
+              },
+            ).show();
+            // navigateTo(context, QuizScreen(id));
+          },
+          child: const Text('Quiz'),
+        ),
+      ],
+    ),
+  ));
 }
 
 var scaffoldkey = GlobalKey<ScaffoldState>();
 
 class LessonsScreen extends StatelessWidget {
+
+
   var searchController = TextEditingController();
+
+  LessonsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -115,35 +122,6 @@ class LessonsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Padding(
-                  //   padding: const EdgeInsets.all(20.0),
-                  //   child: Container(
-                  //     width: double.infinity,
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.white.withOpacity(0.5),
-                  //       borderRadius: BorderRadius.circular(20.0),
-                  //     ),
-                  //     child: defaultFormField(
-                  //       radius: const BorderRadius.all(Radius.circular(20)),
-                  //       controller: searchController,
-                  //       type: TextInputType.text,
-                  //       label: 'Search for lessons',
-                  //       suffix: Icons.search_outlined,
-                  //       validate: (value) {
-                  //         if (value!.isEmpty) {
-                  //           return 'Search must not be empty';
-                  //         }
-                  //         return null;
-                  //       },
-                  //       // onChange: (value) {
-                  //       //   cubit.search(value);
-                  //       // },
-                  //     ),
-                  //   ),
-                  // ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
                   const Padding(
                     padding: EdgeInsets.all(20.0),
                     child: Row(
@@ -177,7 +155,8 @@ class LessonsScreen extends StatelessWidget {
                           radius: 20.0,
                           width: 150,
                           text: 'New Lessons',
-                          function: () {},
+                          function: () {
+                          },
                         ),
                         const SizedBox(
                           width: 10.0,
@@ -213,18 +192,19 @@ class LessonsScreen extends StatelessWidget {
                         condition: lesson != null,
                         builder: (BuildContext context) => ListView.separated(
                             itemBuilder: (context, index) =>
-                                lessonItemBuilder(lesson![index]),
+                                lessonItemBuilder(lesson[index]),
                             separatorBuilder: (context, index) =>
                                 const SizedBox(
                                   height: 10.0,
                                 ),
                             itemCount: lesson!.length),
                         fallback: (BuildContext context) {
-                          if (cubit.lesson?.status == false)
+                          if (cubit.lesson?.status == false) {
                             return Center(
                                 child: Text('${cubit.lesson!.message}'));
-                          else
-                            return Center(child: CircularProgressIndicator());
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
                         },
                       ),
                     ),
@@ -239,13 +219,16 @@ class LessonsScreen extends StatelessWidget {
   }
 }
 
+
+
+
 Widget lessonItemBuilder(model) => Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Center(
-              child: GestureDetector(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  mainAxisAlignment: MainAxisAlignment.start,
+  children: [
+    Expanded(
+      child: Center(
+          child: GestureDetector(
             onTap: () {
 // print(model.sId);
               showLessonBottomSheet(model!.sId!);
@@ -302,6 +285,7 @@ Widget lessonItemBuilder(model) => Row(
               ),
             ),
           )),
-        ),
-      ],
-    );
+    ),
+  ],
+);
+
