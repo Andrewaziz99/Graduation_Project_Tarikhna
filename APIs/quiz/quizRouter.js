@@ -4,7 +4,9 @@ const quesServices = require('../questions/quesServices')
 const quizController = require('./quizController')
 
 router.get('/', (req, res) => {
-    const lessonID = req.query.lessonID
+    // const lessonID = req.query.lessonID.split(',')
+    const lessonID = JSON.parse(req.query.lessonID)
+    console.log(lessonID);
     const userData = req.claims
     try {
         quizController.getQuiz(lessonID,userData.id, (err, data) => {
