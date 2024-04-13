@@ -51,6 +51,8 @@ dependencies:
   ar_flutter_plugin: ^0.7.3
   flutter_archive: ^6.0.0
   path_provider: ^2.1.2
+  circular_countdown_timer: ^0.2.3
+  awesome_dialog: ^3.2.0
 
 dev_dependencies:
   flutter_test:
