@@ -10,10 +10,10 @@ import 'package:tarikhna/shared/styles/colors.dart';
 class ScoreScreen extends StatelessWidget {
   final int? correctAnswers;
   final int? wrongAnswers;
-  final String? lessonID;
+  final String lessonID;
 
   ScoreScreen(
-      {super.key, this.correctAnswers, this.wrongAnswers, this.lessonID});
+      {super.key, this.correctAnswers, this.wrongAnswers, required this.lessonID});
 
   @override
   Widget build(BuildContext context) {

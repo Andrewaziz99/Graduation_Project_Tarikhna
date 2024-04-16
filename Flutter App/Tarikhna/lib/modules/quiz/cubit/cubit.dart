@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/models/Quiz_model.dart';
 import 'package:tarikhna/modules/quiz/cubit/states.dart';
@@ -34,12 +34,12 @@ class QuizCubit extends Cubit<QuizStates> {
 
   QuizModel? quizModel;
 
-  void getQuiz(LId) {
+  void getQuiz(LessonID) {
     emit(QuizLoadingState());
     DioHelper.getData(
       url: QUIZ,
       query: {
-        'lessonID': LId,
+        'lessonID': LessonID,
       },
       token: CacheHelper.getData(key: 'token'),
     ).then((value) {
