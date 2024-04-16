@@ -7,6 +7,7 @@ import 'package:tarikhna/modules/ai/ai_input_screen.dart';
 import 'package:tarikhna/modules/lessons/lessons_screen.dart';
 import 'package:tarikhna/modules/login/cubit/cubit.dart';
 import 'package:tarikhna/modules/login/cubit/states.dart';
+import 'package:tarikhna/modules/navbar/navbar.dart';
 import 'package:tarikhna/modules/register/register_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
 import 'package:tarikhna/shared/components/constants.dart';
@@ -29,9 +30,11 @@ class LoginScreen extends StatelessWidget {
         listener: (BuildContext context, state) {
           if (state is LoginSuccessState) {
             if (state.loginModel.status!) {
-              CacheHelper.saveData(key: 'token', value: state.loginModel.data!.token).then((value) {
+              CacheHelper.saveData(
+                      key: 'token', value: state.loginModel.data!.token)
+                  .then((value) {
                 TOKEN = state.loginModel.data!.token!;
-                navigateAndFinish(context, LessonsScreen());
+                navigateAndFinish(context, NavBar_Page());
               });
             } else {
               CherryToast.error(
@@ -42,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                 animationDuration: const Duration(milliseconds: 500),
                 autoDismiss: true,
               ).show(context);
-          }
+            }
           }
         },
         builder: (BuildContext context, Object? state) {

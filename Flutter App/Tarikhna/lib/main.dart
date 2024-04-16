@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tarikhna/layout/home_layout.dart';
+import 'package:tarikhna/modules/Exam/cubit/exam_cubit.dart';
+import 'package:tarikhna/modules/ai/ai_input_screen.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
+import 'package:tarikhna/modules/arModule/ar_main_page.dart';
+import 'package:tarikhna/modules/arModule/cubit/ar_cubit.dart';
+import 'package:tarikhna/modules/arModule/model_viewer.dart';
+import 'package:tarikhna/modules/home/cubit/home_page_cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/login/login_screen.dart';
+import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
+import 'package:tarikhna/modules/navbar/navbar.dart';
+import 'package:tarikhna/modules/navbar/notification.dart';
+import 'package:tarikhna/modules/register/register_screen.dart';
 import 'package:tarikhna/shared/bloc_observer.dart';
 import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
@@ -15,18 +26,13 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
 
-
-
-
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-
   const MyApp({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,11 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => LessonsCubit()..getLessons()),
         BlocProvider(create: (context) => AICubit()..getAllSavedItem()),
-        // BlocProvider(create: (context) => QuizCubit()),
+        BlocProvider(create: (context) => NavbarCubit()),
+        BlocProvider(create: (context) => HomePageCubit()),
+        BlocProvider(create: (context) => ArCubit()),
+        BlocProvider(create: (context) => ExamCubit())
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -44,3 +54,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//nourhane.amir.2002@gmail.com
