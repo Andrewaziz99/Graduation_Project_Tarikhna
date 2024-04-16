@@ -35,12 +35,12 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
             resizeToAvoidBottomInset: false,
             body: SingleChildScrollView(
               child: Stack(
-                children: <Widget>[
+                children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 100, horizontal: 50),
                     child: Column(
-                      children: <Widget>[
+                      children: [
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Column(
@@ -60,7 +60,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                 children: [
                                   Text(
                                     name,
-                                    textScaler: TextScaler.linear(1.5),
+                                    textScaler: const TextScaler.linear(1.5),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -104,26 +104,24 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 30, horizontal: 35),
-                                  child: Expanded(
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          "Start Learning",
-                                          textScaler: TextScaler.linear(1.5),
-                                        ),
-                                        // Padding(
-                                        //   padding: EdgeInsets.symmetric(
-                                        //       horizontal: 5),
-                                        // ),
-                                        Container(
-                                          height: 50,
-                                          width: 40,
-                                          child: Image(
-                                              image: AssetImage(
-                                                  'images/university1.png')),
-                                        )
-                                      ],
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      const Text(
+                                        "Start Learning",
+                                        textScaler: TextScaler.linear(1.5),
+                                      ),
+                                      // Padding(
+                                      //   padding: EdgeInsets.symmetric(
+                                      //       horizontal: 5),
+                                      // ),
+                                      Container(
+                                        height: 50,
+                                        width: 40,
+                                        child: const Image(
+                                            image: AssetImage(
+                                                'images/university1.png')),
+                                      )
+                                    ],
                                   ),
                                 ),
                               ],
@@ -133,7 +131,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                 Container(
                                   height: 55,
                                   width: 80,
-                                  child: Image(
+                                  child: const Image(
                                     image: AssetImage('images/studying1.png'),
                                   ),
                                 ),
@@ -158,18 +156,18 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                         // padding:EdgeInsets.symmetric(horizontal: 0.5),
                                         height: 10,
                                         width: 20,
-                                        child: Image(
+                                        child: const Image(
                                           image:
                                               AssetImage('images/search1.png'),
                                         ),
                                       ),
-                                      Padding(
+                                      const Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10)),
                                       Container(
                                         height: 20,
                                         width: 100,
-                                        child: Text(
+                                        child: const Text(
                                           'Search',
                                           textAlign: TextAlign.center,
                                         ),
@@ -186,7 +184,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(vertical: 430, horizontal: 30),
+                        const EdgeInsets.symmetric(vertical: 430, horizontal: 30),
                     child: Column(
                       children: [
                         Row(
@@ -205,7 +203,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30),
+                          padding: const EdgeInsets.symmetric(vertical: 30),
                           child: Row(
                             children: [
                               Container(
@@ -250,7 +248,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                   },
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Container(
                                 height: 220,
                                 width: size.width * .40,
@@ -300,7 +298,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 20),
                       child: Column(
-                        children: <Widget>[
+                        children: [
                           Align(
                               alignment: Alignment.topRight,
                               child: Container(
@@ -313,7 +311,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                 ),
                                 child: IconButton(
                                   alignment: Alignment.center,
-                                  icon: Icon(Icons.menu),
+                                  icon: const Icon(Icons.menu),
                                   onPressed: () =>
                                       Scaffold.of(context).openEndDrawer(),
                                 ),
@@ -322,9 +320,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                       ),
                     ),
                   ),
-                  // SafeArea(
-                  //     child: nav_bar()
-                  // ),
+
                 ],
               ),
             ),
