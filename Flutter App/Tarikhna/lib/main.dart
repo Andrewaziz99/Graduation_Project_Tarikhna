@@ -9,7 +9,6 @@ import 'package:tarikhna/modules/arModule/cubit/ar_cubit.dart';
 import 'package:tarikhna/modules/arModule/model_viewer.dart';
 import 'package:tarikhna/modules/home/cubit/home_page_cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
-import 'package:tarikhna/modules/lessons/lessons_screen.dart';
 import 'package:tarikhna/modules/login/login_screen.dart';
 import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
 import 'package:tarikhna/modules/navbar/navbar.dart';
@@ -45,6 +44,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => HomePageCubit()),
         BlocProvider(create: (context) => ArCubit()),
         BlocProvider(create: (context) => ExamCubit())
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

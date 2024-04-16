@@ -34,12 +34,12 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
           return Scaffold(
             body: SingleChildScrollView(
               child: Stack(
-                children: <Widget>[
+                children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 100, horizontal: 50),
                     child: Column(
-                      children: <Widget>[
+                      children: [
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Column(
@@ -297,7 +297,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 20),
                       child: Column(
-                        children: <Widget>[
+                        children: [
                           Align(
                               alignment: Alignment.topRight,
                               child: Container(
@@ -319,9 +319,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                       ),
                     ),
                   ),
-                  // SafeArea(
-                  //     child: nav_bar()
-                  // ),
+
                 ],
               ),
             ),

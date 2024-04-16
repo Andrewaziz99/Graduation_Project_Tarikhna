@@ -12,7 +12,7 @@ import 'package:tarikhna/shared/components/components.dart';
 import '../const.dart';
 
 class QuizScreen extends StatelessWidget {
-  final String? id;
+  final String id;
 
   QuizScreen(this.id);
 
