@@ -26,4 +26,51 @@ const updateToNextLevel = (lessonID, userID, newLevels, done)=>{
     })
 }
 
-module.exports = {getquizByLessonIDAndUserID, createQuiz, updateToNextLevel}
+const getCompletedQuiz = (userID, done)=>{
+    const levels = [5,5,5,5,5]
+    quizModel.aggregate([
+        {$match: {userID: userID}},
+        {$match: {levels: levels}}
+    ]).then(data=>{
+        // console.log(data);
+        if (data.length === 0) {
+            return done("No completed lessons found", undefined)
+        }
+        return done(undefined, data)
+    })
+    .catch(err=>{
+        return done(err, undefined)
+    })
+
+}
+
+const getInProgressQuiz = (userID, done)=>{
+    const notStarted_Completed_levels = [[0,0,0,0,0], [5,5,5,5,5]]
+    quizModel.aggregate([
+        {$match: {userID: userID}},
+        {$match: {levels: {$nin: notStarted_Completed_levels}}}
+    ]).then(data=>{
+        console.log(data);
+        if (data.length === 0) {
+            return done("No inprogress lessons found", undefined)
+        }
+        return done(undefined, data)
+    }).catch(err=>{
+        console.log(err);
+        return done(err, undefined)
+    })
+}
+
+const getCompletedAndInProgrssQuiz = (userID, done)=>{
+    const inprogress_Completed_levels = [[5,0,0,0,0],[5,5,0,0,0],[5,5,5,0,0],[5,5,5,5,0],[5,5,5,5,5]]
+    quizModel.aggregate([
+        {$match: {userID: userID}},
+        {$match: {levels: {$in: inprogress_Completed_levels}}}
+    ]).then(data=>{
+        return done(undefined, data)
+    }).catch(err=>{
+        done(err, undefined)
+    })
+}
+
+module.exports = {getquizByLessonIDAndUserID, createQuiz, updateToNextLevel, getCompletedQuiz, getInProgressQuiz, getCompletedAndInProgrssQuiz}

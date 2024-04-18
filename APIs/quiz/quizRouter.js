@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     const userData = req.claims
     try {
         quizController.getQuiz(lessonID,userData.id, (err, data) => {
-            if (err) {
+            if (err) { 
                 return res.send({ status: false, message: err, data: null })
             }
             if (data.questions.length === 0) {

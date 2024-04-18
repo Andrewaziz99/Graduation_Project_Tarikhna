@@ -53,4 +53,17 @@ const getLevelOfQuiz = (quiz)=>{
 const updateToNextLevel = (lessonID, userID, newLevels, done)=>{
     quizDAO.updateToNextLevel(lessonID, userID, newLevels, done)
 }
-module.exports = {getquizByLessonIDAndUserID,quizFound, createQuiz, getNumberOfQuestions, getLevelOfQuiz, updateToNextLevel}
+
+const getCompletedQuiz = (userID, done)=>{
+    quizDAO.getCompletedQuiz(userID, done) 
+}
+
+const getInProgressQuiz = (userID, done)=>{
+    quizDAO.getInProgressQuiz(userID, done)
+}
+
+const getCompletedAndInProgrssQuiz = (userID, done)=>{
+    quizDAO.getCompletedAndInProgrssQuiz(userID, done)
+}
+
+module.exports = {getquizByLessonIDAndUserID,quizFound, createQuiz, getNumberOfQuestions, getLevelOfQuiz, updateToNextLevel, getCompletedQuiz, getInProgressQuiz, getCompletedAndInProgrssQuiz}

@@ -2,7 +2,7 @@ const lessonModel = require('./lessonModel')
 
 const getLessonsByYear = (year, done)=>{
     lessonModel.find({year: year}).sort({unit: 1}).then(res=>{
-        console.log(res);
+        // console.log(res);
         if (res.length == 0) {
             return done("No lessons found", undefined)
         }
