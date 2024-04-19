@@ -1,155 +1,167 @@
-//import 'dart:html';
-
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/modules/Exam/cubit/exam_cubit.dart';
 import 'package:tarikhna/modules/Exam/examMain.dart';
+import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
+import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
+import '../../shared/network/local/cache_helper.dart';
 
-class ExamLeadingPage extends StatelessWidget {
-  ExamLeadingPage({super.key});
+class ExamLeadingPage extends StatefulWidget {
+  @override
+  _ExamLeadingPageState createState() => _ExamLeadingPageState();
+}
 
-//   @override
-//   State<ExamLeadingPage> createState() => _ExamLeadingPageState();
-// }
+class _ExamLeadingPageState extends State<ExamLeadingPage> {
+  late List<bool> _isSelected;
+  List<String> selectedLessonIds = [];
+  int level = 1;
 
-// class _ExamLeadingPageState extends State<ExamLeadingPage> {
-  int _selectedButtonIndex = -1;
-  List<bool> _isSelected = [false, false, false, false, false, false];
+  @override
+  void initState() {
+    super.initState();
+    var cubit = LessonsCubit.get(context);
+    _isSelected = List.generate(cubit.lesson?.data?.length ?? 0, (index) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ExamCubit, ExamState>(
+    var cubit = LessonsCubit.get(context);
+    return BlocConsumer<LessonsCubit, LessonsState>(
       listener: (context, state) {
-        // TODO: implement listener
-        if (state is ChooseExam) {
-          _selectedButtonIndex = state.selectedIndex;
-          //context.read<ExamCubit>().update();
-        }
+        // Implement listener if needed
       },
-      child: BlocProvider(
-        create: (context) => ExamCubit(),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50,
-            ),
-            const Padding(
-              padding: const EdgeInsets.all(28.0),
-              child: Column(
+      builder: (context, state) {
+        print(cubit.lesson?.data?.length);
+        return Scaffold(
+          body: Column(
+            children: [
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(28.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Exam",
                       style: TextStyle(
-                          color: Color.fromARGB(191, 0, 0, 0),
-                          fontSize: 45,
-                          fontWeight: FontWeight.w900,
-                          fontFamily: 'Avenir'),
+                        color: Color.fromARGB(191, 0, 0, 0),
+                        fontSize: 45,
+                        fontWeight: FontWeight.w900,
+                        fontFamily: 'Avenir',
+                      ),
                     ),
-                  ]),
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.symmetric(horizontal: 22),
-              child: Text(
-                "Choose level",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 20),
+                  ],
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<ExamCubit>().updateindex(0);
-
-                    //_updateSelectedButtonIndex(0);
-                  },
-                  child: Text('1'),
-                  style: _getButtonStyle(0),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<ExamCubit>().updateindex(1);
-                    //_updateSelectedButtonIndex(1);
-                  },
-                  child: Text('2'),
-                  style: _getButtonStyle(1),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<ExamCubit>().updateindex(2);
-                    //_updateSelectedButtonIndex(2);
-                  },
-                  child: Text('3'),
-                  style: _getButtonStyle(2),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<ExamCubit>().updateindex(3);
-                    //_updateSelectedButtonIndex(3);
-                  },
-                  child: Text('4'),
-                  style: _getButtonStyle(3),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<ExamCubit>().updateindex(4);
-                    //_updateSelectedButtonIndex(4);
-                  },
-                  child: Text('5'),
-                  style: _getButtonStyle(4),
-                ),
-                SizedBox(
-                  height: 100,
-                )
-              ],
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.symmetric(horizontal: 22),
-              child: Text(
-                "Choose lessons",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildCheckboxItem('Lesson 1 Unit 1', 0),
-                  _buildCheckboxItem('Lesson 2 Unit 1', 1),
-                  _buildCheckboxItem('Lesson 3 Unit 1', 2),
-                  _buildCheckboxItem('Lesson 1 Unit 2', 3),
-                  _buildCheckboxItem('Lesson 2 Unit 2', 4),
-                ],
-              ),
-            ),
-            Container(
-              alignment: Alignment.bottomRight,
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              child: ElevatedButton(
-                onPressed: () => {navigateTo(context, MainExamScreen())},
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.symmetric(horizontal: 22),
                 child: Text(
-                  'Start Exam',
-                  style: TextStyle(color: Colors.black),
+                  "Choose level",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 20),
                 ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 255, 228, 255)),
               ),
-            ),
-          ],
-        ),
-      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(
+                  5,
+                      (index) => ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        level = index + 1;
+                        print(level);
+                      });
+                    },
+                    child: Text('${index + 1}'),
+                  ),
+                ).toList(),
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.symmetric(horizontal: 22),
+                child: Text(
+                  "Choose lessons",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              ConditionalBuilder(condition: cubit.lesson?.data!=null && cubit.lesson!.data!.isNotEmpty, builder:(context)=>Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ListView.builder(
+                    itemCount: cubit.lesson?.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      if (cubit.lesson?.data == null ||
+                          cubit.lesson!.data!.isEmpty) {
+                        return SizedBox.shrink();
+                      }
+                      var lesson = cubit.lesson!.data![index];
+                      var lessonTitle = lesson.title ?? "Untitled Lesson";
+                      return _buildCheckboxItem(context, lessonTitle, index);
+                    },
+                  ),
+                ),
+              ), fallback: (context)=>Center(child: CircularProgressIndicator(),)),
+
+              Container(
+                alignment: Alignment.bottomRight,
+                margin: EdgeInsets.symmetric(horizontal: 16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    var cubit = LessonsCubit.get(context);
+                    var cubitExam = ExamCubit.get(context);
+                    selectedLessonIds.clear(); // Clear the list before adding new selected lessons
+                    for (int i = 0; i < cubit.lesson!.data!.length; i++) {
+                      if (_isSelected[i]) {
+                        selectedLessonIds.add(cubit.lesson!.data![i].sId!);
+                      }
+                    }
+                    if (selectedLessonIds.isNotEmpty) {
+                      print(selectedLessonIds);
+                      cubitExam.getExamQuestions(selectedLessonIds, level);
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.infoReverse,
+                        animType: AnimType.bottomSlide,
+                        title: 'Exam',
+                        desc: 'You will have 3 minutes to answer 5 questions for each level.\nAre you ready to take the Exam?',
+                        btnCancelOnPress: () {},
+                        btnOkText: 'Start Exam',
+                        btnOkOnPress: () {
+                          navigateTo(context,  MainExamScreen(lessonIds: selectedLessonIds, level: level));
+
+                        },
+                      ).show();
+                    } else {
+                      print('Please select at least one lesson');
+                    }
+                  },
+                  child: Text(
+                    'Start Exam',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 255, 228, 255),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildCheckboxItem(String label, int index) {
+  Widget _buildCheckboxItem(BuildContext context, String label, int index) {
+    if (index >= _isSelected.length) {
+      // If the index is out of bounds, return an empty container
+      return Container();
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
@@ -158,9 +170,13 @@ class ExamLeadingPage extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          // setState(() {
-          //   _isSelected[index] = !_isSelected[index];
-          // });
+          var cubit = LessonsCubit.get(context);
+          var lessonId = cubit.lesson?.data?[index].sId;
+          setState(() {
+            // Toggle selection state
+            _isSelected[index] = !_isSelected[index];
+            print('Lesson ID: $lessonId, Selected: ${_isSelected[index]}');
+          });
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -178,10 +194,10 @@ class ExamLeadingPage extends StatelessWidget {
                 ),
                 child: _isSelected[index]
                     ? Icon(
-                        Icons.check,
-                        size: 16.0,
-                        color: Colors.blue,
-                      )
+                  Icons.check,
+                  size: 16.0,
+                  color: Colors.blue,
+                )
                     : null,
               ),
               SizedBox(width: 8.0),
@@ -192,55 +208,4 @@ class ExamLeadingPage extends StatelessWidget {
       ),
     );
   }
-
-  // void _handleCheckboxValueChanged(bool? value, int index) {
-  //   setState(() {
-  //     _isSelected[index] = value ?? false; // Update selection
-  //   });
-  // }
-
-  ButtonStyle _getButtonStyle(int buttonIndex) {
-    Color buttonColor;
-    switch (buttonIndex) {
-      case 0:
-        buttonColor =
-            _selectedButtonIndex == 0 ? Colors.greenAccent : Colors.white;
-
-        break;
-      case 1:
-        buttonColor =
-            _selectedButtonIndex == 1 ? Colors.amberAccent : Colors.white;
-
-        break;
-      case 2:
-        buttonColor = _selectedButtonIndex == 2 ? Colors.amber : Colors.white;
-
-        break;
-      case 3:
-        buttonColor =
-            _selectedButtonIndex == 3 ? Colors.orangeAccent : Colors.white;
-
-        break;
-      case 4:
-        buttonColor =
-            _selectedButtonIndex == 4 ? Colors.redAccent : Colors.white;
-
-        break;
-      default:
-        buttonColor = Colors.white; // Default color
-        break;
-    }
-
-    return ElevatedButton.styleFrom(
-      elevation: buttonIndex == _selectedButtonIndex ? 8 : 2,
-      backgroundColor: buttonColor,
-      // Adjust elevation and color based on selection
-    );
-  }
-
-  // void _updateSelectedButtonIndex(int newIndex) {
-  //   setState(() {
-  //     _selectedButtonIndex = newIndex;
-  //   });
-  // }
 }

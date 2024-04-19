@@ -28,3 +28,4 @@ String LESSONS = 'lesson/getlessons';
 String SEARCH = 'lesson/search';
 String QUIZ = 'quiz/';
 String changeLevel = "quiz/updateToNextLevel";
+String EXAM = 'exam/';
