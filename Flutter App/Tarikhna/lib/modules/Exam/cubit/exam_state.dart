@@ -1,15 +1,35 @@
-part of 'exam_cubit.dart';
+abstract class ExamStates {}
 
-@immutable
-sealed class ExamState {}
+class ExamInitialState extends ExamStates {}
 
-class ExamInitial extends ExamState {}
+class ExamLoadingState extends ExamStates {}
 
-class ChooseExam extends ExamState {
-  late int selectedIndex;
-  void setSelectedIndex(int index) {
-    selectedIndex = index;
-  }
+class ExamSuccessState extends ExamStates {}
+
+class ExamErrorState extends ExamStates {
+  final String error;
+
+  ExamErrorState(this.error);
 }
 
-class chooseExamLevel extends ExamState {}
+class ExamChangeSelectedOptionState extends ExamStates {}
+
+class ExamCheckAnswerState extends ExamStates {}
+
+class ExamChangeLevelState extends ExamStates {}
+
+class ExamChangeLevelErrorState extends ExamStates {
+  final String error;
+
+  ExamChangeLevelErrorState(this.error);
+}
+
+class ExamChangeLevelSuccessState extends ExamStates {}
+
+class ExamChangeIndexState extends ExamStates {
+  final int index;
+
+  ExamChangeIndexState(this.index);
+}
+
+class ExamChangeDialogState extends ExamStates {}
