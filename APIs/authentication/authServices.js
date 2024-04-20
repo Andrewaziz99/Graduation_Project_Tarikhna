@@ -13,6 +13,7 @@ const createJWT = (userData)=>{
     const payload = {
         "role": `user`,
         "id": `${userData.id}`,
+        "name": `${userData.name}`,
         "email": `${userData.email}`,
         "password": `${userData.password}`,
         "year": `${userData.year}`
