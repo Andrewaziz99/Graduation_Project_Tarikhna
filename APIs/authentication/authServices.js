@@ -19,9 +19,7 @@ const createJWT = (userData)=>{
         "year": `${userData.year}`
     }
 
-    const token = jwt.sign(payload, config.AUTH_SECRET, {
-        expiresIn: 3600
-    })
+    const token = jwt.sign(payload, config.AUTH_SECRET)
     return token
 }
 

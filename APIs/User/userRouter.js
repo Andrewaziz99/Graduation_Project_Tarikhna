@@ -27,11 +27,22 @@ router.get('/', (req, res) => {
 })
 
 router.put('/update', (req, res) => {
+    const currentUserData = {
+        _id: req.claims.id,
+        name: req.claims.name,
+        email: req.claims.email,
+        password: req.claims.password,
+        year: req.claims.year
+    }
     try {
-        userController.userUpdate(req.claims.id, req.body.newName, req.body.newEmail, req.body.oldPass, req.body.newPass, req.body.newYear, (err, data) => {
+        userController.userUpdate(currentUserData, req.claims.id, req.body.newName, req.body.newEmail, req.body.oldPass, req.body.newPass, req.body.newYear, (err, data) => {
             if (err) {
                 return res.send({ status: false, message: err, data: null })
             }
+            req.claims.name = data.name
+            req.claims.email = data.email
+            req.claims.password = data.password
+            req.claims.year = data.year
             return res.send({ status: true, message: "Data updated successfully", data: data })
 
         })

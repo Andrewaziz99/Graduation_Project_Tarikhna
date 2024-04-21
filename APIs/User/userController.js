@@ -7,13 +7,7 @@ const findUser = (email, done) => {
     userServices.findUser(email, done)
 }
 
-const userUpdate = async (userID, newName, newEmail, oldPass, newPass, newYear, done) => {
-    let user = {
-        name: false,
-        email: false,
-        password: false,
-        year: false
-    }
+const userUpdate = async (currentUserData, userID, newName, newEmail, oldPass, newPass, newYear, done) => {
     if (newName.length !== 0) {
         try {
             await new Promise((resolve, reject) => {
@@ -21,7 +15,7 @@ const userUpdate = async (userID, newName, newEmail, oldPass, newPass, newYear, 
                     if (err) {
                         reject(err);
                     } else {
-                        user.name = true;
+                        currentUserData.name = newName;
                         resolve();
                     }
                 });
@@ -38,7 +32,7 @@ const userUpdate = async (userID, newName, newEmail, oldPass, newPass, newYear, 
                     if (err) {
                         reject(err)
                     }else{
-                        user.email = true
+                        currentUserData.email = newEmail
                         resolve()
                     }
                 })
@@ -55,7 +49,7 @@ const userUpdate = async (userID, newName, newEmail, oldPass, newPass, newYear, 
                     if (err) {
                         reject(err)
                     }else{
-                        user.year = true
+                        currentUserData.year = newYear
                         resolve()
                     }
                 })
@@ -65,7 +59,7 @@ const userUpdate = async (userID, newName, newEmail, oldPass, newPass, newYear, 
         }
     }
 
-    if (newPass !== 0) {
+    if (newPass.length !== 0) {
         if (oldPass.length === 0) {
             return done("You must enter the old password")
         }
@@ -87,7 +81,7 @@ const userUpdate = async (userID, newName, newEmail, oldPass, newPass, newYear, 
                         if (err) {
                             reject(err)
                         }else{
-                            user.password = true
+                            currentUserData.password = newPass
                             resolve()
                         }
                     })
@@ -100,7 +94,7 @@ const userUpdate = async (userID, newName, newEmail, oldPass, newPass, newYear, 
         }
     }
 
-    return done(undefined, user);
+    return done(undefined, currentUserData);
 }
 
 module.exports = { findUser, userUpdate }
