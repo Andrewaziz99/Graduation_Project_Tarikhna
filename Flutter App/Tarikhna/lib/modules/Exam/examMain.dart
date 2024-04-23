@@ -8,8 +8,8 @@ import 'package:tarikhna/modules/Exam/cubit/exam_state.dart';
 import 'package:tarikhna/modules/exam_header.dart';
 
 import 'package:card_swiper/card_swiper.dart';
-import '../../shared/components/components.dart';
-import '../lessons/lessons_screen.dart';
+import 'package:tarikhna/modules/lessons/lessons_screen.dart';
+import 'package:tarikhna/shared/components/components.dart';
 import 'const.dart';
 import 'main_card_statefull.dart';
 

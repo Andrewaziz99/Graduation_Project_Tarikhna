@@ -7,7 +7,6 @@ import 'package:tarikhna/modules/Exam/examMain.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
-import '../../shared/network/local/cache_helper.dart';
 
 class ExamLeadingPage extends StatefulWidget {
   @override
