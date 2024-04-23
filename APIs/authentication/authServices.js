@@ -13,14 +13,13 @@ const createJWT = (userData)=>{
     const payload = {
         "role": `user`,
         "id": `${userData.id}`,
+        "name": `${userData.name}`,
         "email": `${userData.email}`,
         "password": `${userData.password}`,
         "year": `${userData.year}`
     }
 
-    const token = jwt.sign(payload, config.AUTH_SECRET, {
-        expiresIn: 3600
-    })
+    const token = jwt.sign(payload, config.AUTH_SECRET)
     return token
 }
 

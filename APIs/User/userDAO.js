@@ -30,21 +30,46 @@ const registerUser = (userDetails, done)=>{
     
 }
 
-module.exports = {findUser, registerUser}
+const nameUpdate = (userID, newName, done)=>{
+    userModel.updateOne({_id: userID}, {$set: {name: newName}}).then(data=>{
+        return done(undefined, data)
+    }).catch(err=>{
+        return done(err, undefined)
+    })
+}
 
-// findUser("sdsds",(err,res)=>{
-//     console.log(res);
+const emailUpdate= (userID, newEmail, done)=>{
+    userModel.updateOne({_id: userID}, {$set: {email: newEmail}}).then(data=>{
+        return done(undefined, data)
+    }).catch(err=>{
+        return done(err, undefined)
+    })
+}
 
-// })
+const yearUpdate= (userID, newYear, done)=>{
+    userModel.updateOne({_id: userID}, {$set: {year: newYear}}).then(data=>{
+        return done(undefined, data)
+    }).catch(err=>{
+        return done(err, undefined)
+    })
+}
 
-// registerUser({
-//     name: "Thomas",
-//     email: "ththth@hob",
-//     password: "1234"
-// }, (err, res)=>{
-//     if (err) {
-//         console.log(err);
-//     }else{
-//         console.log(res);
-//     }
-// })
+const passUpdate= (userID, newPass, done)=>{
+    userModel.updateOne({_id: userID}, {$set: {password: newPass}}).then(data=>{
+        return done(undefined, data)
+    }).catch(err=>{
+        return done(err, undefined)
+    })
+}
+
+
+const getUserPass = (userID, done)=>{
+    userModel.findOne({_id: userID}, {password: true}).then(data=>{
+        return done(undefined, data)
+    }).catch(err=>{
+        return done(err, undefined)
+    })
+}
+
+module.exports = {findUser, registerUser, nameUpdate, emailUpdate, yearUpdate, getUserPass, passUpdate}
+
