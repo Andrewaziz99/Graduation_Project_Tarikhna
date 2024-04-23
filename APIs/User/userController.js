@@ -8,7 +8,7 @@ const findUser = (email, done) => {
 }
 
 const userUpdate = async (currentUserData, userID, newName, newEmail, oldPass, newPass, newYear, done) => {
-    if (newName.length !== 0) {
+    if (newName != null && newName.length != 0) {
         try {
             await new Promise((resolve, reject) => {
                 userServices.nameUpdate(userID, newName, (err, data) => {
@@ -25,7 +25,7 @@ const userUpdate = async (currentUserData, userID, newName, newEmail, oldPass, n
         }
     }
 
-    if (newEmail.length !== 0) {
+    if (newEmail != null && newEmail.length != 0) {
         try {
             await new Promise((resolve, reject)=>{
                 userServices.emailUpdate(userID, newEmail, (err, data)=>{
@@ -42,7 +42,7 @@ const userUpdate = async (currentUserData, userID, newName, newEmail, oldPass, n
         }
     }
 
-    if (newYear.length !== 0) {
+    if (newYear != null && newYear.length != 0 ) {
         try {
             await new Promise((resolve, reject)=>{
                 userServices.yearUpdate(userID, newYear, (err, data)=>{
@@ -59,7 +59,7 @@ const userUpdate = async (currentUserData, userID, newName, newEmail, oldPass, n
         }
     }
 
-    if (newPass.length !== 0) {
+    if (newPass != null && newPass.length != 0 ) {
         if (oldPass.length === 0) {
             return done("You must enter the old password")
         }
