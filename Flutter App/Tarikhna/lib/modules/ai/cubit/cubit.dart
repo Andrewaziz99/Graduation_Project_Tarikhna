@@ -4,6 +4,7 @@ import 'package:tarikhna/models/AI_model.dart';
 import 'package:tarikhna/models/Get_All_SavedItemmodel.dart';
 import 'package:tarikhna/modules/ai/cubit/states.dart';
 import 'package:tarikhna/shared/components/constants.dart';
+import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
 
 class AICubit extends Cubit<AIStates> {
@@ -41,8 +42,10 @@ class AICubit extends Cubit<AIStates> {
 
   void getAllSavedItem() {
     emit(GetAllSavedItemLoadingState());
-
-    DioHelper.getData(url: GetAllSavedItem).then((value) {
+    DioHelper.getData(
+        url: GetAllSavedItem,
+        token: CacheHelper.getData(key: 'token')
+    ).then((value) {
       // Parse the response JSON into Get_All_SavedItem_Model
       getSavedItemModel = Get_All_SavedItem_Model.fromJson(value.data);
       print(getSavedItemModel?.data[0].title);
@@ -68,7 +71,11 @@ class AICubit extends Cubit<AIStates> {
       'Title': dataModel.title,
     };
 
-    DioHelper.postData(url: SavedItemsModel, data: jsonData).then((value) {
+    DioHelper.postData(
+        url: SavedItemsModel,
+        data: jsonData,
+      token: CacheHelper.getData(key: 'token')
+    ).then((value) {
       saveModel = SavedItem.fromJson(value.data);
       print(saveModel?.data?.title);
       emit(SavedModelSuccessState());
