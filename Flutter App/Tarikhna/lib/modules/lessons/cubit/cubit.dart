@@ -39,8 +39,7 @@ class LessonsCubit extends Cubit<LessonsState> {
       searchLesson = LessonModel.fromJson(value.data);
       print(searchLesson!.data!);
       emit(LessonsSearchSuccessState(searchLesson!));
-    })
-        .catchError((error) {
+    }).catchError((error) {
       emit(LessonsSearchErrorState(error.toString()));
     });
   }
@@ -49,5 +48,20 @@ class LessonsCubit extends Cubit<LessonsState> {
     emit(LessonsChangeDialogState());
   }
 
-
+  void filterLesson(value) {
+    emit(LessonsFilterLoadingState());
+    DioHelper.getData(
+            url: FILTER,
+            query: {
+              'filter': value,
+            },
+            token: CacheHelper.getData(key: 'token'))
+        .then((value) {
+      lesson = LessonModel.fromJson(value.data);
+      print(lesson!.data!);
+      emit(LessonsFilterSuccessState(lesson!));
+    }).catchError((error) {
+      emit(LessonsFilterErrorState(error.toString()));
+    });
+  }
 }
