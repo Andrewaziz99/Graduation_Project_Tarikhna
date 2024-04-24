@@ -30,13 +30,25 @@ class Saved_Caracter_Screen extends StatelessWidget {
       builder: (BuildContext context, Object? state) {
         print("Listener");
 
-        print(AICubit.get(context).AiModel?.data?.characters.length);
+        print(AICubit.get(context).AiModel?.data?.characters?.length);
         var cubit = AICubit.get(context);
         var savedItemModel = cubit.getSavedItemModel;
 
-        var data = savedItemModel?.data.firstWhere((element) => element.sId == id);
-        print(savedItemModel?.data[0].sId);
-        print(data?.dates);
+        var data = savedItemModel?.data?.firstWhere((element) => element.sId == id);
+
+        if (data != null) {
+          print(savedItemModel?.data?[0].sId);
+          print(data.dates?.map((date) => date.date)); // Accessing date.date after null check
+          print(data.characters?.length); // Check if characters list is null
+        } else {
+          print('Data is null or empty');
+        }
+
+
+
+
+
+
 
         return Scaffold(
           backgroundColor: HexColor("FFF9F9"),
@@ -49,40 +61,40 @@ class Saved_Caracter_Screen extends StatelessWidget {
               child: Column(
                 children: [
                   // if (data?.characters[0].nameOfCharacter != null)
-                    Container(
-                      width: 300,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "TEXT OUTPUT",
-                          style: TextStyle(
-                            fontFamily: 'JacquesFrancois',
-                            fontSize: 40,
-                          ),
+                  Container(
+                    width: 300,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "TEXT OUTPUT",
+                        style: TextStyle(
+                          fontFamily: 'JacquesFrancois',
+                          fontSize: 40,
                         ),
                       ),
                     ),
+                  ),
                   ListView.separated(
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
-                    itemCount: data?.characters.length??1,
+                    itemCount: data?.characters?.length??1,
                     itemBuilder: (context, index) {
-                      CharactersModel? character = data?.characters[index];
-                      DatesModel date = data!.dates.isNotEmpty && index < data!.dates.length
-                          ? DatesModel.fromJson(data!.dates[index].toJson())
-                          : DatesModel();
+                      SavedCharacters? character = data?.characters?[index];
+                      GetAllDataSaved date = data!.dates!.isNotEmpty && index < data!.dates!.length
+                          ? GetAllDataSaved.fromJson(data!.dates![index].toJson())
+                          : GetAllDataSaved();
 
                       bool First = index == 0;
-                      bool Last = index == data!.characters.length - 1;
+                      bool Last = index == data!.characters!.length - 1;
                       return Row(
                         children: [
                           Expanded(
                             child: SizedBox(
-                              height: 250,
+                              height: 400,
                               child: TimelineTile(
                                 isFirst: First,
                                 isLast: Last,
@@ -100,7 +112,7 @@ class Saved_Caracter_Screen extends StatelessWidget {
                             flex: 2,
                           ),
                           Expanded(
-                            child: TextSummarizedBuilder(character, date, index, data.characters.length),
+                            child: TextSummarizedBuilder(character, index, data.characters!.length),
                             flex: 16,
                           )
                         ],
@@ -123,35 +135,82 @@ class Saved_Caracter_Screen extends StatelessWidget {
   }
 }
 
-Widget TextSummarizedBuilder(CharactersModel? character, DatesModel date, int index, int length) {
+Widget TextSummarizedBuilder(SavedCharacters? character, int index, int length) {
   return Padding(
     padding: EdgeInsets.all(20),
     child: Column(
       children: [
         Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: HexColor('D3C5C5'),
-              ),
-              child: ListTile(
-                title: Text(character?.events ?? '',
-                  style: TextStyle(fontWeight: FontWeight.w900),
+            if (character?.nameOfCharacter != null)
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: HexColor('D3C5C5'),
                 ),
-                leading: CircleAvatar(
-                  child: Text(character?.nameOfCharacter ?? '',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                child: ListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 5),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (character?.events != null && character!.events!.isNotEmpty)
+                            for (String event in character?.events ?? [])
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+
+
+                                      Expanded(
+                                        child: Text(
+                                          event,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      // SizedBox(width: 10),
+                                      SizedBox(
+                                        width: 10,
+                                        // Adjust the space between the bullet and the text
+                                        child: Text('•', style: TextStyle(fontSize: 40)), // Bullet
+                                      ),
+                                    ],
+                                  ),
+                                  // SizedBox(height: 5), // Add space between events
+                                  if(character.events!.length >1)
+                                  Container(width: double.infinity,height:
+                                    1,color: Colors.white,)
+                                ],
+                              ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  leading: Container(
+                    alignment: Alignment.center,
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        // shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(30)
+                    ),
+                    child: Text(
+                      character?.nameOfCharacter ?? '',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900,fontSize: 10
+                        // Adjust the fontSize as needed
+                      ),
                     ),
                   ),
-                  radius: 30,
-                  backgroundColor: Colors.white,
                 ),
               ),
-            ),
           ],
         ),
       ],

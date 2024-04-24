@@ -28,7 +28,7 @@ void showLessonBottomSheet(String id) {
                 backgroundColor: HexColor("FFF9F9"), // Change button color
               ),
               onPressed: () {
-                navigateTo(context, Lesson_Navigate_Screen(id));
+                // navigateTo(context, Lesson_Navigate_Screen(id));
               },
               child: const Text("Lesson Sum"),
             ),

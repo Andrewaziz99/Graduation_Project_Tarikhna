@@ -7,6 +7,7 @@ import 'package:tarikhna/modules/Exam/examMain.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
+import '../../shared/network/local/cache_helper.dart';
 
 class ExamLeadingPage extends StatefulWidget {
   @override
@@ -14,15 +15,15 @@ class ExamLeadingPage extends StatefulWidget {
 }
 
 class _ExamLeadingPageState extends State<ExamLeadingPage> {
-  late List<bool> _isSelected;
+  late Map<int, bool> _isSelectedMap;
   List<String> selectedLessonIds = [];
-  int level = 1;
+  int level = 1; // Map to store selected state for each lesson
 
   @override
   void initState() {
     super.initState();
-    var cubit = LessonsCubit.get(context);
-    _isSelected = List.generate(cubit.lesson?.data?.length ?? 0, (index) => false);
+
+    _isSelectedMap = {}; // Initialize the map
   }
 
   @override
@@ -88,24 +89,26 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              ConditionalBuilder(condition: cubit.lesson?.data!=null && cubit.lesson!.data!.isNotEmpty, builder:(context)=>Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ListView.builder(
-                    itemCount: cubit.lesson?.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      if (cubit.lesson?.data == null ||
-                          cubit.lesson!.data!.isEmpty) {
-                        return SizedBox.shrink();
-                      }
-                      var lesson = cubit.lesson!.data![index];
-                      var lessonTitle = lesson.title ?? "Untitled Lesson";
-                      return _buildCheckboxItem(context, lessonTitle, index);
-                    },
+              ConditionalBuilder(
+                condition: cubit.lesson?.data != null &&
+                    cubit.lesson!.data!.isNotEmpty,
+                builder: (context) => Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ListView.builder(
+                      itemCount: cubit.lesson?.data?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        var lesson = cubit.lesson!.data![index];
+                        var lessonTitle = lesson.title ?? "Untitled Lesson";
+                        return _buildCheckboxItem(
+                            context, lessonTitle, index);
+                      },
+                    ),
                   ),
                 ),
-              ), fallback: (context)=>Center(child: CircularProgressIndicator(),)),
-
+                fallback: (context) =>
+                    Center(child: CircularProgressIndicator()),
+              ),
               Container(
                 alignment: Alignment.bottomRight,
                 margin: EdgeInsets.symmetric(horizontal: 16),
@@ -115,7 +118,7 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                     var cubitExam = ExamCubit.get(context);
                     selectedLessonIds.clear(); // Clear the list before adding new selected lessons
                     for (int i = 0; i < cubit.lesson!.data!.length; i++) {
-                      if (_isSelected[i]) {
+                      if (_isSelectedMap[i] ?? false) {
                         selectedLessonIds.add(cubit.lesson!.data![i].sId!);
                       }
                     }
@@ -156,10 +159,8 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
   }
 
   Widget _buildCheckboxItem(BuildContext context, String label, int index) {
-    if (index >= _isSelected.length) {
-      // If the index is out of bounds, return an empty container
-      return Container();
-    }
+    var cubit = LessonsCubit.get(context);
+    var lessonId = cubit.lesson?.data?[index].sId;
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -169,12 +170,14 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
       ),
       child: InkWell(
         onTap: () {
-          var cubit = LessonsCubit.get(context);
-          var lessonId = cubit.lesson?.data?[index].sId;
           setState(() {
-            // Toggle selection state
-            _isSelected[index] = !_isSelected[index];
-            print('Lesson ID: $lessonId, Selected: ${_isSelected[index]}');
+            // Initialize the selected state for this lesson if it's not initialized
+            if (_isSelectedMap[index] == null) {
+              _isSelectedMap[index] = false;
+            }
+            // Toggle selected state for the lesson at the given index
+            _isSelectedMap[index] = !_isSelectedMap[index]!;
+            print('Lesson ID: $lessonId, Selected: ${_isSelectedMap[index]}');
           });
         },
         child: Padding(
@@ -187,11 +190,13 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: _isSelected[index] ? Colors.blue : Colors.grey,
+                    color: _isSelectedMap[index] ?? false
+                        ? Colors.blue
+                        : Colors.grey,
                     width: 2.0,
                   ),
                 ),
-                child: _isSelected[index]
+                child: _isSelectedMap[index] ?? false
                     ? Icon(
                   Icons.check,
                   size: 16.0,

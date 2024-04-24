@@ -120,7 +120,7 @@ class Navigate_Screen extends StatelessWidget {
                         if (aiModel != null && aiModel.data != null) {
                           // Pass the data to SavedItems if available
                           AICubit.get(context).SavedItems(
-                            dataModel: aiModel.data!,
+                            // dataModel: aiModel.data!,
                             data: aiModel.data!, // Corrected parameter
                           );
                           navigateTo(context, Save_Item_Screen());

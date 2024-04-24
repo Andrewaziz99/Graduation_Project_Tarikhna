@@ -32,7 +32,7 @@ class AICubit extends Cubit<AIStates> {
       // AiModel?.data?.characters.forEach((character) {
       //   print('Name: ${character.nameOfCharacter}, Events: ${character.events}');
       // });
-      print(AiModel?.data?.characters[0].nameOfCharacter);
+      // print(AiModel?.data?.characters[0].nameOfCharacter);
       emit(TextSummarizedSuccessState(AiModel));
     }).catchError((error) {
       print(error.toString());
@@ -48,7 +48,7 @@ class AICubit extends Cubit<AIStates> {
     ).then((value) {
       // Parse the response JSON into Get_All_SavedItem_Model
       getSavedItemModel = Get_All_SavedItem_Model.fromJson(value.data);
-      print(getSavedItemModel?.data[0].title);
+      print(getSavedItemModel?.data?[0].title);
       // Emit a success state with the received data
       emit(GetAllSavedItemSuccessState());
     }).catchError((error) {
@@ -58,28 +58,29 @@ class AICubit extends Cubit<AIStates> {
   }
 
   void SavedItems({
-    required homeModelData dataModel,
-    required homeModelData data,
+    required DataM data,
   }) {
     emit(SavedModelLoadingState());
 
-    // Convert homeModelData to JSON
+    // Convert DataM object to JSON
     Map<String, dynamic> jsonData = {
-      'characters':
-          dataModel.characters.map((character) => character.toJson()).toList(),
-      'dates': dataModel.dates.map((date) => date.toJson()).toList(),
-      'Title': dataModel.title,
+      'characters': data.characters?.map((character) => character.toJson()).toList(),
+      'dates': data.dates?.map((date) => date.toJson()).toList(),
+      'Title': data.title,
     };
 
+    // Make an HTTP POST request to save the data
     DioHelper.postData(
-        url: SavedItemsModel,
-        data: jsonData,
-      token: CacheHelper.getData(key: 'token')
+      url: SavedItemsModel, // Assuming SavedItemsModel is your API endpoint URL
+      data: jsonData,
+      token: CacheHelper.getData(key: 'token'), // Get token from cache
     ).then((value) {
-      saveModel = SavedItem.fromJson(value.data);
-      print(saveModel?.data?.title);
+      // Parse the response into a SavedItem object
+      SavedItem saveModel = SavedItem.fromJson(value.data);
+      print(saveModel.data?.title);
       emit(SavedModelSuccessState());
     }).catchError((err) {
+      // Handle errors
       print(err.toString());
       emit(SavedModelErrorState(err.toString()));
     });

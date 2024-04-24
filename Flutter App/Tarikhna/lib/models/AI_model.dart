@@ -1,40 +1,69 @@
 class AIModel {
-  bool? historicalORNot;
-  homeModelData? data;
+  String? historicalORNot;
+  DataM? data;
+
+  AIModel({this.historicalORNot, this.data});
 
   AIModel.fromJson(Map<String, dynamic> json) {
     historicalORNot = json['historicalORNot'];
-    data = homeModelData.fromJson(json['data']);
+    data = json['data'] != null ? DataM.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['historicalORNot'] = this.historicalORNot;
+    if (this.data != null) {
+      data['data'] = this.data?.toJson();
+    }
+    return data;
   }
 }
 
-class homeModelData {
-  List<CharacterModel> characters = [];
-  List<DateModel> dates = [];
+class DataM {
+  List<CharactersModel>? characters;
+  List<Dates>? dates;
   String? title;
 
-  homeModelData.fromJson(Map<String, dynamic> json) {
-    json['characters'].forEach((element) {
-      characters.add(CharacterModel.fromJson(element));
-    });
+  DataM({this.characters, this.dates, this.title});
 
-    json['dates'].forEach((element) {
-      dates.add(DateModel.fromJson(element));
-    });
-
+  DataM.fromJson(Map<String, dynamic> json) {
+    if (json['characters'] != null) {
+      characters = <CharactersModel>[];
+      json['characters'].forEach((v) {
+        characters?.add(CharactersModel.fromJson(v));
+      });
+    }
+    if (json['dates'] != null) {
+      dates = <Dates>[];
+      json['dates'].forEach((v) {
+        dates?.add(Dates.fromJson(v));
+      });
+    }
     title = json['Title'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (characters != null) {
+      data['characters'] = characters?.map((v) => v.toJson()).toList();
+    }
+    if (dates != null) {
+      data['dates'] = dates?.map((v) => v.toJson()).toList();
+    }
+    data['Title'] = title;
+    return data;
   }
 }
 
-class CharacterModel {
-
+class CharactersModel {
   String? nameOfCharacter;
-  String? events;
+  List<String>? events;
 
+  CharactersModel({this.nameOfCharacter, this.events});
 
-  CharacterModel.fromJson(Map<String, dynamic> json) {
+  CharactersModel.fromJson(Map<String, dynamic> json) {
     nameOfCharacter = json['nameOfCharacter'];
-    events=json['Events'];
+    events = json['Events'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -45,14 +74,15 @@ class CharacterModel {
   }
 }
 
-class DateModel {
+class Dates {
   String? date;
-  String? event;
+  List<String>? event;
 
+  Dates({this.date, this.event});
 
-  DateModel.fromJson(Map<String, dynamic> json) {
+  Dates.fromJson(Map<String, dynamic> json) {
     date = json['date'];
-    event = json['event'];
+    event = json['event'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -62,6 +92,3 @@ class DateModel {
     return data;
   }
 }
-
-
-
