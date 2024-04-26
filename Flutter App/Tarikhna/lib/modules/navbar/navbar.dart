@@ -9,7 +9,6 @@ import 'package:tarikhna/modules/home/homepage.dart';
 import 'package:tarikhna/modules/lessons/lessons_screen.dart';
 import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
 import 'package:tarikhna/modules/navbar/notification.dart';
-import 'package:tarikhna/modules/profile/profilePage.dart';
 import 'package:tarikhna/modules/profile/progressBar.dart';
 
 class NavBar_Page extends StatefulWidget {

@@ -16,27 +16,29 @@ class Saved_Date_Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Use the id as needed in this page
     return BlocConsumer<AICubit, AIStates>(
       listener: (BuildContext context, state) {
-        // if (state is SavedModelLoadingState) {
-        //   // Handle loading state
-        // }
-        //
-        // if (state is SavedModelSuccessState) {
-        //   print('Success');
-        // }
+        // Handle listener events if needed
       },
       builder: (BuildContext context, Object? state) {
         print("Listener");
 
-        print(AICubit.get(context).AiModel?.data?.characters.length);
         var cubit = AICubit.get(context);
         var savedItemModel = cubit.getSavedItemModel;
 
-        var data = savedItemModel?.data.firstWhere((element) => element.sId == id);
-        print(savedItemModel?.data[0].sId);
-        print(data?.dates);
+        if (savedItemModel == null || savedItemModel.data == null) {
+          // Handle the case where savedItemModel or its data is null
+          print('Data is null or empty');
+          return Scaffold(
+            // Return an empty Scaffold or any other widget to indicate the absence of data
+          );
+        }
+
+        var data = savedItemModel.data!.firstWhere((element) => element.sId == id, orElse: () => GetAllDataSaved());
+
+        print(savedItemModel.data?[0].sId);
+        print(data.dates?.map((date) => date.date));
+        print(data.characters?.length);
 
         return Scaffold(
           backgroundColor: HexColor("FFF9F9"),
@@ -48,36 +50,33 @@ class Saved_Date_Screen extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: Column(
                 children: [
-                  if (data?.dates[0].date != null)
-                  Container(
-                    width: 300,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "TEXT OUTPUT",
-                        style: TextStyle(
-                          fontFamily: 'JacquesFrancois',
-                          fontSize: 40,
+                  if (data.dates != null && data.dates!.isNotEmpty) // Check if dates are not null and not empty
+                    Container(
+                      width: 300,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "TEXT OUTPUT",
+                          style: TextStyle(
+                            fontFamily: 'JacquesFrancois',
+                            fontSize: 40,
+                          ),
                         ),
                       ),
                     ),
-                  ),
                   ListView.separated(
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
-                    itemCount: data?.dates.length??0,
+                    itemCount: data.dates?.length ?? 0,
                     itemBuilder: (context, index) {
-                      // CharactersModel? character = data?.characters[index];
-                      DatesModel date = data!.dates.isNotEmpty && index < data!.dates.length
-                          ? DatesModel.fromJson(data!.dates[index].toJson())
-                          : DatesModel();
+                      GetAllDataSaved date = data; // Use the correct data
 
                       bool First = index == 0;
-                      bool Last = index >= data!.dates.length - 1;
+                      bool Last = index >= data.dates!.length - 1;
                       return Row(
                         children: [
                           Expanded(
@@ -100,7 +99,7 @@ class Saved_Date_Screen extends StatelessWidget {
                             flex: 2,
                           ),
                           Expanded(
-                            child: TextSummarizedBuilder( date, index, data.characters.length),
+                            child: TextSummarizedBuilder(date,index,data.dates!.length), // Pass the correct data
                             flex: 16,
                           )
                         ],
@@ -124,38 +123,74 @@ class Saved_Date_Screen extends StatelessWidget {
 }
 
 
-Widget TextSummarizedBuilder( DatesModel date, int index, int length) {
+Widget TextSummarizedBuilder(GetAllDataSaved date, int index, int length) {
   return Padding(
     padding: EdgeInsets.all(20),
     child: Column(
+
       children: [
-        Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: HexColor('D3C5C5'),
-              ),
-              child: ListTile(
-                title: Text(date.event ?? '',
-                  style: TextStyle(fontWeight: FontWeight.w900),
-                ),
-                leading: CircleAvatar(
-                  child: Text(date.date?? '',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: HexColor('D3C5C5'),
+          ),
+          child: ListTile(
+            leading: Container(
+                alignment: Alignment.center,
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    // shape: BoxShape.circle,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Center(child: Text(
+                  date.dates?[index].date ?? '',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    // Adjust the fontSize as needed
                   ),
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                ),
-              ),
+                ),)
             ),
-          ],
+            title: Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 5),
+                Column(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (String event in date.dates?[index].event ?? [])
+                      Row(
+                        children: [
+                          // Adjust the space between the bullet and the text
+                          Expanded(
+                            child: Text(
+                              event,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          // SizedBox(width: 20),
+                          SizedBox(
+                            width: 10,
+                            // Adjust the space between the bullet and the text
+                            child: Text('•',
+                                style: TextStyle(fontSize: 40)), // Bullet
+                          ),
+                        ],
+                      ),
+                    if(date.dates![index].event!.length > 1 )
+                    Container(width: double.infinity,height:
+                    1,color: Colors.white,)
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     ),
   );
 }
+
+

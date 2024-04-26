@@ -26,31 +26,42 @@ class Save_Item_Screen extends StatelessWidget {
         builder: (context, state) {
           var cubit = AICubit.get(context);
           var allSavedData = cubit.getSavedItemModel;
+          print(allSavedData?.data?.length);
 
           return ListView.separated(
             itemBuilder: (context, index) {
-              String? title = allSavedData?.data[index].title;
-              String? id = allSavedData?.data[index].sId;
+              // Check if allSavedData is not null and has data
+              // if (allSavedData != null && allSavedData.data != null) {
+                String? title = allSavedData?.data?[index].title;
+                print(title);
+                print("title");
+                String? id = allSavedData?.data![index].sId;
 
-              return GestureDetector(
-                onTap: () {
-                  // Navigate to the Saved_Caracter_Screen and pass the ID
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Navigate_Saved_Screen(id),
+
+                return GestureDetector(
+                  onTap: () {
+                    // Navigate to the Saved_Caracter_Screen and pass the ID
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Navigate_Saved_Screen(id),
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(title ?? ""),
+                    leading: CircleAvatar(
+                      backgroundColor: HexColor("EDDCDC"),
+                      child: Icon(Icons.history_edu_outlined),
                     ),
-                  );
-                },
-                child: ListTile(
-                  title: Text(title ?? ""),
-                  leading: CircleAvatar(
-                    backgroundColor: HexColor("EDDCDC"),
-                    child: Icon(Icons.history_edu_outlined),
+                    trailing: Icon(Icons.save_alt_outlined),
                   ),
-                  trailing: Icon(Icons.save_alt_outlined),
-                ),
-              );
+                );
+              // } else {
+              //
+              //   // If allSavedData is null or has no data, show a placeholder widget
+              //   return Container(); // You can return any placeholder widget here
+              // }
             },
             separatorBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(left: 30),
@@ -60,7 +71,7 @@ class Save_Item_Screen extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-            itemCount: allSavedData?.data.length ?? 0,
+            itemCount: allSavedData?.data?.length ?? 0,
           );
         },
       ),

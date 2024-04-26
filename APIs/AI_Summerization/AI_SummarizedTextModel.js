@@ -7,13 +7,13 @@ const mongoose = require('mongoose')
 
 
 const characterSchema = mongoose.Schema({
-    name: { type: String, required: true },
-    events: { type: [String], required: true }
+    nameOfCharacter: { type: String, required: true },
+    Events: { type: [String], required: true }
 });
 
 const dateSchema = mongoose.Schema({
     date: { type: String, required: true },
-    events: { type: [String], required: true }
+    event: { type: [String], required: true }
 });
 
 const AI_SummarizedTextSchema = mongoose.Schema({

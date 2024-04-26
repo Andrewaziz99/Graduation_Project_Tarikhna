@@ -14,27 +14,18 @@ class AiOutputScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AICubit, AIStates>(
       listener: (BuildContext context, state) {
-        // if (state is TextSummarizedLoadingState) {
-        //   // Handle loading state
-        // }
-        //
-        // if (state is TextSummarizedSuccessState) {
-        //   print('Success');
-        // }
+        // Handle listener events if needed
       },
       builder: (BuildContext context, Object? state) {
         print("Listener");
-        print(AICubit.get(context).AiModel?.data?.characters.length);
         var cubit = AICubit.get(context);
         var data = cubit.AiModel?.data;
-        print(data?.characters.length);
-        CharacterModel? characterModel;
+        CharactersModel? characterModel;
 
         return Scaffold(
           backgroundColor: HexColor("FFF9F9"),
           appBar: AppBar(
             backgroundColor: HexColor("FFF9F9"),
-            // title: const Text('AI Output'),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -43,7 +34,7 @@ class AiOutputScreen extends StatelessWidget {
                 condition: state is TextSummarizedSuccessState,
                 builder: (context) => Column(
                   children: [
-                    if (data?.characters[0].nameOfCharacter != null)
+                    if (data != null && data.characters != null && data.characters!.isNotEmpty)
                       Container(
                         width: 300,
                         height: 70,
@@ -64,26 +55,25 @@ class AiOutputScreen extends StatelessWidget {
                     ListView.separated(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
-                      itemCount: data?.characters.length ?? 0,
+                      itemCount: data?.characters?.length ?? 0,
                       itemBuilder: (context, index) {
-                        CharacterModel character = data!.characters[index];
-                        DateModel? date =
-                            data.dates.isNotEmpty && index < data.dates.length
-                                ? data.dates[index]
-                                : null;
+                        CharactersModel character = data!.characters![index];
+
+
 
                         bool First = index == 0;
-                        bool Last = index == data!.characters.length - 1;
+                        bool Last = index == data.characters!.length - 1;
+
                         return Row(
                           children: [
                             Expanded(
                               child: SizedBox(
-                                height: 250,
+                                height: 400,
                                 child: TimelineTile(
                                   isFirst: First,
                                   isLast: Last,
                                   beforeLineStyle:
-                                      LineStyle(color: HexColor('D3C5C5')),
+                                  LineStyle(color: HexColor('D3C5C5')),
                                   indicatorStyle: IndicatorStyle(
                                     width: 40,
                                     color: HexColor('D3C5C5'),
@@ -97,8 +87,8 @@ class AiOutputScreen extends StatelessWidget {
                               flex: 3,
                             ),
                             Expanded(
-                              child: TextSummarizedBuilder(character, date,
-                                  index, data.characters.length),
+                              child: TextSummarizedBuilder(
+                                character),
                               flex: 19,
                             )
                           ],
@@ -124,42 +114,87 @@ class AiOutputScreen extends StatelessWidget {
     );
   }
 
-  Widget TextSummarizedBuilder(
-      CharacterModel character, DateModel? date, int index, int totalindex) {
+  Widget TextSummarizedBuilder( CharactersModel character) {
     return Padding(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Column(
-              children: [
-                if (character.nameOfCharacter != null)
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: HexColor('D3C5C5'),
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Column(
+            children: [
+              if (character.nameOfCharacter != null)
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: HexColor('D3C5C5'),
+                  ),
+                  child: ListTile(
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 5),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (character.events != null && character.events!.isNotEmpty)
+                              for (String event in character.events ?? [])
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+
+
+                                        Expanded(
+                                          child: Text(
+                                            event,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        // SizedBox(width: 1),
+                                        SizedBox(
+                                          width: 10,
+                                          // Adjust the space between the bullet and the text
+                                          child: Text('•', style: TextStyle(fontSize: 40)), // Bullet
+                                        ),
+                                      ],
+                                    ),
+                                    if(character.events!.length >1)
+                                      Container(width: double.infinity,height:
+                                      1,color: Colors.white,) // Add space between events
+                                  ],
+                                ),
+                          ],
+                        ),
+                      ],
                     ),
-                    child: ListTile(
-                      title: Text(
-                        character.events ?? '',
-                        style: TextStyle(fontWeight: FontWeight.w900),
-                      ),
-                      leading: CircleAvatar(
+
+                    leading: Container(
+                        alignment: Alignment.center,
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            // shape: BoxShape.circle,
+                            borderRadius: BorderRadius.circular(30)),
                         child: Text(
                           character.nameOfCharacter ?? '',
-                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w900,fontSize: 10
+                            // Adjust the fontSize as needed
                           ),
                         ),
-                        radius: 30,
-                        backgroundColor: Colors.white,
-                      ),
                     ),
                   ),
-              ],
-            ),
-          ],
-        ));
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
+
+
 }
+

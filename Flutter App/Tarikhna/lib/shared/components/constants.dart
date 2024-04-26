@@ -18,12 +18,15 @@ void printFullText(String text) {
 }
 
 String TOKEN = '';
+String REGISTER = 'auth/register';
+String LOGIN = 'auth/login';
+String PROFILE = 'user';
+String UPDATE = 'user/update';
 String AI_summarization = 'AI_Summary';
 String SavedItemsModel ="AI_Summary/saveSummarizedItem";
 String GetAllSavedItem ="AI_Summary/summarizedItems";
-String REGISTER = 'auth/register';
-String LOGIN = 'auth/login';
 String LESSONS = 'lesson/getlessons';
+String FILTER = 'lesson/filter';
 String SEARCH = 'lesson/search';
 String QUIZ = 'quiz/';
 String changeLevel = "quiz/updateToNextLevel";

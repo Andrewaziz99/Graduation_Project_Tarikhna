@@ -114,7 +114,7 @@ class Lesson_output_date_screen extends StatelessWidget {
   }
 }
 
-Widget TextSummarizedBuilder( DateModel date, int index, int length) {
+Widget TextSummarizedBuilder(DateModel date, int index, int length) {
   return Padding(
     padding: EdgeInsets.all(20),
     child: Column(
@@ -122,28 +122,33 @@ Widget TextSummarizedBuilder( DateModel date, int index, int length) {
         Column(
           children: [
             Container(
+
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 color: HexColor('D3C5C5'),
               ),
               child: ListTile(
-
                 title: Text(
                   date.event ?? '',
                   style: TextStyle(fontWeight: FontWeight.w900),
                 ),
-                leading: CircleAvatar(
+                leading: Container(
+                  alignment: Alignment.center,
+                  width: 70, // Adjust width according to your requirement
+                  height: 70, // Adjust height according to your requirement
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
 
-                  child: Text(
+                    color: Colors.white, // Change color here
+                  ),
+                  child: Center(child: Text(
                     date.date ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                        color: Colors.black, // Change text color here
+                        fontWeight: FontWeight.w900,fontSize: 10
                     ),
-                  ),
-                  radius: 50,
-                  backgroundColor: Colors.white,
+                  ),),
                 ),
               ),
             ),
@@ -153,3 +158,4 @@ Widget TextSummarizedBuilder( DateModel date, int index, int length) {
     ),
   );
 }
+

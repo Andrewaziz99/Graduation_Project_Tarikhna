@@ -61,9 +61,9 @@ class Lesson_output_character_screen extends StatelessWidget {
                       itemCount: data?.Characters?.length ?? 1,
                       itemBuilder: (context, index) {
                         CharacterModel? character = data!.Characters?[index];
-                        DatesModel dateModel = (data!.Dates!.isNotEmpty && index < data!.Dates!.length
-                            ? DatesModel.fromJson(data!.Dates![index].toJson())
-                            : DatesModel());
+                        DateModel dateModel = (data!.Dates!.isNotEmpty && index < data!.Dates!.length
+                            ? DateModel.fromJson(data!.Dates![index].toJson())
+                            : DateModel());
 
                         // Assuming DatesModel can be used as DateModel
                         DateModel date = DateModel(
@@ -141,8 +141,8 @@ Widget TextSummarizedBuilder(CharacterModel? character, DateModel date, int inde
                   child: Text(character?.nameOfCharacter ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w900,fontSize: 9
                     ),
                   ),
                   radius: 30,

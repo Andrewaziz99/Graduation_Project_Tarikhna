@@ -16,7 +16,6 @@ class QuizScreen extends StatelessWidget {
 
   QuizScreen(this.id);
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -25,11 +24,11 @@ class QuizScreen extends StatelessWidget {
         listener: (BuildContext context, state) {},
         builder: (BuildContext context, Object? state) {
           var cubit = QuizCubit.get(context);
-          return ConditionalBuilder(
-              condition: cubit.quizModel != null,
-              builder: (BuildContext context) {
-                return Scaffold(
-                  body: SingleChildScrollView(
+          return Scaffold(
+            body: ConditionalBuilder(
+                condition: cubit.quizModel != null,
+                builder: (BuildContext context) {
+                  return SingleChildScrollView(
                     child: Container(
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -46,9 +45,10 @@ class QuizScreen extends StatelessWidget {
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Quiz",
                                         style: TextStyle(
                                             color: titleTextColor,
@@ -59,7 +59,8 @@ class QuizScreen extends StatelessWidget {
                                       const Spacer(),
                                       IconButton(
                                         onPressed: () {
-                                          navigateAndFinish(context, LessonsScreen());
+                                          navigateAndFinish(
+                                              context, LessonsScreen());
                                         },
                                         icon: const Icon(Icons.home),
                                       ),
@@ -133,7 +134,8 @@ class QuizScreen extends StatelessWidget {
                                 cubit.checkAnswer(value, context);
                                 cubit.selectedOption = null;
                               },
-                              itemCount: cubit.quizModel!.data!.questions!.length,
+                              itemCount:
+                                  cubit.quizModel!.data!.questions!.length,
                               loop: true,
                               itemWidth: MediaQuery.of(context).size.width,
                               itemHeight: MediaQuery.of(context).size.height,
@@ -157,7 +159,8 @@ class QuizScreen extends StatelessWidget {
                                                     BorderRadius.circular(32)),
                                             color: Colors.white,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(34.0),
+                                              padding:
+                                                  const EdgeInsets.all(34.0),
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -195,9 +198,8 @@ class QuizScreen extends StatelessWidget {
                                                             shape: MaterialStatePropertyAll(
                                                                 RoundedRectangleBorder(
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                10))),
+                                                                        BorderRadius.circular(
+                                                                            10))),
                                                             elevation:
                                                                 const MaterialStatePropertyAll(
                                                                     2),
@@ -233,9 +235,8 @@ class QuizScreen extends StatelessWidget {
                                                             shape: MaterialStatePropertyAll(
                                                                 RoundedRectangleBorder(
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                10))),
+                                                                        BorderRadius.circular(
+                                                                            10))),
                                                             elevation:
                                                                 const MaterialStatePropertyAll(
                                                                     2),
@@ -354,32 +355,12 @@ class QuizScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                );
-              },
-              fallback: (BuildContext context) {
-                if (cubit.quizModel == null) {
-                  return Scaffold(
-                    body: Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [gradientStartColor, titleTextColor],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [0.3, 0.98])),
-                      child: const Center(
-                        child: Text("No Quiz Found"),
-                      ),
-                    ),
                   );
-                } else {
-                  return const Scaffold(
-                    body: Center(
+                },
+                fallback: (BuildContext context) => const Center(
                       child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-              });
+                    )),
+          );
         },
       ),
     );

@@ -155,8 +155,21 @@ class LessonsScreen extends StatelessWidget {
                           background: Colors.blue.withOpacity(0.85),
                           radius: 20.0,
                           width: 150,
+                          text: 'All Lessons',
+                          function: () {
+                            cubit.getLessons();
+                          },
+                        ),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        defaultButton(
+                          background: Colors.blue.withOpacity(0.85),
+                          radius: 20.0,
+                          width: 150,
                           text: 'New Lessons',
                           function: () {
+                            cubit.filterLesson(1);
                           },
                         ),
                         const SizedBox(
@@ -166,7 +179,9 @@ class LessonsScreen extends StatelessWidget {
                             background: Colors.blue.withOpacity(0.85),
                             radius: 20.0,
                             width: 150,
-                            function: () {},
+                            function: () {
+                              cubit.filterLesson(2);
+                            },
                             text: 'In Progress'),
                         const SizedBox(
                           width: 10.0,
@@ -175,7 +190,9 @@ class LessonsScreen extends StatelessWidget {
                             background: Colors.blue.withOpacity(0.85),
                             radius: 20.0,
                             width: 150,
-                            function: () {},
+                            function: () {
+                              cubit.filterLesson(3);
+                            },
                             text: 'done'),
                         const SizedBox(
                           width: 10.0,

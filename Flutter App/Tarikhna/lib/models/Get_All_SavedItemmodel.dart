@@ -1,83 +1,80 @@
 class Get_All_SavedItem_Model {
   String? message;
-  List<Data> data=[];
+  List<GetAllDataSaved>? data;
 
-  // Get_All_SavedItem_Model({this.message, this.data});
+  Get_All_SavedItem_Model({this.message, this.data});
 
   Get_All_SavedItem_Model.fromJson(Map<String, dynamic> json) {
     message = json['message'];
+    data = [];
     if (json['data'] != null) {
-      // data = new List<Data>();
       json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data?.add(GetAllDataSaved.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.map((x) => x.toJson()).toList();
     }
     return data;
   }
 }
 
-class Data {
+class GetAllDataSaved {
   String? sId;
-  List<CharactersModel> characters=[];
-  List<DatesModel> dates=[];
+  List<SavedCharacters>? characters;
+  List<Dates>? dates;
   String? title;
-  Data.fromJson(Map<String, dynamic> json) {
+  int? iV;
+
+  GetAllDataSaved({this.sId, this.characters, this.dates, this.title, this.iV});
+
+  GetAllDataSaved.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    title = json['Title'];
-
-
     if (json['characters'] != null) {
-      json['characters'].forEach((v) {
-        characters.add(CharactersModel.fromJson(v));
-      });
+      characters = List<SavedCharacters>.from(json['characters'].map((x) => SavedCharacters.fromJson(x)));
     }
     if (json['dates'] != null) {
-      json['dates'].forEach((v) {
-        dates.add(DatesModel.fromJson(v));
-      });
+      dates = List<Dates>.from(json['dates'].map((x) => Dates.fromJson(x)));
     }
-
-
+    title = json['Title'];
+    iV = json['__v'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['_id'] = this.sId;
     if (this.characters != null) {
-      data['characters'] = this.characters.map((v) => v.toJson()).toList();
+      data['characters'] = this.characters!.map((x) => x.toJson()).toList();
     }
     if (this.dates != null) {
-      data['dates'] = this.dates.map((v) => v.toJson()).toList();
+      data['dates'] = this.dates!.map((x) => x.toJson()).toList();
     }
     data['Title'] = this.title;
-
+    data['__v'] = this.iV;
     return data;
   }
 }
 
-class CharactersModel {
+class SavedCharacters {
   String? nameOfCharacter;
-  String? events;
+  List<String>? events;
   String? sId;
 
+  SavedCharacters({this.nameOfCharacter, this.events, this.sId});
 
-
-  CharactersModel.fromJson(Map<String, dynamic> json) {
+  SavedCharacters.fromJson(Map<String, dynamic> json) {
     nameOfCharacter = json['nameOfCharacter'];
-    events = json['Events'];
+    events = json['Events'].cast<String>();
     sId = json['_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['nameOfCharacter'] = this.nameOfCharacter;
     data['Events'] = this.events;
     data['_id'] = this.sId;
@@ -85,21 +82,21 @@ class CharactersModel {
   }
 }
 
-class DatesModel {
+class Dates {
   String? date;
-  String? event;
+  List<String>? event;
   String? sId;
-DatesModel({this.sId,this.date,this.event});
 
+  Dates({this.date, this.event, this.sId});
 
-  DatesModel.fromJson(Map<String, dynamic> json) {
+  Dates.fromJson(Map<String, dynamic> json) {
     date = json['date'];
-    event = json['event'];
+    event = json['event'].cast<String>();
     sId = json['_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['date'] = this.date;
     data['event'] = this.event;
     data['_id'] = this.sId;

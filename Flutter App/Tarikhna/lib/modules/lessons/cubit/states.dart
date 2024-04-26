@@ -33,3 +33,17 @@ class LessonsSearchErrorState extends LessonsState {
 }
 
 class LessonsChangeDialogState extends LessonsState {}
+
+class LessonsFilterLoadingState extends LessonsState {}
+
+class LessonsFilterSuccessState extends LessonsState {
+  final LessonModel lesson;
+
+  LessonsFilterSuccessState(this.lesson);
+}
+
+class LessonsFilterErrorState extends LessonsState {
+  final String error;
+
+  LessonsFilterErrorState(this.error);
+}
