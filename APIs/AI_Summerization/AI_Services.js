@@ -9,12 +9,42 @@ const summarizeText = async (historicalTest, done) => {
     })
     const jsonFormat = "extract all the characters in this text and all the events related to the characters and also all the dates and its events and given a title to the text in a json format like this :{ 'historicalORNot': /*boolean value if the text related to historical events*/, 'data': {characters': [{ 'nameOfCharacter': /*name of the character*/, 'Events': /*All events related to the character*/ }], 'dates': [{ 'date': /*The date*/, 'event': /*the event related to the date*/ }], 'Title': /*related title to the text*/ }}"
     historicalTest = JSON.stringify(historicalTest)
+    const prompt =  '\
+    . Summarize the following text.\
+    . From the translated text, extract the names of characters mentioned.\
+    . From the translated text, extract the events related to the names of characters mentioned.\
+    . From the translated text, extract the dates mentioned arranged in a simple format.\
+    . From the translated text, extract the events related to the dates mentioned.\
+    . Output the above steps in a json format as following:\
+    {\
+        "historical" : "true or false", // if not then return data : null\
+        "data" : {\
+            "characters" : [\
+            {"name" : "name1",\
+            "events" : ["event1", "event2", ...]\
+            },\
+            {"name" : "name2",\
+            "events" : ["event1", "event2", ...]\
+        },\
+            ...\
+            ],\
+            "dates" : [\
+            {"date" : "date1",\
+            "events" : ["event1", "event2", ...]\
+            },\
+            {"date" : "date2",\
+            "events" : ["event1", "event2", ...]\
+        },\
+            ...\
+            ]\
+        }\
+        }' + historicalTest; 
 
     try {
         const response = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo-0125',
             response_format: { type: "json_object" },
-            messages: [{ "role": "user", "content": historicalTest + jsonFormat }],
+            messages: [{ "role": "user", "content": prompt }],
             max_tokens: 1000
         })
         return done(undefined, JSON.parse(response.choices[0].message.content))
