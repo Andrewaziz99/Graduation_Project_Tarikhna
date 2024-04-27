@@ -108,6 +108,42 @@ Widget defaultFormField({
       ),
     );
 
+Widget newFormField({
+  required TextEditingController controller,
+  required TextInputType type,
+  required String label,
+  required String? Function(String?)? validate,
+  Function(String)? onSubmit,
+  Function(String)? onChange,
+  Function()? suffixPressed,
+  Function()? onTap,
+  bool isPassword = false,
+  IconData? prefix,
+  IconData? suffix,
+  bool isClickable = true,
+  BorderRadius radius = BorderRadius.zero,
+}) =>
+    TextFormField(
+      controller: controller,
+      keyboardType: type,
+      obscureText: isPassword,
+      enabled: isClickable,
+      onFieldSubmitted: onSubmit,
+      onChanged: onChange,
+      onTap: onTap,
+      validator: validate,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(prefix),
+        suffixIcon: suffix != null
+            ? IconButton(
+          onPressed: suffixPressed,
+          icon: Icon(suffix),
+        )
+            : null,
+      ),
+    );
+
 // Widget newsBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
 //     condition: list.length > 0,
 //     builder: (context) => ListView.separated(
