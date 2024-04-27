@@ -4,7 +4,9 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tarikhna/modules/home/homePage.dart';
 import 'package:tarikhna/modules/lessons/lessons_screen.dart';
+import 'package:tarikhna/modules/navbar/navbar.dart';
 import 'package:tarikhna/modules/quiz/cubit/cubit.dart';
 import 'package:tarikhna/modules/quiz/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
@@ -19,14 +21,31 @@ class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => QuizCubit()..getQuiz(id!),
+      create: (BuildContext context) => QuizCubit()..getQuiz(id),
       child: BlocConsumer<QuizCubit, QuizStates>(
-        listener: (BuildContext context, state) {},
+        listener: (BuildContext context, state) {
+          if (state is QuizErrorState || QuizCubit.get(context).quizModel == null) {
+            AwesomeDialog(
+              context: context,
+              dialogType: DialogType.warning,
+              animType: AnimType.scale,
+              title: 'NO QUIZ YET',
+              desc: 'There is no quiz for this lesson',
+              btnCancelOnPress: () {
+                Navigator.pop(context);
+              },
+              btnOkText: 'Retry',
+              btnOkOnPress: () {
+                QuizCubit.get(context).getQuiz(id);
+              },
+            ).show();
+          }
+        },
         builder: (BuildContext context, Object? state) {
           var cubit = QuizCubit.get(context);
           return Scaffold(
             body: ConditionalBuilder(
-                condition: cubit.quizModel != null,
+                condition: cubit.quizModel?.data != null,
                 builder: (BuildContext context) {
                   return SingleChildScrollView(
                     child: Container(
@@ -60,7 +79,7 @@ class QuizScreen extends StatelessWidget {
                                       IconButton(
                                         onPressed: () {
                                           navigateAndFinish(
-                                              context, LessonsScreen());
+                                              context, NavBar_Page());
                                         },
                                         icon: const Icon(Icons.home),
                                       ),
@@ -167,20 +186,23 @@ class QuizScreen extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    cubit
-                                                            .quizModel
-                                                            ?.data
-                                                            ?.questions?[index]
-                                                            .questions ??
-                                                        '',
-                                                    style: TextStyle(
-                                                        color: primaryTextColor,
-                                                        fontWeight:
-                                                            FontWeight.w900,
-                                                        fontFamily: 'Avenir',
-                                                        fontSize: 50),
-                                                    textAlign: TextAlign.left,
+                                                  Expanded(
+                                                    child: Text(
+                                                      maxLines: 3,
+                                                      cubit
+                                                              .quizModel
+                                                              ?.data
+                                                              ?.questions?[index]
+                                                              .questions ??
+                                                          '',
+                                                      style: TextStyle(
+                                                          color: primaryTextColor,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          fontFamily: 'Avenir',
+                                                          fontSize: 20),
+                                                      textAlign: TextAlign.right,
+                                                    ),
                                                   ),
                                                   const SizedBox(
                                                     height: 24,
@@ -214,13 +236,18 @@ class QuizScreen extends StatelessWidget {
                                                                 .changeSelectedOption(
                                                                     val);
                                                           },
-                                                          child: Text(cubit
-                                                                  .quizModel
-                                                                  ?.data
-                                                                  ?.questions?[
-                                                                      index]
-                                                                  .choices?[0] ??
-                                                              ''),
+                                                          child: Expanded(
+                                                            child: Text(
+                                                                maxLines: 1,
+                                                                overflow: TextOverflow.fade,
+                                                                cubit
+                                                                    .quizModel
+                                                                    ?.data
+                                                                    ?.questions?[
+                                                                        index]
+                                                                    .choices?[0] ??
+                                                                ''),
+                                                          ),
                                                         )),
                                                         const SizedBox(
                                                           width: 5.0,
@@ -251,13 +278,17 @@ class QuizScreen extends StatelessWidget {
                                                                 .changeSelectedOption(
                                                                     val);
                                                           },
-                                                          child: Text(cubit
-                                                                  .quizModel
-                                                                  ?.data
-                                                                  ?.questions?[
-                                                                      index]
-                                                                  .choices?[1] ??
-                                                              ''),
+                                                          child: Expanded(
+                                                            child: Text(
+                                                                maxLines: 1,
+                                                                cubit
+                                                                    .quizModel
+                                                                    ?.data
+                                                                    ?.questions?[
+                                                                        index]
+                                                                    .choices?[1] ??
+                                                                ''),
+                                                          ),
                                                         ))
                                                       ]),
                                                       const SizedBox(
@@ -291,13 +322,18 @@ class QuizScreen extends StatelessWidget {
                                                                   .changeSelectedOption(
                                                                       val);
                                                             },
-                                                            child: Text(cubit
-                                                                    .quizModel
-                                                                    ?.data
-                                                                    ?.questions?[
-                                                                        index]
-                                                                    .choices?[2] ??
-                                                                ''),
+                                                            child: Expanded(
+                                                              child: Text(
+                                                                  maxLines: 1,
+                                                                  overflow: TextOverflow.fade,
+                                                                  cubit
+                                                                      .quizModel
+                                                                      ?.data
+                                                                      ?.questions?[
+                                                                          index]
+                                                                      .choices?[2] ??
+                                                                  ''),
+                                                            ),
                                                           )),
                                                           const SizedBox(
                                                             width: 5.0,
@@ -328,7 +364,10 @@ class QuizScreen extends StatelessWidget {
                                                                   .changeSelectedOption(
                                                                       val);
                                                             },
-                                                            child: Text(cubit
+                                                            child: Text(
+                                                                maxLines: 1,
+                                                                overflow: TextOverflow.fade,
+                                                                cubit
                                                                     .quizModel
                                                                     ?.data
                                                                     ?.questions?[
