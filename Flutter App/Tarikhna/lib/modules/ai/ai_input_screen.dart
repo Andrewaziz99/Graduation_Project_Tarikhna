@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/modules/ai/Navigation_Screen.dart';
 import 'package:tarikhna/modules/ai/ai_output_screen.dart';
@@ -14,6 +18,8 @@ class AiInputScreen extends StatelessWidget {
 
   AiInputScreen({super.key});
 
+  String fileName = '';
+  String extractedText = '';
   // var cubit = AppCubit.get(context);
 
   @override
@@ -82,6 +88,43 @@ class AiInputScreen extends StatelessWidget {
                 const SizedBox(
                   height: 30.0,
                 ),
+                Text("OR",
+                    style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor('5E8BFF'))),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                defaultButton(
+                    background: HexColor('5E8BFF'),
+                    // background: HexColor("5E8BFF"),
+                    radius: 20.0,
+                    fSize: 20.0,
+                    function: () async{
+                      FilePickerResult? result = await FilePicker.platform.pickFiles();
+                      if (result != null) {
+                        File file = File(result.files.single.path!);
+                        fileName = file.path;
+                        print(fileName);
+                        extractedText = await extractTextFromImg(file.path);
+                        inputTextController.text = extractedText;
+                        print(extractedText);
+                      } else {
+                        // User canceled the picker
+                      }
+                    }, text: 'Upload Image'),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                //horizontl line
+                // Container(
+                //   height: 1,
+                //   color: HexColor('5E8BFF'),
+                // ),
+                const SizedBox(
+                  height: 30.0,
+                ),
                 defaultButton(
                   function: () {
                     AICubit.get(context)
@@ -114,4 +157,22 @@ class AiInputScreen extends StatelessWidget {
       );
     });
   }
+
+  Future<String> extractTextFromImg(String pdfPath) async {
+    // Directory appDocDir = await getApplicationDocumentsDirectory();
+    // String tessDataDirPath = '${appDocDir.path}/tessdata';
+
+    // Specify the language(s) used for OCR (e.g., 'eng' for English)
+    List<String> languages = ['ara', 'eng'];
+
+
+    // final Uint8List bytes = pdfPath.buffer.asUint8List();
+    // Perform OCR on the PDF file
+    String extractedText = await FlutterTesseractOcr.extractText(
+      pdfPath,
+      language: languages.first,);
+
+    return extractedText;
+  }
+
 }
