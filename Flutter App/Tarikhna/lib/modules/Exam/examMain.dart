@@ -52,7 +52,7 @@ class MainExamScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Quiz",
                                     style: TextStyle(
                                       color: titleTextColor,
@@ -183,9 +183,10 @@ class MainExamScreen extends StatelessWidget {
                                                     color: primaryTextColor,
                                                     fontWeight: FontWeight.w900,
                                                     fontFamily: 'Avenir',
-                                                    fontSize: 50,
+                                                    fontSize: 20,
+
                                                   ),
-                                                  textAlign: TextAlign.left,
+                                                  textAlign: TextAlign.right,
                                                 ),
                                                 const SizedBox(
                                                   height: 24,
@@ -197,7 +198,7 @@ class MainExamScreen extends StatelessWidget {
                                                         (choiceIndex) {
                                                       // If the index is odd, return a separator
                                                       if (choiceIndex.isOdd) {
-                                                        return SizedBox(height: 10); // Adjust the height of the separator as needed
+                                                        return const SizedBox(height: 10); // Adjust the height of the separator as needed
                                                       }
                                                       // Calculate the actual index of the choice
                                                       final actualIndex = choiceIndex ~/ 2;
@@ -222,7 +223,15 @@ class MainExamScreen extends StatelessWidget {
                                                           cubit.changeSelectedOption(val);
 
                                                         },
-                                                        child: Text(choice),
+                                                        child: Expanded(
+                                                          child: Text(choice,
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow.ellipsis,
+                                                            style: const TextStyle(
+                                                              fontSize: 12,
+                                                            ),
+                                                          ),
+                                                        ),
                                                       );
                                                     },
                                                   ),
