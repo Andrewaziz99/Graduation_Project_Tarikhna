@@ -47,7 +47,7 @@ class Lesson_output_date_screen extends StatelessWidget {
                         child: Text(
                           "TEXT OUTPUT",
                           style: TextStyle(
-                            fontFamily: 'JacquesFrancois',
+                            fontFamily: 'Roboto',
                             fontSize: 40,
                           ),
                         ),

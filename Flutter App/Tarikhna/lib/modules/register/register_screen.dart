@@ -47,12 +47,12 @@ class RegisterScreen extends StatelessWidget {
           return Stack(
             fit: StackFit.expand,
             children: [
-              Image.asset(
-                'assets/images/background.png',
-                fit: BoxFit.cover,
-              ),
+              // Image.asset(
+              //   'assets/images/background.png',
+              //   fit: BoxFit.cover,
+              // ),
               Scaffold(
-                backgroundColor: Colors.transparent,
+                backgroundColor: CustomPrimaryColor,
                 // appBar: AppBar(
                 //   elevation: 0.0,
                 //   backgroundColor: Colors.transparent,
@@ -68,7 +68,7 @@ class RegisterScreen extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.all(20.0),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             child: Column(
@@ -217,7 +217,7 @@ class RegisterScreen extends StatelessWidget {
                                     text: 'REGISTER',
                                     isUpperCase: true,
                                     radius: 3.0,
-                                    background: PrimaryColor,
+                                    background: CustomPrimaryColor ,
                                   ),
                                   fallback: (BuildContext context) =>
                                       const Center(

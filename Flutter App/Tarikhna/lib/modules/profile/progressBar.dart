@@ -45,9 +45,12 @@ class Profile_Page_Screen extends StatelessWidget {
                               ],
                               shape: BoxShape.circle,
                               image: const DecorationImage(
+                                image: AssetImage("images/profile.png"),
                                 fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    'https://media.istockphoto.com/id/1433346041/photo/cute-girl-iconic-character-with-glasses-isolated-white-background-3d-rendering.jpg?s=612x612&w=is&k=20&c=9jGKRehgcxvBrrLV-YwN5371DAa0XhFbumb5fr8EZwg='),
+                                
+                                
+                                 
+                                
                               ),
                             )),
                       ]),
@@ -84,7 +87,7 @@ class Profile_Page_Screen extends StatelessWidget {
                                 lineWidth: 15,
                                 percent: 01,
                                 linearGradient: const LinearGradient(
-                                  colors: [Colors.green, Colors.blue],
+                                  colors: [AppColors5.mauve, AppColors4.navyblue],
                                 ),
                                 circularStrokeCap: CircularStrokeCap.round,
                                 center: const Text(
@@ -94,7 +97,7 @@ class Profile_Page_Screen extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             defaultButton(
-                              background: PrimaryColor,
+                              background: AppColors10.bluecielcolor,
                               function: () {
                                 navigateTo(context, profile());
                               },
@@ -102,13 +105,13 @@ class Profile_Page_Screen extends StatelessWidget {
                             ),
                             const SizedBox(height: 20),
                             defaultButton(
-                              background: PrimaryColor,
+                              background: Colors.blue,
                               function: () {},
                               text: 'Change Password',
                             ),
                             const SizedBox(height: 20),
                             defaultButton(
-                              background: Colors.redAccent,
+                              background: Colors.red,
                               function: () {
                                 signOut(context);
                               },

@@ -65,6 +65,7 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+              const SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
@@ -76,10 +77,19 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                         print(level);
                       });
                     },
+                  //   style: ElevatedButton.styleFrom(
+                  //    backgroundColor: Colors.blue, // Background color of the button
+                  //  textStyle: TextStyle(color: Colors.white), // Text color of the button
+                  //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Button padding
+                  //  shape: RoundedRectangleBorder(
+                  //    borderRadius: BorderRadius.circular(10), // Button border radius
+                  //   ),
+                  //   ),
                     child: Text('${index + 1}'),
-                  ),
+                 ),
                 ).toList(),
               ),
+             const SizedBox(height: 30,),
               Container(
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.symmetric(horizontal: 22),
@@ -89,6 +99,8 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+              const SizedBox(height: -5,),
+
               ConditionalBuilder(
                 condition: cubit.lesson?.data != null &&
                     cubit.lesson!.data!.isNotEmpty,

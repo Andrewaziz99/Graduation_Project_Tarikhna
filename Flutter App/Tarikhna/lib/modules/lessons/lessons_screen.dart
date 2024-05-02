@@ -9,6 +9,7 @@ import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/modules/lessons/search_screen.dart';
 import 'package:tarikhna/modules/quiz/quiz_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 
 import 'Lesson_Navigate_screen.dart';
 
@@ -17,7 +18,7 @@ void showLessonBottomSheet(String id) {
   scaffoldkey.currentState?.showBottomSheet((context) => Container(
     width: double.infinity,
     height: 300,
-    color: HexColor("D3C5C5"),
+    color: Colors.white,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -28,12 +29,13 @@ void showLessonBottomSheet(String id) {
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(100, 50),
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
-                backgroundColor: HexColor("FFF9F9"), // Change button color
+                backgroundColor:HexColor("B1AEFC")
+               , // Change button color
               ),
               onPressed: () {
                 navigateTo(context, Lesson_Navigate_Screen(id));
               },
-              child: const Text("Lesson Sum"),
+              child: const Text("Summary",style: TextStyle(color: Colors.white),),
             ),
             const SizedBox(
               width: 10,
@@ -42,12 +44,12 @@ void showLessonBottomSheet(String id) {
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(100, 50),
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
-                backgroundColor:HexColor("FFF9F9"), // Change button color
+                backgroundColor:HexColor("94D5B2"), // Change button color
               ),
               onPressed: () {
                 navigateTo(context, Ar_Main_screen());
               },
-              child: const Text('Ar Model'),
+              child: const Text('Ar Model',style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -56,7 +58,7 @@ void showLessonBottomSheet(String id) {
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(200, 50),
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
-            backgroundColor: HexColor("FFF9F9"), // Change button color
+            backgroundColor:HexColor("FDA3BF"), // Change button color
           ),
           onPressed: () {
             LessonsCubit.get(context).changeDialogState();
@@ -74,7 +76,7 @@ void showLessonBottomSheet(String id) {
             ).show();
             // navigateTo(context, QuizScreen(id));
           },
-          child: const Text('Quiz'),
+          child: const Text('Quiz',style: TextStyle(color: Colors.white)),
         ),
       ],
     ),
@@ -100,16 +102,41 @@ class LessonsScreen extends StatelessWidget {
         return Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset(
-              'assets/images/background.png',
-              fit: BoxFit.cover,
+          
+            ClipPath(
+              clipper: MyClipper(),
+              child: Container(
+                color: CustomPrimaryColor,
+                height: 400,
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: -150,
+                      right: -250,
+                      child: Tcircularcontainer(
+                        backgroundColor: CustomPrimaryColor.withOpacity(0.2),
+                      ),
+                    ),
+                    Positioned(
+                      top: 100,
+                      right: -300,
+                      child: Tcircularcontainer(
+                        backgroundColor: CustomPrimaryColor.withOpacity(0.2),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Scaffold(
               key: scaffoldkey,
               backgroundColor: Colors.transparent,
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
-                title: const Center(child: Text('Lessons')),
+                title: const Center(child: Text('Lessons',style: TextStyle(fontSize: 25.0),
+                    
+                          )),
                 actions: [
                   IconButton(
                     onPressed: () {
@@ -152,50 +179,50 @@ class LessonsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         defaultButton(
-                          background: Colors.blue.withOpacity(0.85),
+                          background: Colors.white,
                           radius: 20.0,
-                          width: 150,
-                          text: 'All Lessons',
+                          width: 130,
+                          text: 'All Lessons',tColor: Colors.black,
                           function: () {
                             cubit.getLessons();
                           },
                         ),
                         const SizedBox(
-                          width: 10.0,
+                          width: 20.0,
                         ),
                         defaultButton(
-                          background: Colors.blue.withOpacity(0.85),
+                          background:  Colors.white,
                           radius: 20.0,
-                          width: 150,
-                          text: 'New Lessons',
+                          width: 130,
+                          text: 'New Lessons',tColor: Colors.black,
                           function: () {
                             cubit.filterLesson(1);
                           },
                         ),
                         const SizedBox(
-                          width: 10.0,
+                          width: 20.0,
                         ),
                         defaultButton(
-                            background: Colors.blue.withOpacity(0.85),
+                            background:  Colors.white,
                             radius: 20.0,
-                            width: 150,
+                            width: 130,
                             function: () {
                               cubit.filterLesson(2);
                             },
-                            text: 'In Progress'),
+                            text: 'In Progress',tColor: Colors.black),
                         const SizedBox(
-                          width: 10.0,
+                          width: 20.0,
                         ),
                         defaultButton(
-                            background: Colors.blue.withOpacity(0.85),
+                            background:Colors.white,
                             radius: 20.0,
-                            width: 150,
+                            width: 130,
                             function: () {
                               cubit.filterLesson(3);
                             },
-                            text: 'done'),
+                            text: 'done',tColor: Colors.black),
                         const SizedBox(
-                          width: 10.0,
+                          width: 20.0,
                         ),
                       ],
                     ),
@@ -236,74 +263,116 @@ class LessonsScreen extends StatelessWidget {
     );
   }
 }
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height - 50);
+    path.quadraticBezierTo(
+        size.width / 2, size.height, size.width, size.height - 50);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
+class Tcircularcontainer extends StatelessWidget {
+
+  const Tcircularcontainer({
+    super.key,
+    this.child,
+    this.width=400,
+    this.height=400,
+    this.radius=400,
+    this.backgroundColor=Colors.white,
+    this.padding=0,
+
+  });
+  final double?width;
+  final double?height;
+  final double?padding;
+  final Widget?child;
+  final double?radius;
+  final Color backgroundColor;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 400,
+      height: 400,
+      padding: EdgeInsets.all(0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(400),
+        color: Colors.white.withOpacity(0.6),
+
+      ),
+    );
+  }
+}
+     
 
 
 
 
-Widget lessonItemBuilder(model) => Row(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  mainAxisAlignment: MainAxisAlignment.start,
-  children: [
-    Expanded(
-      child: Center(
-          child: GestureDetector(
-            onTap: () {
-// print(model.sId);
-              showLessonBottomSheet(model!.sId!);
-            },
-            child: Container(
-              height: 120.0,
-              color: Colors.white.withOpacity(0.5),
+Widget lessonItemBuilder(model) => Material(
+  elevation: 5, // Set the elevation value
+  borderRadius: BorderRadius.circular(15.0),
+  child: Container(
+    
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(15.0),
+      color: Colors.white,
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Center(
+            child: GestureDetector(
+              onTap: () {
+                // print(model.sId);
+                showLessonBottomSheet(model!.sId!);
+              },
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
+                padding: const EdgeInsets.all(9.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-// You might need this line
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${model.title}',
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textDirection: TextDirection.rtl,
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          'Unit ${model.unit}',
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.grey[800],
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+                    Text(
+                      '${model.title}',
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textDirection: TextDirection.rtl,
                     ),
-                    const Spacer(),
-                    // defaultButton(
-                    //   background: Colors.blue.withOpacity(0),
-                    //   tColor: Colors.blue,
-                    //   fSize: 16.0,
-                    //   radius: 20.0,
-                    //   width: 100,
-                    //   function: () {},
-                    //   text: 'Start',
-                    // ),
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    Text(
+                      'Unit ${model.unit}',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.grey[800],
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
               ),
             ),
-          )),
+          ),
+        ),
+      ],
     ),
-  ],
+  ),
 );
-

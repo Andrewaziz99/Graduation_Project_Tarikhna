@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:tarikhna/shared/styles/colors.dart';
+import 'package:tarikhna/shared/styles/themes.dart';
+
 
 
 ThemeData lightTheme = ThemeData(
   colorSchemeSeed: PrimaryColor,
   scaffoldBackgroundColor: Colors.white,
-  fontFamily: 'Jannah',
+  //  textTheme: GoogleFonts.robotoTextTheme(
+  //   Theme.of(context).textTheme,
+
+  fontFamily: 'Roboto',
+  
   appBarTheme: const AppBarTheme(
     titleSpacing: 20.0,
-    backgroundColor: PrimaryColor,
+    backgroundColor: AppColors4.navyblue,
     elevation: 0.0,
     titleTextStyle: TextStyle(
       color: Colors.black,
@@ -37,6 +43,7 @@ ThemeData lightTheme = ThemeData(
       color: Colors.black,
     ),
   ),
+  
 );
 
 ThemeData darkTheme = ThemeData(

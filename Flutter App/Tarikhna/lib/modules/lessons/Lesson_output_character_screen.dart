@@ -6,7 +6,6 @@ import 'package:tarikhna/models/Get_All_SavedItemmodel.dart';
 import 'package:tarikhna/models/lesson_model.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:timeline_tile/timeline_tile.dart';
-
 import '../../../models/AI_Save_Item_model.dart';
 import 'cubit/states.dart';
 
@@ -48,7 +47,7 @@ class Lesson_output_character_screen extends StatelessWidget {
                         child: Text(
                           "TEXT OUTPUT",
                           style: TextStyle(
-                            fontFamily: 'JacquesFrancois',
+                            fontFamily: 'Ro',
                             fontSize: 40,
                           ),
                         ),

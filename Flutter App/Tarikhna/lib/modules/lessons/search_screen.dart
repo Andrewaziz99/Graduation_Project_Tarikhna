@@ -6,7 +6,7 @@ import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/modules/quiz/quiz_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
-
+import 'package:tarikhna/shared/styles/colors.dart';
 import 'Lesson_Navigate_screen.dart';
 
 
@@ -84,10 +84,11 @@ class SearchScreen extends StatelessWidget {
         return Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset('assets/images/background.png', fit: BoxFit.cover),
+            //Image.asset('assets/images/background.png', fit: BoxFit.cover),
             Scaffold(
+              
               key: scaffoldkeySearch,
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.white,
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 title: const Center(child: Text('Search')),
@@ -100,6 +101,7 @@ class SearchScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(20.0),
+                       border: Border.all(color:CustomPrimaryColor, width: 5.0), 
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

@@ -85,7 +85,8 @@ class profile extends StatelessWidget {
           condition: profileModel != null,
           builder: (BuildContext context) =>  Scaffold(
             appBar: AppBar(
-              title: const Text("Edit Profile"),
+              title: const Text("Edit Profile",style: TextStyle(fontFamily:'Roboto'), 
+              ),
               centerTitle: true,
             ),
             body: SingleChildScrollView(
@@ -97,11 +98,18 @@ class profile extends StatelessWidget {
                     const Center(
                       child: CircleAvatar(
                         radius: 60,
-                        // backgroundImage: NetworkImage(
-                        //    "",
-                        // ),
+                        backgroundColor: AppColors3.navypink,
+
+                        
+                         backgroundImage: AssetImage("images/profile.png"),
+                                      // Image.asset(
+              //   'assets/images/background.png',
+                //fit: BoxFit.cover,
+              // ),
+                           
+                        ),
                       ),
-                    ),
+                    
                     const SizedBox(height: 20),
                     defaultFormField(
                       controller: usernameController,
@@ -151,9 +159,9 @@ class profile extends StatelessWidget {
                           print(academicYearController.text);
                         }
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 40),
                     defaultButton(
-                      background: PrimaryColor,
+                      background: Colors.blue,
                       function: () {
                         if(confirmNewPasswordController.text != newPasswordController.text){
                           CherryToast.error(
@@ -184,6 +192,8 @@ class profile extends StatelessWidget {
                         }
                       },
                       text: 'update',
+                    
+                      
                     ),
 
 

@@ -54,6 +54,7 @@ dependencies:
   awesome_dialog: ^3.2.0
   file_picker: ^8.0.0+1
   flutter_tesseract_ocr: ^0.4.24
+  
 
 dev_dependencies:
   flutter_test:
@@ -97,10 +98,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-#  fonts:
-#    - family: JacquesFrancois
-#      fonts:
-#        - asset: assets/fonts/JacquesFrancois.ttf
+  fonts:
+   - family: Roboto
+     fonts:
+       - asset: assets/fonts/Roboto-Regular.ttf
 # fonts:
 #   - family: Schyler
 #     fonts:

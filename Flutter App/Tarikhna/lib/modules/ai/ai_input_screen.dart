@@ -60,7 +60,7 @@ class AiInputScreen extends StatelessWidget {
                     borderOnForeground: true,
 
                     child: Text(
-                      'AI Summarization',
+                      'Ai Summarization',
                       style: TextStyle(
                           fontSize: 35, // Adjust font size as needed
                           fontWeight: FontWeight.bold,
@@ -80,7 +80,9 @@ class AiInputScreen extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     maxLines: 20,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderSide:  BorderSide(color: Colors.purple, width: 1.0),
+                      ),
                       labelText: 'Enter the text here',
                     ),
                   ),
@@ -90,7 +92,7 @@ class AiInputScreen extends StatelessWidget {
                 ),
                 Text("OR",
                     style: TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: HexColor('5E8BFF'))),
                 const SizedBox(

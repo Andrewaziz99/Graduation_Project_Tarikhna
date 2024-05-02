@@ -1,3 +1,4 @@
+
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -53,12 +54,12 @@ class LoginScreen extends StatelessWidget {
           return Stack(
             fit: StackFit.expand,
             children: [
-              Image.asset(
-                'assets/images/background.png',
-                fit: BoxFit.cover,
-              ),
+              // Image.asset(
+              //   'assets/images/background.png',
+              //   fit: BoxFit.cover,
+              // ),
               Scaffold(
-                backgroundColor: Colors.transparent,
+                backgroundColor: CustomPrimaryColor ,
                 appBar: AppBar(
                   backgroundColor: Colors.transparent,
                 ),
@@ -71,7 +72,7 @@ class LoginScreen extends StatelessWidget {
                         child: Container(
                           padding: const EdgeInsets.all(20.0),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.5),
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Column(
@@ -155,7 +156,7 @@ class LoginScreen extends StatelessWidget {
                                   text: 'login',
                                   isUpperCase: true,
                                   radius: 3.0,
-                                  background: PrimaryColor,
+                                  background:CustomPrimaryColor ,
                                 ),
                                 fallback: (BuildContext context) =>
                                     const Center(
@@ -168,7 +169,7 @@ class LoginScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    'Don\'t have an account?',
+                                    'Don\'t have an account?', 
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -177,7 +178,7 @@ class LoginScreen extends StatelessWidget {
                                     child: const Text(
                                       'register now',
                                       style: TextStyle(
-                                          // color: PrimaryColor,
+                                           color: CustomPrimaryColor ,
                                           ),
                                     ),
                                   ),

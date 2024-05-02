@@ -14,7 +14,7 @@ class Ar_Main_screen extends StatelessWidget {
       listener: (context, state) {
         // TODO: implement listener
         if (state is AROpenWidget) {
-          navigateTo(context, LocalAndWebObjectsWidget());
+          //navigateTo(context, LocalAndWebObjectsWidget());
         }
       },
       child: BlocProvider(

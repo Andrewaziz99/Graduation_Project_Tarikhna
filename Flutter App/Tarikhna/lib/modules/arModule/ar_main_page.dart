@@ -16,7 +16,7 @@ class AR_Main extends StatelessWidget {
     return BlocListener<ArCubit, ArState>(
       listener: (context, state) {
         if (state is AROpenWidget) {
-          navigateTo(context, LocalAndWebObjectsWidget());
+         // navigateTo(context, LocalAndWebObjectsWidget());
         }
       },
       child: BlocProvider(

@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/modules/lessons/Lesson_output_character_screen.dart';
 
 import 'package:tarikhna/shared/components/components.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 
 import 'Lesson_output_date_screen.dart';
 
@@ -34,7 +35,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'JacquesFrancois',
+                fontFamily: 'Roboto',
               ),
             ),
           ),
@@ -51,7 +52,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                   height: 100.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: HexColor('5E8BFF'),
+                    color:  CustomPrimaryColor,
                   ),
                   child: MaterialButton(
                     onPressed: () {
@@ -79,7 +80,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                   height: 100.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: HexColor('5E8BFF'),
+                    color: CustomPrimaryColor,
                   ),
                   child: MaterialButton(
                     onPressed: () {
