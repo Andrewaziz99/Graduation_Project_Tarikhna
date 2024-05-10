@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/models/Get_All_SavedItemmodel.dart';
 import 'package:tarikhna/models/lesson_model.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import '../../../models/AI_Save_Item_model.dart';
 import 'cubit/states.dart';
@@ -26,9 +27,9 @@ class Lesson_output_character_screen extends StatelessWidget {
         var data = lessonmodel?.data?.firstWhere((element) => element.sId == id);
 
         return Scaffold(
-          backgroundColor: HexColor("FFF9F9"),
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: HexColor("FFF9F9"),
+            backgroundColor: Colors.white,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -47,7 +48,7 @@ class Lesson_output_character_screen extends StatelessWidget {
                         child: Text(
                           "TEXT OUTPUT",
                           style: TextStyle(
-                            fontFamily: 'Ro',
+                            fontFamily: 'Roboto',
                             fontSize: 40,
                           ),
                         ),
@@ -84,7 +85,7 @@ class Lesson_output_character_screen extends StatelessWidget {
                                   beforeLineStyle: LineStyle(color: HexColor('D3C5C5')),
                                   indicatorStyle: IndicatorStyle(
                                     width: 40,
-                                    color: HexColor('D3C5C5'),
+                                    color: AppColors8.navypurple,
                                     iconStyle: IconStyle(
                                       iconData: Icons.arrow_downward_rounded,
                                       color: Colors.white,
@@ -128,24 +129,36 @@ Widget TextSummarizedBuilder(CharacterModel? character, DateModel date, int inde
         Column(
           children: [
             Container(
+              width: 300,
+              height: 100,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: HexColor('D3C5C5'),
+                color: Color.fromARGB(255, 185, 212, 246),
+                  border: Border.all(
+                  color: Colors.black,
+                  //Appcolrs.navypurple
+                    // Border color
+                       width: 2,            // Border width
+                    ),
+                
               ),
               child: ListTile(
                 title: Text(character?.events ?? '',
+                textAlign: TextAlign.center, 
                   style: TextStyle(fontWeight: FontWeight.w900),
+                  
                 ),
                 leading: CircleAvatar(
                   child: Text(character?.nameOfCharacter ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
-                        fontWeight: FontWeight.w900,fontSize: 9
+                        fontWeight: FontWeight.w900,fontSize: 16
                     ),
                   ),
-                  radius: 30,
-                  backgroundColor: Colors.white,
+                  radius:30,
+                  backgroundColor: AppColors8.navypurple
+                  ,
                 ),
               ),
             ),

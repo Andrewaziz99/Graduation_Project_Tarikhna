@@ -10,7 +10,6 @@ import 'package:tarikhna/modules/lessons/search_screen.dart';
 import 'package:tarikhna/modules/quiz/quiz_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
 import 'package:tarikhna/shared/styles/colors.dart';
-
 import 'Lesson_Navigate_screen.dart';
 
 

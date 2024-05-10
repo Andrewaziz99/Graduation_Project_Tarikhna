@@ -90,7 +90,11 @@ class AppColors11 {
 class AppColors12 {
   static const Color greencolor = Color(0xFFDFFFD8
 
-); }
+);  }
+class AppColors13 {
+  static const Color summary = Color(0xFFB1AEFC
+
+);  }
 
 
 

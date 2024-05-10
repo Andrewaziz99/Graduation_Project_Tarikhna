@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/models/Get_All_SavedItemmodel.dart';
 import 'package:tarikhna/models/lesson_model.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../models/AI_Save_Item_model.dart';
@@ -26,9 +27,9 @@ class Lesson_output_date_screen extends StatelessWidget {
         var data = lessonmodel?.data?.firstWhere((element) => element.sId == id);
 
         return Scaffold(
-          backgroundColor: HexColor("FFF9F9"),
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: HexColor("FFF9F9"),
+            backgroundColor: Colors.white,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -37,7 +38,7 @@ class Lesson_output_date_screen extends StatelessWidget {
                 children: [
                   if (data != null && data.Dates != null && data.Dates!.isNotEmpty)
                     Container(
-                      width: 300,
+                      width: 400,
                       height: 70,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -74,10 +75,10 @@ class Lesson_output_date_screen extends StatelessWidget {
                                 child: TimelineTile(
                                   isFirst: isFirst,
                                   isLast: isLast,
-                                  beforeLineStyle: LineStyle(color: HexColor('D3C5C5')),
+                                  beforeLineStyle: LineStyle(color: AppColors8.navypurple),
                                   indicatorStyle: IndicatorStyle(
                                     width: 40,
-                                    color: HexColor('D3C5C5'),
+                                    color:AppColors8.navypurple,
                                     iconStyle: IconStyle(
                                       iconData: Icons.arrow_downward_rounded,
                                       color: Colors.white,
@@ -122,31 +123,41 @@ Widget TextSummarizedBuilder(DateModel date, int index, int length) {
         Column(
           children: [
             Container(
+               width: 300,
+              height: 100,
 
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: HexColor('D3C5C5'),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+               color: Color.fromARGB(255, 185, 212, 246),
+                  border: Border.all(
+                   color: Colors.black,
+                   //AppColors8.navypurple,  // Border color
+                       width: 2,            // Border width
+                    ),
               ),
               child: ListTile(
                 title: Text(
                   date.event ?? '',
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.w900),
                 ),
                 leading: Container(
                   alignment: Alignment.center,
-                  width: 70, // Adjust width according to your requirement
-                  height: 70, // Adjust height according to your requirement
+                  width: 85, // Adjust width according to your requirement
+                  height: 85, // Adjust height according to your requirement
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
 
+
                     color: Colors.white, // Change color here
                   ),
+                  
                   child: Center(child: Text(
                     date.date ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black, // Change text color here
-                        fontWeight: FontWeight.w900,fontSize: 10
+                        fontWeight: FontWeight.w900,fontSize:15
                     ),
                   ),),
                 ),
@@ -158,4 +169,3 @@ Widget TextSummarizedBuilder(DateModel date, int index, int length) {
     ),
   );
 }
-
