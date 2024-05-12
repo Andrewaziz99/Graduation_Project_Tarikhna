@@ -147,10 +147,12 @@ class profile extends StatelessWidget {
                     defaultButton(
                       background: Colors.blue,
                       function: () {
+                        newPasswordController.text = oldPasswordController.text;
                           cubit.updateProfile(
                             name: usernameController.text,
                             email: emailController.text,
-                            oldPassword: oldPasswordController.text,
+                            year: academicYearController.text,
+
                           );
                       },
                       text: 'update',
