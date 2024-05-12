@@ -9,6 +9,7 @@ import 'package:tarikhna/modules/exam_header.dart';
 
 import 'package:card_swiper/card_swiper.dart';
 import 'package:tarikhna/modules/lessons/lessons_screen.dart';
+import 'package:tarikhna/modules/navbar/navbar.dart';
 import 'package:tarikhna/shared/components/components.dart';
 import 'const.dart';
 import 'main_card_statefull.dart';
@@ -53,7 +54,7 @@ class MainExamScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    "Quiz",
+                                    "Exam",
                                     style: TextStyle(
                                       color: titleTextColor,
                                       fontSize: 45,
@@ -64,7 +65,7 @@ class MainExamScreen extends StatelessWidget {
                                   const Spacer(),
                                   IconButton(
                                     onPressed: () {
-                                      navigateAndFinish(context, LessonsScreen());
+                                      navigateAndFinish(context, NavBar_Page());
                                     },
                                     icon: const Icon(Icons.home),
                                   ),
@@ -132,8 +133,10 @@ class MainExamScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: 600,
+                          height: MediaQuery.of(context).size.height * 0.7,
                           child: Swiper(
+                            containerHeight: MediaQuery.of(context).size.height,
+                            containerWidth: MediaQuery.of(context).size.width,
                             onIndexChanged: (value) {
 
 
@@ -159,90 +162,197 @@ class MainExamScreen extends StatelessWidget {
                               ),
                             ),
                             itemBuilder: (context, index) {
-                              return Stack(
+                              return Column(
                                 children: [
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 400,
-                                        child: Card(
-                                          elevation: 8,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(32),
-                                          ),
-                                          color: Colors.white,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(34.0),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.7,
+                                    child: Card(
+                                      elevation: 8,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(32),
+                                      ),
+                                      color: Colors.white,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(34.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              cubit.quizModel!.data![index].questions,
+                                              style: TextStyle(
+                                                color: primaryTextColor,
+                                                fontWeight: FontWeight.w900,
+                                                fontFamily: 'Avenir',
+                                                fontSize: 25,
+
+                                              ),
+                                              textAlign: TextAlign.right,
+                                            ),
+                                            const SizedBox(
+                                              height: 120,
+                                            ),
+
+                                            Column(
                                               children: [
-                                                Text(
-                                                  cubit.quizModel!.data![index].questions,
-                                                  style: TextStyle(
-                                                    color: primaryTextColor,
-                                                    fontWeight: FontWeight.w900,
-                                                    fontFamily: 'Avenir',
-                                                    fontSize: 20,
-
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors
+                                                        .lightBlueAccent
+                                                        .withOpacity(0.6),
+                                                    borderRadius:
+                                                    BorderRadius.circular(25),
                                                   ),
-                                                  textAlign: TextAlign.right,
-                                                ),
-                                                const SizedBox(
-                                                  height: 24,
-                                                ),
-
-                                                Column(
-                                                  children: List.generate(
-                                                    cubit.quizModel!.data![index].choices.length * 2 - 1,
-                                                        (choiceIndex) {
-                                                      // If the index is odd, return a separator
-                                                      if (choiceIndex.isOdd) {
-                                                        return const SizedBox(height: 10); // Adjust the height of the separator as needed
-                                                      }
-                                                      // Calculate the actual index of the choice
-                                                      final actualIndex = choiceIndex ~/ 2;
-                                                      var choice = cubit.quizModel!.data![index].choices[actualIndex];
-                                                      return RadioMenuButton(
-                                                        value: actualIndex,
-                                                        groupValue: cubit.selectedOption,
-                                                        style: ButtonStyle(
-                                                          shape: MaterialStatePropertyAll(
-                                                            RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(10),
-                                                            ),
-                                                          ),
-                                                          elevation: MaterialStateProperty.all(2),
-                                                          backgroundColor: MaterialStatePropertyAll(
-                                                            meduim,
-                                                          ),
-                                                        ),
-                                                        onChanged: (val) {
-                                                          cubit.selectedOption = val;
-                                                          print(cubit.selectedOption);
-                                                          cubit.changeSelectedOption(val);
-
-                                                        },
-                                                        child: Expanded(
-                                                          child: Text(choice,
-                                                            maxLines: 2,
-                                                            overflow: TextOverflow.ellipsis,
-                                                            style: const TextStyle(
-                                                              fontSize: 12,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
+                                                  child: RadioListTile(
+                                                    value: 0,
+                                                    title: Text(
+                                                      cubit.quizModel?.data[index].choices[0] ?? '',
+                                                      style: TextStyle(
+                                                        color:
+                                                        primaryTextColor,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w900,
+                                                        fontFamily:
+                                                        'Avenir',
+                                                      ),
+                                                      textAlign:
+                                                      TextAlign.right,
+                                                    ),
+                                                    groupValue: cubit
+                                                        .selectedOption,
+                                                    onChanged: (val) {
+                                                      cubit.selectedOption =
+                                                          val;
+                                                      cubit
+                                                          .changeSelectedOption(
+                                                          val);
                                                     },
                                                   ),
                                                 ),
-
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors
+                                                        .lightBlueAccent
+                                                        .withOpacity(0.6),
+                                                    borderRadius:
+                                                    BorderRadius.circular(25),
+                                                  ),
+                                                  child: RadioListTile(
+                                                    value: 1,
+                                                    title: Text(
+                                                      cubit.quizModel?.data[index].choices[1] ?? '',
+                                                      style: TextStyle(
+                                                        color:
+                                                        primaryTextColor,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w900,
+                                                        fontFamily:
+                                                        'Avenir',
+                                                      ),
+                                                      textAlign:
+                                                      TextAlign.right,
+                                                    ),
+                                                    groupValue: cubit
+                                                        .selectedOption,
+                                                    onChanged: (val) {
+                                                      cubit.selectedOption =
+                                                          val;
+                                                      cubit
+                                                          .changeSelectedOption(
+                                                          val);
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors
+                                                        .lightBlueAccent
+                                                        .withOpacity(0.6),
+                                                    borderRadius:
+                                                    BorderRadius.circular(25),
+                                                  ),
+                                                  child: RadioListTile(
+                                                    value: 2,
+                                                    title: Text(
+                                                      cubit.quizModel?.data[index].choices[2] ?? '',
+                                                      style: TextStyle(
+                                                        color:
+                                                        primaryTextColor,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w900,
+                                                        fontFamily:
+                                                        'Avenir',
+                                                      ),
+                                                      textAlign:
+                                                      TextAlign.right,
+                                                    ),
+                                                    groupValue: cubit
+                                                        .selectedOption,
+                                                    onChanged: (val) {
+                                                      cubit.selectedOption =
+                                                          val;
+                                                      cubit
+                                                          .changeSelectedOption(
+                                                          val);
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors
+                                                        .lightBlueAccent
+                                                        .withOpacity(0.6),
+                                                    borderRadius:
+                                                    BorderRadius.circular(25),
+                                                  ),
+                                                  child: RadioListTile(
+                                                    value: 3,
+                                                    title: Text(
+                                                      cubit.quizModel?.data[index].choices[3] ?? '',
+                                                      style: TextStyle(
+                                                        color:
+                                                        primaryTextColor,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w900,
+                                                        fontFamily:
+                                                        'Avenir',
+                                                      ),
+                                                      textAlign:
+                                                      TextAlign.right,
+                                                    ),
+                                                    groupValue: cubit
+                                                        .selectedOption,
+                                                    onChanged: (val) {
+                                                      cubit.selectedOption =
+                                                          val;
+                                                      cubit
+                                                          .changeSelectedOption(
+                                                          val);
+                                                    },
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
                                               ],
                                             ),
-                                          ),
+
+                                          ],
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               );
