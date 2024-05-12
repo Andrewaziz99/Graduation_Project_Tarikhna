@@ -104,14 +104,20 @@ class AiInputScreen extends StatelessWidget {
                     radius: 20.0,
                     fSize: 20.0,
                     function: () async{
-                      FilePickerResult? result = await FilePicker.platform.pickFiles();
+                      FilePickerResult? result = await FilePicker.platform.pickFiles(
+                          allowMultiple: true,
+                          type: FileType.custom,
+                          allowedExtensions: ['jpg', 'png', 'jpeg']);
+
                       if (result != null) {
-                        File file = File(result.files.single.path!);
-                        fileName = file.path;
-                        print(fileName);
-                        extractedText = await extractTextFromImg(file.path);
-                        inputTextController.text += extractedText;
-                        print(extractedText);
+                        List<File> files = result.paths.map((path) => File(path!)).toList();
+                        for (File file in files) {
+                          String fileName = file.path;
+                          print(fileName);
+                          String extractedText = await extractTextFromImg(file.path);
+                          inputTextController.text = extractedText;
+                          print(extractedText);
+                        }
                       } else {
                         // User canceled the picker
                       }
@@ -142,16 +148,6 @@ class AiInputScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                const Row(
-                  children: [
-                    Spacer(),
-                    // Image(
-                    //     width: 200.0,
-                    //     height: 200.0,
-                    //     image: NetworkImage(
-                    //         'https://s3-alpha-sig.figma.com/img/8e09/eedf/3277c2a4f41333d2c8e57c68878934e4?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FE66zTa9UK2BsPWoZ~VKNeTG4PH46lK6T2HYXcGZvh~qjOkWG4GuN6uZJ59FmemW0utxZx7EeDzIoKuHENGAZC4sQLH0xN1ppGBjLuMm04vvsHq5oAS3H7SYuVhbXkoLVfCElvCpg8ARiTXcaBOdhoNffQTiqxKeOznxkmJ8bXVs5jYoZ0CXx-Chy~ZDQMVDcxcwOOkcySRKwCS2YK2RqOkb-mbH8rnV4lIguwJ5MtBK~BILF8O06HNW2MbDDb-7PynuZJx9sfLa3IPyhy5UrqWwQDvc7U-Zz4y4xiZu2PEOJkQghEC5Jr25AYLdseZreGamno4vhCDHXvhYM7IL9A__')),
-                  ],
-                )
               ],
             ),
           ),
@@ -161,15 +157,7 @@ class AiInputScreen extends StatelessWidget {
   }
 
   Future<String> extractTextFromImg(String pdfPath) async {
-    // Directory appDocDir = await getApplicationDocumentsDirectory();
-    // String tessDataDirPath = '${appDocDir.path}/tessdata';
-
-    // Specify the language(s) used for OCR (e.g., 'eng' for English)
     List<String> languages = ['ara', 'eng'];
-
-
-    // final Uint8List bytes = pdfPath.buffer.asUint8List();
-    // Perform OCR on the PDF file
     String extractedText = await FlutterTesseractOcr.extractText(
       pdfPath,
       language: languages.first,);
