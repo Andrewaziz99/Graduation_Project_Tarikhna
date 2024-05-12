@@ -84,8 +84,8 @@ class MainExamScreen extends StatelessWidget {
                             Center(
                               child: CircularCountDownTimer(
                                 controller: cubit.countDownController,
-                                width: 50.0,
-                                height: 50.0,
+                                width: 100.0,
+                                height: 100.0,
                                 duration: 180,
                                 fillColor: Colors.white,
                                 ringColor: primaryTextColor,
@@ -121,7 +121,7 @@ class MainExamScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                '${cubit.correctAnswers} / ${cubit.quizModel!.data!.length}',
+                                'Time Left',
                                 style: TextStyle(
                                   color: primaryTextColor,
                                   fontSize: 30,

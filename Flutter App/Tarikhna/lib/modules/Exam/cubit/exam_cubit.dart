@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/models/Exam_Model.js.dart';
 import 'package:tarikhna/modules/Exam/exam_leading_page.dart';
+import 'package:tarikhna/modules/navbar/navbar.dart';
 import 'package:tarikhna/shared/components/components.dart';
 import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
@@ -208,7 +209,7 @@ class ExamCubit extends Cubit<ExamStates> {
         ),
         btnOkText: 'OK',
         btnOkOnPress: () {
-          navigateTo(context,ExamLeadingPage() );
+          navigateTo(context,NavBar_Page() );
           correctAnswers = 0;
           wrongAnswers = 0;
         },
@@ -262,7 +263,7 @@ class ExamCubit extends Cubit<ExamStates> {
         ),
         btnOkText: 'Try Again',
         btnOkOnPress: () {
-          navigateTo(context, ExamLeadingPage());
+          navigateTo(context, NavBar_Page());
 
           correctAnswers = 0;
           wrongAnswers = 0;
