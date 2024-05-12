@@ -102,7 +102,7 @@ class MainExamScreen extends StatelessWidget {
                                     title: 'Time Out',
                                     desc: 'You have run out of time',
                                     btnCancelOnPress: () {
-                                      Navigator.pop(context);
+                                      navigateTo(context, NavBar_Page());
                                     },
                                     btnOkText: 'Restart',
                                     btnOkOnPress: () {
