@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:tarikhna/shared/styles/colors.dart';
 
@@ -5,40 +6,40 @@ import '../../modules/lessons/lessons_screen.dart';
 import '../../modules/lessons/search_screen.dart';
 
 void navigateTo(context, widget) => Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ),
-    );
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
+);
 
 void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ),
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
       (route) => false,
-    );
+);
 
 Widget myDivider() => Padding(
-      padding: const EdgeInsetsDirectional.only(
-        start: 20.0,
-      ),
-      child: Container(
-        width: double.infinity,
-        height: 1.0,
-        color: Colors.amberAccent,
-      ),
-    );
+  padding: const EdgeInsetsDirectional.only(
+    start: 20.0,
+  ),
+  child: Container(
+    width: double.infinity,
+    height: 1.0,
+    color: Colors.amberAccent,
+  ),
+);
 
 Widget myVerticalDivider() => Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 20.0,
-      ),
-      child: Container(
-        width: 1.0,
-        color: Colors.amberAccent,
-      ),
-    );
+  padding: const EdgeInsets.symmetric(
+    vertical: 20.0,
+  ),
+  child: Container(
+    width: 1.0,
+    color: Colors.amberAccent,
+  ),
+);
 
 Widget defaultButton({
   double width = double.infinity,
@@ -100,11 +101,47 @@ Widget defaultFormField({
         prefixIcon: Icon(prefix),
         suffixIcon: suffix != null
             ? IconButton(
-                onPressed: suffixPressed,
-                icon: Icon(suffix),
-              )
+          onPressed: suffixPressed,
+          icon: Icon(suffix),
+        )
             : null,
         border: OutlineInputBorder(borderRadius: radius),
+      ),
+    );
+
+Widget newFormField({
+  required TextEditingController controller,
+  required TextInputType type,
+  required String label,
+  required String? Function(String?)? validate,
+  Function(String)? onSubmit,
+  Function(String)? onChange,
+  Function()? suffixPressed,
+  Function()? onTap,
+  bool isPassword = false,
+  IconData? prefix,
+  IconData? suffix,
+  bool isClickable = true,
+  BorderRadius radius = BorderRadius.zero,
+}) =>
+    TextFormField(
+      controller: controller,
+      keyboardType: type,
+      obscureText: isPassword,
+      enabled: isClickable,
+      onFieldSubmitted: onSubmit,
+      onChanged: onChange,
+      onTap: onTap,
+      validator: validate,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(prefix),
+        suffixIcon: suffix != null
+            ? IconButton(
+          onPressed: suffixPressed,
+          icon: Icon(suffix),
+        )
+            : null,
       ),
     );
 

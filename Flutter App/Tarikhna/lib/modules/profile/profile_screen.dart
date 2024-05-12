@@ -130,23 +130,7 @@ class profile extends StatelessWidget {
                     defaultFormField(
                       controller: oldPasswordController,
                       type: TextInputType.text,
-                      label: "Old Password",
-                      prefix: Icons.lock,
-                      validate: (value){},
-                    ),
-                    const SizedBox(height: 10),
-                    defaultFormField(
-                      controller: newPasswordController,
-                      type: TextInputType.text,
-                      label: "New Password",
-                      prefix: Icons.lock,
-                      validate: (value){},
-                    ),
-                    const SizedBox(height: 10),
-                    defaultFormField(
-                      controller: confirmNewPasswordController,
-                      type: TextInputType.text,
-                      label: "Confirm New Password",
+                      label: "Password",
                       prefix: Icons.lock,
                       validate: (value){},
                     ),
@@ -163,33 +147,11 @@ class profile extends StatelessWidget {
                     defaultButton(
                       background: Colors.blue,
                       function: () {
-                        if(confirmNewPasswordController.text != newPasswordController.text){
-                          CherryToast.error(
-                            toastDuration: const Duration(seconds: 5),
-                            title: const Text('Error'),
-                            enableIconAnimation: true,
-                            description: const Text('Passwords do not match'),
-                          ).show(context);
-                          return;
-                        }else if(oldPasswordController.text.isNotEmpty && newPasswordController.text.length < 6){
-                          CherryToast.error(
-                            toastDuration: const Duration(seconds: 5),
-                            title: const Text('Error'),
-                            enableIconAnimation: true,
-                            description: const Text('Password must be at least 6 characters'),
-                          ).show(context);
-                          return;
-                        }else{
-                          print(oldPasswordController.text.length);
-                          print(newPasswordController.text.length);
                           cubit.updateProfile(
                             name: usernameController.text,
                             email: emailController.text,
                             oldPassword: oldPasswordController.text,
-                            newPassword: newPasswordController.text,
-                            year: academicYearController.text,
                           );
-                        }
                       },
                       text: 'update',
                     

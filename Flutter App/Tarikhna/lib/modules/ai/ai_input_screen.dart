@@ -52,7 +52,7 @@ class AiInputScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Center(
+                const Center(
                   child: Material(
                     elevation: 10, // Set the elevation here
 
@@ -110,7 +110,7 @@ class AiInputScreen extends StatelessWidget {
                         fileName = file.path;
                         print(fileName);
                         extractedText = await extractTextFromImg(file.path);
-                        inputTextController.text = extractedText;
+                        inputTextController.text += extractedText;
                         print(extractedText);
                       } else {
                         // User canceled the picker
@@ -131,7 +131,7 @@ class AiInputScreen extends StatelessWidget {
                   function: () {
                     AICubit.get(context)
                         .TextSummarization(inputData: inputTextController.text);
-                    navigateTo(context, Navigate_Screen());
+                    navigateTo(context, const Navigate_Screen());
                   },
                   text: 'Summarize',
                   background: HexColor('5E8BFF'),
@@ -142,7 +142,7 @@ class AiInputScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                Row(
+                const Row(
                   children: [
                     Spacer(),
                     // Image(

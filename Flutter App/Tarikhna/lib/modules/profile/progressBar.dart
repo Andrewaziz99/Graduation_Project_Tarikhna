@@ -2,7 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
+// import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
+import 'package:tarikhna/modules/profile/change_password_screen.dart';
 import 'package:tarikhna/modules/profile/cubit/cubit.dart';
 import 'package:tarikhna/modules/profile/cubit/states.dart';
 import 'package:tarikhna/modules/profile/profile_screen.dart';
@@ -22,111 +23,115 @@ class Profile_Page_Screen extends StatelessWidget {
         var cubit = ProfileCubit.get(context);
         var profileModel = cubit.profileModel;
         return Scaffold(
-          body: ConditionalBuilder(
-              condition: profileModel != null,
-              builder: (BuildContext context) {
-                return Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      Stack(children: [
-                        Container(
-                            padding: const EdgeInsets.only(top: 20),
-                            width: 200,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 4, color: Colors.white),
-                              boxShadow: [
-                                BoxShadow(
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                    color: Colors.black.withOpacity(0.1))
-                              ],
-                              shape: BoxShape.circle,
-                              image: const DecorationImage(
-                                image: AssetImage("images/profile.png"),
-                                fit: BoxFit.cover,
-                                
-                                
-                                 
-                                
-                              ),
-                            )),
-                      ]),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Name: ${profileModel!.data!.name}',
-                              style: const TextStyle(fontSize: 20)),
-                          const SizedBox(height: 30),
-                        ],
-                      ),
-                      // SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Email: ${profileModel.data!.email}',
-                              style: const TextStyle(fontSize: 20)),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(20.0),
-                      ),
-                      Container(
-                        child: Column(
-                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          body: SingleChildScrollView(
+            child: ConditionalBuilder(
+                condition: profileModel != null,
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 30),
+                        Stack(children: [
+                          Container(
+                              padding: const EdgeInsets.only(top: 20),
+                              width: 200,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 4, color: Colors.white),
+                                boxShadow: [
+                                  BoxShadow(
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      color: Colors.black.withOpacity(0.1))
+                                ],
+                                shape: BoxShape.circle,
+                                image: const DecorationImage(
+                                  image: AssetImage("images/profile.png"),
+                                  fit: BoxFit.cover,
+
+
+
+
+                                ),
+                              )),
+                        ]),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: CircularPercentIndicator(
-                                animation: true,
-                                animationDuration: 500,
-                                radius: 50,
-                                lineWidth: 15,
-                                percent: 01,
-                                linearGradient: const LinearGradient(
-                                  colors: [AppColors5.mauve, AppColors4.navyblue],
-                                ),
-                                circularStrokeCap: CircularStrokeCap.round,
-                                center: const Text(
-                                  "40%",
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            defaultButton(
-                              background: AppColors10.bluecielcolor,
-                              function: () {
-                                navigateTo(context, profile());
-                              },
-                              text: 'Edit Profile',
-                            ),
-                            const SizedBox(height: 20),
-                            defaultButton(
-                              background: Colors.blue,
-                              function: () {},
-                              text: 'Change Password',
-                            ),
-                            const SizedBox(height: 20),
-                            defaultButton(
-                              background: Colors.red,
-                              function: () {
-                                signOut(context);
-                              },
-                              text: 'Sign out',
-                            ),
+                            Text('Name: ${profileModel!.data!.name}',
+                                style: const TextStyle(fontSize: 20)),
+                            const SizedBox(height: 30),
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                );
-              },
-              fallback: (BuildContext context) => const Center(
-                    child: CircularProgressIndicator(),
-                  )),
+                        // SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Email: ${profileModel.data!.email}',
+                                style: const TextStyle(fontSize: 20)),
+                          ],
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.all(20.0),
+                        ),
+                        Container(
+                          child: Column(
+                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: CircularPercentIndicator(
+                                  animation: true,
+                                  animationDuration: 500,
+                                  radius: 50,
+                                  lineWidth: 15,
+                                  percent: 0.5,
+                                  linearGradient: const LinearGradient(
+                                    colors: [Colors.green, Colors.blue],
+                                  ),
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  center: const Text(
+                                    "50%",
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              defaultButton(
+                                background: AppColors10.bluecielcolor,
+                                function: () {
+                                  navigateTo(context, profile());
+                                },
+                                text: 'Edit Profile',
+                              ),
+                              const SizedBox(height: 20),
+                              defaultButton(
+                                background: Colors.blue,
+                                function: () {
+                                  navigateTo(context, ChangePassScreen());
+                                },
+                                text: 'Change Password',
+                              ),
+                              const SizedBox(height: 20),
+                              defaultButton(
+                                background: Colors.red,
+                                function: () {
+                                  signOut(context);
+                                },
+                                text: 'Sign out',
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                fallback: (BuildContext context) => const Center(
+                      child: CircularProgressIndicator(),
+                    )),
+          ),
         );
       },
     );

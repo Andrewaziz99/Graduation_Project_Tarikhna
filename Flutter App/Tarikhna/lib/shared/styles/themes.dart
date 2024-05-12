@@ -5,7 +5,7 @@ import 'package:tarikhna/shared/styles/themes.dart';
 
 
 ThemeData lightTheme = ThemeData(
-  colorSchemeSeed: PrimaryColor,
+  colorSchemeSeed: SecondaryColor,
   scaffoldBackgroundColor: Colors.white,
   //  textTheme: GoogleFonts.robotoTextTheme(
   //   Theme.of(context).textTheme,
@@ -47,7 +47,7 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-  colorSchemeSeed: PrimaryColor,
+  colorSchemeSeed: SecondaryColor,
   scaffoldBackgroundColor: Colors.grey[900],
   fontFamily: 'Jannah',
   appBarTheme: const AppBarTheme(

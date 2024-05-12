@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/modules/ai/ai_input_screen.dart';
@@ -5,6 +6,7 @@ import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/home/cubit/home_page_cubit.dart';
 import 'package:tarikhna/modules/lessons/lessons_screen.dart';
 import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
+import 'package:tarikhna/modules/profile/cubit/cubit.dart';
 export 'homePage.dart';
 import 'package:tarikhna/shared/components/components.dart';
 
@@ -18,8 +20,17 @@ class Home_Page_Screen extends StatefulWidget {
 class _Home_Page_ScreenState extends State<Home_Page_Screen> {
   @override
   Widget build(BuildContext context) {
-    String name = "Nourhane";
-    var size = MediaQuery.of(context).size;
+
+    String Greeting() {
+      var time = DateTime.now().hour;
+      if (time < 12) {
+        return 'Good Morning!';
+      } else if (time < 18) {
+        return 'Good Afternoon!';
+      } else {
+        return 'Good Evening!';
+      }
+    }    var size = MediaQuery.of(context).size;
     return BlocProvider(
       create: (context) => HomePageCubit(),
       child: BlocConsumer<HomePageCubit, HomePageState>(
@@ -31,6 +42,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
           } else if (state is OpenDrawer) {}
         },
         builder: (context, state) {
+          var cubit = ProfileCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
               child: Stack(
@@ -44,22 +56,30 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                           alignment: Alignment.centerLeft,
                           child: Column(
                             children: [
-                              const Row(
+                              Row(
                                 children: [
                                   Text(
-                                    'Good Morning!',
-                                    style: TextStyle(
+                                    Greeting(),
+                                    style: const TextStyle(
                                       fontStyle: FontStyle.italic,
                                     ),
-                                    textScaler: TextScaler.linear(1.9),
+                                    textScaler: const TextScaler.linear(1.9),
                                   ),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Text(
-                                    name,
-                                    textScaler: const TextScaler.linear(1.5),
+                                  ConditionalBuilder(
+                                    condition: cubit.profileModel != null,
+                                    builder: (BuildContext context) => Text(
+                                      cubit.profileModel!.data!.name!,
+                                      style: const TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                    fallback: (BuildContext context) => const Text('Iwy em hotep'),
+
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(

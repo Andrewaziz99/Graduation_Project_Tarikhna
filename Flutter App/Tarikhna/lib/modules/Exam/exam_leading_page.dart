@@ -38,9 +38,9 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
         return Scaffold(
           body: Column(
             children: [
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(28.0),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.all(28.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -58,14 +58,13 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                margin: EdgeInsets.symmetric(horizontal: 22),
-                child: Text(
+                margin: const EdgeInsets.symmetric(horizontal: 22),
+                child: const Text(
                   "Choose level",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              const SizedBox(height: 20,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
@@ -77,30 +76,19 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                         print(level);
                       });
                     },
-                  //   style: ElevatedButton.styleFrom(
-                  //    backgroundColor: Colors.blue, // Background color of the button
-                  //  textStyle: TextStyle(color: Colors.white), // Text color of the button
-                  //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10), // Button padding
-                  //  shape: RoundedRectangleBorder(
-                  //    borderRadius: BorderRadius.circular(10), // Button border radius
-                  //   ),
-                  //   ),
                     child: Text('${index + 1}'),
-                 ),
+                  ),
                 ).toList(),
               ),
-             const SizedBox(height: 30,),
               Container(
                 alignment: Alignment.centerLeft,
-                margin: EdgeInsets.symmetric(horizontal: 22),
-                child: Text(
+                margin: const EdgeInsets.symmetric(horizontal: 22),
+                child: const Text(
                   "Choose lessons",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              const SizedBox(height: -5,),
-
               ConditionalBuilder(
                 condition: cubit.lesson?.data != null &&
                     cubit.lesson!.data!.isNotEmpty,
@@ -119,11 +107,11 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                   ),
                 ),
                 fallback: (context) =>
-                    Center(child: CircularProgressIndicator()),
+                    const Center(child: CircularProgressIndicator()),
               ),
               Container(
                 alignment: Alignment.bottomRight,
-                margin: EdgeInsets.symmetric(horizontal: 16),
+                margin: const EdgeInsets.symmetric(horizontal: 16),
                 child: ElevatedButton(
                   onPressed: () {
                     var cubit = LessonsCubit.get(context);
@@ -154,12 +142,12 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                       print('Please select at least one lesson');
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     'Start Exam',
                     style: TextStyle(color: Colors.black),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 255, 228, 255),
+                    backgroundColor: const Color.fromARGB(255, 255, 228, 255),
                   ),
                 ),
               ),
@@ -175,9 +163,9 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
     var lessonId = cubit.lesson?.data?[index].sId;
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
-        color: Color.fromARGB(19, 0, 0, 0),
+        color: const Color.fromARGB(19, 0, 0, 0),
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: InkWell(
@@ -209,14 +197,14 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                   ),
                 ),
                 child: _isSelectedMap[index] ?? false
-                    ? Icon(
+                    ? const Icon(
                   Icons.check,
                   size: 16.0,
                   color: Colors.blue,
                 )
                     : null,
               ),
-              SizedBox(width: 8.0),
+              const SizedBox(width: 8.0),
               Text(label),
             ],
           ),
