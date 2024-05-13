@@ -1,0 +1,56 @@
+.history_lists {
+    display: flex;
+    margin-top: 100px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tablebtn {
+    align-content: center;
+    align-self: center;
+    margin-left: 50px;
+}
+
+.rowTable {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+table {
+    width: 100%;
+    background: rgb(255, 255, 255);
+    padding: 1rem;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: inset;
+    justify-content: space-between;
+    border-collapse: separate;
+    border-spacing: 50px 0;
+}
+
+table td,
+th {
+    padding: 0.2rem 0.8rem;
+}
+
+
+table th {
+    font-size: 15px;
+}
+
+table td {
+    width: max-content;
+    font-size: 13px;
+    color: rgb(100, 100, 100);
+}
+
+.span-header {
+    display: inline-block;
+    background: #FFCCE1;
+    padding: 10px 17px;
+    font-size: 18px;
+    border-radius: 30px;
+    font-weight: 600;
+}

@@ -1,0 +1,30 @@
+.nav-pills li a:hover {
+    background-color: rgb(245, 201, 217);
+}
+
+.sidebar-header {
+    color: rgb(167, 174, 249);
+}
+
+.sidenav {
+    padding-top: 65px;
+    position: fixed;
+    background: white;
+    top: 0;
+    left: 0;
+    width: fit-content;
+    min-width: fit-content;
+    max-width: 170px;
+    height: 100%;
+    box-shadow: inset;
+    z-index: 100;
+
+}
+
+.sidenav-item {
+    height: 100%;
+}
+
+.nav-item {
+    width: max-content;
+}
