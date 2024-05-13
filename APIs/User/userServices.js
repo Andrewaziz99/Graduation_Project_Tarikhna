@@ -1,7 +1,7 @@
 const userDAO = require('./userDAO')
 
-const findUser = (email, done)=>{
-    userDAO.findUser(email, done)
+const findUser = (withPassword, email, done)=>{
+    userDAO.findUser(withPassword, email, done)
 }
 
 const registerUser = (userDetails, done)=>{

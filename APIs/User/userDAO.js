@@ -5,17 +5,27 @@ const fs = require('fs')
 const mongoose = require('mongoose')
 const userModel = require('./userModel')
 
-const findUser= (useremail,done)=>{
-    userModel.findOne({email : useremail}).then(user=>{
-        console.log(user);
-        done(undefined, user)
-        console.log(user);
-    }).catch(error=>{
-        console.log(error);
-        done(error, undefined)
-    })
-
-
+const findUser= (withPassword, useremail,done)=>{
+    // The withPassoerd parameter accepts a boolean value, it indicates if the user data retrieved from the database with the password of the user or without it
+    if (withPassword) {
+        userModel.findOne({email : useremail}).then(user=>{
+            console.log(user);
+            done(undefined, user)
+            console.log(user);
+        }).catch(error=>{
+            console.log(error);
+            done(error, undefined)
+        })
+    }else{
+        userModel.findOne({email : useremail}, {password: false}).then(user=>{
+            console.log(user);
+            done(undefined, user)
+            console.log(user);
+        }).catch(error=>{
+            console.log(error);
+            done(error, undefined)
+        })
+    }
 }
 
 const registerUser = (userDetails, done)=>{

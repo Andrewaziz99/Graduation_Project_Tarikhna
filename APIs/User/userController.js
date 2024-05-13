@@ -1,7 +1,8 @@
 const userServices = require('./userServices')
+const authServices = require('../authentication/authServices')
 
-const findUser = (email, done)=>{
-    userServices.findUser(email, done)
+const findUser = (withPassword, email, done)=>{
+    userServices.findUser(withPassword, email, done)
 }
 
 const userUpdate = async (currentUserData, userID, newName, newEmail, oldPass, newPass, newYear, done) => {
@@ -92,7 +93,8 @@ const userUpdate = async (currentUserData, userID, newName, newEmail, oldPass, n
         }
     }
 
-    return done(undefined, currentUserData);
+    const newJWT = authServices.createJWT(currentUserData)
+    return done(undefined, newJWT);
 }
 
 module.exports = {findUser, userUpdate}

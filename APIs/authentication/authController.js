@@ -2,7 +2,7 @@ const authServices = require('./authServices')
 const userServices = require('../User/userServices')
 
 const registerUser = (userData, done)=>{
-    userServices.findUser(userData.email, (err, userfound)=>{
+    userServices.findUser(false, userData.email, (err, userfound)=>{
 
         if (err) {
             return done(err)
@@ -17,7 +17,7 @@ const registerUser = (userData, done)=>{
 }
 
 const loginUser = ({email, password}, done)=>{
-    userServices.findUser(email, (err,userFound)=>{
+    userServices.findUser(true, email, (err,userFound)=>{
         if (err) {
             return done(err)
         }else{

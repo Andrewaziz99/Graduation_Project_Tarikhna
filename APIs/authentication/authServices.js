@@ -15,7 +15,7 @@ const createJWT = (userData)=>{
         "id": `${userData.id}`,
         "name": `${userData.name}`,
         "email": `${userData.email}`,
-        "password": `${userData.password}`,
+        // "password": `${userData.password}`,
         "year": `${userData.year}`
     }
 

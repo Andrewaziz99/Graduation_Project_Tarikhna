@@ -9,14 +9,16 @@ router.get('/', (req, res)=>{
         return res.status(200).send({status: false, message:"The email is not found", data: null})
     }
     try {
-        userController.findUser(userData.email, (err, result)=>{
+        userController.findUser(false, userData.email, (err, result)=>{
             if (err) {
                 return res.status(200).send({status: false, message: err, data: null})
             }
-            console.log(result);
+            // console.log(result);
+            
             if (!result) {
                 return res.status(200).send({status: false, message: "This user is not found", data: null})
             }
+            
             return res.status(200).send({status: true, message: "Data retrieved successfully", data: result})
 
         })
@@ -28,7 +30,7 @@ router.get('/', (req, res)=>{
 
 router.put('/update', (req, res) => {
     const currentUserData = {
-        _id: req.claims.id,
+        id: req.claims.id,
         name: req.claims.name,
         email: req.claims.email,
         // password: req.claims.password,
