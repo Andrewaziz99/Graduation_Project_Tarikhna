@@ -192,7 +192,7 @@ Widget TextSummarizedBuilder(SavedCharacters? character, int index, int length) 
                                   ),
                                   // SizedBox(height: 5), // Add space between events
                                   if(character.events!.length >1)
-                                  Container(width: double.infinity,height:
+                                    Container(width: double.infinity,height:
                                     1,color: Colors.white,)
                                 ],
                               ),

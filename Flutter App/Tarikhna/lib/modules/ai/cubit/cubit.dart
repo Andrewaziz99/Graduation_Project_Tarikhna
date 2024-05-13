@@ -13,8 +13,11 @@ class AICubit extends Cubit<AIStates> {
   static AICubit get(context) => BlocProvider.of(context);
 
   AIModel? AiModel;
+
   // SavedItem? saveModel;
   // Get_All_SavedItem_Model? getSavedItemModel;
+
+
 
   void TextSummarization({
     required String inputData,
@@ -39,6 +42,7 @@ class AICubit extends Cubit<AIStates> {
       emit(TextSummarizedErrorState(error.toString()));
     });
   }
+
 
 //   void getAllSavedItem() {
 //     emit(GetAllSavedItemLoadingState());

@@ -214,7 +214,9 @@ class ExamCubit extends Cubit<ExamStates> {
           wrongAnswers = 0;
         },
       ).show();
-    } else if (wrongAnswers == 5 || wrongAnswers == quizModel!.data.length ) {
+
+    } else if (wrongAnswers == 5 || wrongAnswers == quizModel?.data.length) {
+
       countDownController.pause();
       AwesomeDialog(
         context: context,
@@ -273,4 +275,8 @@ class ExamCubit extends Cubit<ExamStates> {
 
     }
   }
+
 }
+
+
+

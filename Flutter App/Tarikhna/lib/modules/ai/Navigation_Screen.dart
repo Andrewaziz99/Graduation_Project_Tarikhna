@@ -1,12 +1,17 @@
 // Navigation_Screen.dart
 
+
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
+
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/states.dart';
 import 'package:tarikhna/modules/ai/ai_output_screen.dart';
@@ -136,6 +141,10 @@ class Navigate_Screen extends StatelessWidget {
                                 ).show(context);
 
                           // navigateTo(context, Save_Item_Screen());
+
+
+
+
 
                         } else {
                           // Handle null data case, perhaps show a message or perform some action

@@ -43,7 +43,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-   MyApp({super.key});
+  MyApp({super.key});
 
   bool token = CacheHelper.getData(key: 'token') == null ? false : true;
 
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ProfileCubit()..getProfile()),
         BlocProvider(create: (context) => LessonsCubit()..getLessons()),
-       BlocProvider(create: (context) => SavedCubit()..getAllSavedItem()),
+        BlocProvider(create: (context) => SavedCubit()..getAllSavedItem()),
         // BlocProvider(create: (context) => SavedCubit()),
         BlocProvider(create: (context) => ExamCubit()),
         BlocProvider(create: (context) => NavbarCubit()),
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ArCubit()),
         BlocProvider(create: (context) => AICubit()),
 
- 
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

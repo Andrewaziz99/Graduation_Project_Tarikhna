@@ -20,116 +20,116 @@ class Saved_Date_Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(create:(context)=>SavedCubit()..getAllSavedItem() ,
       child: BlocConsumer<SavedCubit, SavedState>(
-      listener: (BuildContext context, state) {
-        // Handle listener events if needed
-      },
-      builder: (BuildContext context, Object? state) {
-        print("Listener");
+        listener: (BuildContext context, state) {
+          // Handle listener events if needed
+        },
+        builder: (BuildContext context, Object? state) {
+          print("Listener");
 
-        var cubit = SavedCubit.get(context);
-        var savedItemModel = cubit.getSavedItemModel;
+          var cubit = SavedCubit.get(context);
+          var savedItemModel = cubit.getSavedItemModel;
 
-        if (savedItemModel == null || savedItemModel.data == null) {
-          // Handle the case where savedItemModel or its data is null
-          print('Data is null or empty');
+          if (savedItemModel == null || savedItemModel.data == null) {
+            // Handle the case where savedItemModel or its data is null
+            print('Data is null or empty');
+            return Scaffold(
+
+              // Return an empty Scaffold or any other widget to indicate the absence of data
+            );
+          }if (savedItemModel == null || savedItemModel.data == null) {
+            // Handle the case where savedItemModel or its data is null
+            print('Data is null or empty');
+            return Scaffold(
+
+              // Return an empty Scaffold or any other widget to indicate the absence of data
+            );
+          }
+
+          var data = savedItemModel.data!.firstWhere((element) => element.sId == id, orElse: () => GetAllDataSaved());
+
+          print(savedItemModel.data?[0].sId);
+          print(data.dates?.map((date) => date.date));
+          print(data.characters?.length);
+
           return Scaffold(
-
-            // Return an empty Scaffold or any other widget to indicate the absence of data
-          );
-        }if (savedItemModel == null || savedItemModel.data == null) {
-          // Handle the case where savedItemModel or its data is null
-          print('Data is null or empty');
-          return Scaffold(
-
-            // Return an empty Scaffold or any other widget to indicate the absence of data
-          );
-        }
-
-        var data = savedItemModel.data!.firstWhere((element) => element.sId == id, orElse: () => GetAllDataSaved());
-
-        print(savedItemModel.data?[0].sId);
-        print(data.dates?.map((date) => date.date));
-        print(data.characters?.length);
-
-        return Scaffold(
-          backgroundColor: HexColor("FFF9F9"),
-          appBar: AppBar(
             backgroundColor: HexColor("FFF9F9"),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  if (data.dates != null && data.dates!.isNotEmpty) // Check if dates are not null and not empty
-                    Container(
-                      width: 300,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "TEXT OUTPUT",
-                          style: TextStyle(
-                            fontFamily: 'JacquesFrancois',
-                            fontSize: 40,
+            appBar: AppBar(
+              backgroundColor: HexColor("FFF9F9"),
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    if (data.dates != null && data.dates!.isNotEmpty) // Check if dates are not null and not empty
+                      Container(
+                        width: 300,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "TEXT OUTPUT",
+                            style: TextStyle(
+                              fontFamily: 'JacquesFrancois',
+                              fontSize: 40,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: data.dates?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      GetAllDataSaved date = data; // Use the correct data
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: data.dates?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        GetAllDataSaved date = data; // Use the correct data
 
-                      bool First = index == 0;
-                      bool Last = index >= data.dates!.length - 1;
-                      return Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              height: 250,
-                              child: TimelineTile(
-                                isFirst: First,
-                                isLast: Last,
-                                beforeLineStyle: LineStyle(color: HexColor('D3C5C5')),
-                                indicatorStyle: IndicatorStyle(
-                                  width: 40,
-                                  color: HexColor('D3C5C5'),
-                                  iconStyle: IconStyle(
-                                    iconData: Icons.arrow_downward_rounded,
-                                    color: Colors.white,
+                        bool First = index == 0;
+                        bool Last = index >= data.dates!.length - 1;
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: 250,
+                                child: TimelineTile(
+                                  isFirst: First,
+                                  isLast: Last,
+                                  beforeLineStyle: LineStyle(color: HexColor('D3C5C5')),
+                                  indicatorStyle: IndicatorStyle(
+                                    width: 40,
+                                    color: HexColor('D3C5C5'),
+                                    iconStyle: IconStyle(
+                                      iconData: Icons.arrow_downward_rounded,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
+                              flex: 2,
                             ),
-                            flex: 2,
-                          ),
-                          Expanded(
-                            child: TextSummarizedBuilder(date,index,data.dates!.length), // Pass the correct data
-                            flex: 16,
-                          )
-                        ],
-                      );
-                    },
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 1.0,
+                            Expanded(
+                              child: TextSummarizedBuilder(date,index,data.dates!.length), // Pass the correct data
+                              flex: 16,
+                            )
+                          ],
+                        );
+                      },
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 1.0,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
-    ),);
+          );
+        },
+      ),);
   }
 }
 
@@ -191,8 +191,8 @@ Widget TextSummarizedBuilder(GetAllDataSaved date, int index, int length) {
                         ],
                       ),
                     if(date.dates![index].event!.length > 1 )
-                    Container(width: double.infinity,height:
-                    1,color: Colors.white,)
+                      Container(width: double.infinity,height:
+                      1,color: Colors.white,)
                   ],
                 ),
               ],
