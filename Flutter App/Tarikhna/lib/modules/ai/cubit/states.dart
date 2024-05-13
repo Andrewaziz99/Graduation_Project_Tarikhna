@@ -31,6 +31,7 @@ class getSummarizedTextErrorState extends AIStates {
 }
 
 
+<<<<<<< HEAD
 class SavedModelLoadingState extends AIStates {}
 class SavedModelSuccessState extends AIStates {}
 class SavedModelErrorState extends AIStates {
@@ -47,3 +48,22 @@ class GetAllSavedItemErrorState extends AIStates {
 
   GetAllSavedItemErrorState(this.error);
 }
+=======
+
+// class SavedModelLoadingState extends AIStates {}
+// class SavedModelSuccessState extends AIStates {}
+// class SavedModelErrorState extends AIStates {
+//   final String error;
+//
+//   SavedModelErrorState(this.error);
+// }
+//
+// class GetAllSavedItemLoadingState extends AIStates {}
+// class GetAllSavedItemSuccessState extends AIStates {}
+//
+// class GetAllSavedItemErrorState extends AIStates {
+//   final String error;
+//
+//   GetAllSavedItemErrorState(this.error);
+// }
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38

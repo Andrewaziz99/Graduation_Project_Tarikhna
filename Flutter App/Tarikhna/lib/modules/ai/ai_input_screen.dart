@@ -1,17 +1,27 @@
 import 'dart:io';
+<<<<<<< HEAD
 
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
+=======
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/modules/ai/Navigation_Screen.dart';
+<<<<<<< HEAD
 import 'package:tarikhna/modules/ai/ai_output_screen.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
+=======
+import 'package:tarikhna/modules/ai/cubit/cubit.dart';
+import 'package:tarikhna/modules/ai/cubit/states.dart';
+import 'package:tarikhna/shared/components/components.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 
 class AiInputScreen extends StatelessWidget {
   var inputTextController = TextEditingController();
@@ -79,11 +89,23 @@ class AiInputScreen extends StatelessWidget {
                     keyboardType: TextInputType.multiline,
                     textDirection: TextDirection.rtl,
                     maxLines: 20,
+<<<<<<< HEAD
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide:  BorderSide(color: Colors.purple, width: 1.0),
                       ),
                       labelText: 'Enter the text here',
+=======
+                    textAlign: TextAlign.right,
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                    ),
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                      ),
+                      labelText: 'Enter the text here',
+                      alignLabelWithHint: true,
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                     ),
                   ),
                 ),
@@ -99,6 +121,7 @@ class AiInputScreen extends StatelessWidget {
                   height: 30.0,
                 ),
                 defaultButton(
+<<<<<<< HEAD
                     background: HexColor('5E8BFF'),
                     // background: HexColor("5E8BFF"),
                     radius: 20.0,
@@ -130,6 +153,58 @@ class AiInputScreen extends StatelessWidget {
                 //   height: 1,
                 //   color: HexColor('5E8BFF'),
                 // ),
+=======
+                  background: HexColor('5E8BFF'),
+                  // background: HexColor("5E8BFF"),
+                  radius: 20.0,
+                  fSize: 20.0,
+                  function: () async{
+                    FilePickerResult? result = await FilePicker.platform.pickFiles(
+                        allowMultiple: true,
+                        type: FileType.custom,
+                        allowedExtensions: ['jpg', 'png', 'jpeg']);
+
+                    if (result != null) {
+                      List<File> files = result.paths.map((path) => File(path!)).toList();
+                      for (File file in files) {
+                        String fileName = file.path;
+                        print(fileName);
+                        String extractedText = await extractTextFromImg(file.path);
+                        inputTextController.text += extractedText;
+                        print(extractedText);
+                      }
+                    } else {
+                      // User canceled the picker
+                    }
+                  }, text: 'Pick Image',),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                defaultButton(
+                  background: HexColor('5E8BFF'),
+                  // background: HexColor("5E8BFF"),
+                  radius: 20.0,
+                  fSize: 20.0,
+                  function: () async{
+                    FilePickerResult? result = await FilePicker.platform.pickFiles(
+                        allowMultiple: true,
+                        type: FileType.custom,
+                        allowedExtensions: ['pdf']);
+
+                    if (result != null) {
+                      List<File> files = result.paths.map((path) => File(path!)).toList();
+                      for (File file in files) {
+                        String fileName = file.path;
+                        print(fileName);
+                        String extractedText = await extractTextFromPdf(file.path);
+                        inputTextController.text += extractedText;
+                        print(extractedText);
+                      }
+                    } else {
+                      // User canceled the picker
+                    }
+                  }, text: 'Pick PDF',),
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                 const SizedBox(
                   height: 30.0,
                 ),
@@ -156,13 +231,34 @@ class AiInputScreen extends StatelessWidget {
     });
   }
 
+<<<<<<< HEAD
   Future<String> extractTextFromImg(String pdfPath) async {
     List<String> languages = ['ara', 'eng'];
     String extractedText = await FlutterTesseractOcr.extractText(
       pdfPath,
+=======
+  Future<String> extractTextFromImg(String imagePath) async {
+    List<String> languages = ['ara', 'eng'];
+    String extractedText = await FlutterTesseractOcr.extractText(
+      imagePath,
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
       language: languages.first,);
 
     return extractedText;
   }
 
+<<<<<<< HEAD
 }
+=======
+  Future<String> extractTextFromPdf(String pdfPath) async {
+    PdfDocument document = PdfDocument(inputBytes: File(pdfPath).readAsBytesSync());
+    String extractedText = PdfTextExtractor(document).extractText(startPageIndex: 0);
+    document.dispose();
+
+    return extractedText;
+  }
+}
+
+
+
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38

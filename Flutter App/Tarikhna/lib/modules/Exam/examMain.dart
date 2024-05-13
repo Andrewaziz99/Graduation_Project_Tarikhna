@@ -189,7 +189,11 @@ class MainExamScreen extends StatelessWidget {
                                               textAlign: TextAlign.right,
                                             ),
                                             const SizedBox(
+<<<<<<< HEAD
                                               height: 120,
+=======
+                                              height: 30,
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                                             ),
 
                                             Column(

@@ -85,7 +85,11 @@ class profile extends StatelessWidget {
           condition: profileModel != null,
           builder: (BuildContext context) =>  Scaffold(
             appBar: AppBar(
+<<<<<<< HEAD
               title: const Text("Edit Profile",style: TextStyle(fontFamily:'Roboto'), 
+=======
+              title: const Text("Edit Profile",style: TextStyle(fontFamily:'Roboto'),
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
               ),
               centerTitle: true,
             ),
@@ -100,6 +104,7 @@ class profile extends StatelessWidget {
                         radius: 60,
                         backgroundColor: AppColors3.navypink,
 
+<<<<<<< HEAD
                         
                          backgroundImage: AssetImage("images/profile.png"),
                                       // Image.asset(
@@ -110,6 +115,18 @@ class profile extends StatelessWidget {
                         ),
                       ),
                     
+=======
+
+                        backgroundImage: AssetImage("images/profile.png"),
+                        // Image.asset(
+                        //   'assets/images/background.png',
+                        //fit: BoxFit.cover,
+                        // ),
+
+                      ),
+                    ),
+
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                     const SizedBox(height: 20),
                     defaultFormField(
                       controller: usernameController,
@@ -148,6 +165,7 @@ class profile extends StatelessWidget {
                       background: Colors.blue,
                       function: () {
                         newPasswordController.text = oldPasswordController.text;
+<<<<<<< HEAD
                           cubit.updateProfile(
                             name: usernameController.text,
                             email: emailController.text,
@@ -158,6 +176,18 @@ class profile extends StatelessWidget {
                       text: 'update',
                     
                       
+=======
+                        cubit.updateProfile(
+                          name: usernameController.text,
+                          email: emailController.text,
+                          year: academicYearController.text,
+
+                        );
+                      },
+                      text: 'update',
+
+
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                     ),
 
 
@@ -172,4 +202,8 @@ class profile extends StatelessWidget {
       },
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38

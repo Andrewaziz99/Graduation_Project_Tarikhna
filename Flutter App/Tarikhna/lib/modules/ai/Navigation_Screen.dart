@@ -1,9 +1,23 @@
 // Navigation_Screen.dart
 
+<<<<<<< HEAD
+=======
+
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
+
+
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+<<<<<<< HEAD
+=======
+
+import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
+
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/states.dart';
 import 'package:tarikhna/modules/ai/ai_output_screen.dart';
@@ -119,11 +133,32 @@ class Navigate_Screen extends StatelessWidget {
                         final aiModel = AICubit.get(context).AiModel;
                         if (aiModel != null && aiModel.data != null) {
                           // Pass the data to SavedItems if available
+<<<<<<< HEAD
                           AICubit.get(context).SavedItems(
                             // dataModel: aiModel.data!,
                             data: aiModel.data!, // Corrected parameter
                           );
                           navigateTo(context, Save_Item_Screen());
+=======
+                          SavedCubit.get(context).SavedItems(
+                            // dataModel: aiModel.data!,
+                            data: aiModel.data!, // Corrected parameter
+                          );
+                          CherryToast.success(
+                            title: const Text('Success Save Item'),
+                                  autoDismiss: true,
+                                  toastPosition: Position.bottom,
+                                  animationType: AnimationType.fromLeft,
+                                  toastDuration: const Duration(seconds: 5),
+                                  animationDuration: const Duration(milliseconds: 500),
+                                ).show(context);
+
+                          // navigateTo(context, Save_Item_Screen());
+
+
+
+
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 
                         } else {
                           // Handle null data case, perhaps show a message or perform some action

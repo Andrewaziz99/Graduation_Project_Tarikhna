@@ -13,8 +13,16 @@ class AICubit extends Cubit<AIStates> {
   static AICubit get(context) => BlocProvider.of(context);
 
   AIModel? AiModel;
+<<<<<<< HEAD
   SavedItem? saveModel;
   Get_All_SavedItem_Model? getSavedItemModel;
+=======
+
+  // SavedItem? saveModel;
+  // Get_All_SavedItem_Model? getSavedItemModel;
+
+
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 
   void TextSummarization({
     required String inputData,
@@ -40,6 +48,7 @@ class AICubit extends Cubit<AIStates> {
     });
   }
 
+<<<<<<< HEAD
   void getAllSavedItem() {
     emit(GetAllSavedItemLoadingState());
     DioHelper.getData(
@@ -86,3 +95,52 @@ class AICubit extends Cubit<AIStates> {
     });
   }
 }
+=======
+
+//   void getAllSavedItem() {
+//     emit(GetAllSavedItemLoadingState());
+//     DioHelper.getData(
+//         url: GetAllSavedItem,
+//         token: CacheHelper.getData(key: 'token')
+//     ).then((value) {
+//       // Parse the response JSON into Get_All_SavedItem_Model
+//       getSavedItemModel = Get_All_SavedItem_Model.fromJson(value.data);
+//       print(getSavedItemModel?.data?[0].title);
+//       // Emit a success state with the received data
+//       emit(GetAllSavedItemSuccessState());
+//     }).catchError((error) {
+//       // Emit an error state with the error message
+//       emit(GetAllSavedItemErrorState(error.toString()));
+//     });
+//   }
+//
+//   void SavedItems({
+//     required DataM data,
+//   }) {
+//     emit(SavedModelLoadingState());
+//
+//     // Convert DataM object to JSON
+//     Map<String, dynamic> jsonData = {
+//       'characters': data.characters?.map((character) => character.toJson()).toList(),
+//       'dates': data.dates?.map((date) => date.toJson()).toList(),
+//       'Title': data.title,
+//     };
+//
+//     // Make an HTTP POST request to save the data
+//     DioHelper.postData(
+//       url: SavedItemsModel, // Assuming SavedItemsModel is your API endpoint URL
+//       data: jsonData,
+//       token: CacheHelper.getData(key: 'token'), // Get token from cache
+//     ).then((value) {
+//       // Parse the response into a SavedItem object
+//       SavedItem saveModel = SavedItem.fromJson(value.data);
+//       print(saveModel.data?.title);
+//       emit(SavedModelSuccessState());
+//     }).catchError((err) {
+//       // Handle errors
+//       print(err.toString());
+//       emit(SavedModelErrorState(err.toString()));
+//     });
+//   }
+ }
+>>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
