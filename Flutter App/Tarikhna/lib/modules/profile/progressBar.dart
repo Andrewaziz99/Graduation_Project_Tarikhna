@@ -129,8 +129,8 @@ class Profile_Page_Screen extends StatelessWidget {
                   );
                 },
                 fallback: (BuildContext context) => const Center(
-                  child: Center(child: CircularProgressIndicator()),
-                )),
+                      child: CircularProgressIndicator(),
+                    )),
           ),
         );
       },
