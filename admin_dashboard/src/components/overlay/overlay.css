@@ -1,0 +1,134 @@
+.edit {
+    border-radius: 12px;
+    margin-left: 10px;
+    border: 2px solid rgb(74, 162, 146);
+    background-color: white;
+    margin-bottom: 10px;
+    display: inline-block;
+    color: #000;
+}
+
+.edit:hover {
+    border: none;
+    background-color: rgb(0, 195, 159);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.delete {
+    border-radius: 12px;
+    margin-left: 10px;
+    border: 2px solid #ff6254;
+    background-color: white;
+    margin-bottom: 10px;
+    display: inline-block;
+    color: #000;
+}
+
+.delete:hover {
+    border: none;
+    background-color: #ff6254;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-label {
+    color: #000;
+    font-weight: 900;
+    padding-top: 10px;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.modalheader {
+    background-color: rgb(98, 132, 255);
+}
+
+.modalheaderDel {
+    background-color: #ff6254;
+}
+
+.cancelmodal {
+    border-radius: 12px;
+    margin-left: 10px;
+    border: 2px solid rgb(98, 132, 255);
+    background-color: white;
+    margin-bottom: 10px;
+    display: inline-block;
+    color: #000;
+}
+
+.cancelmodal:hover {
+    border: none;
+    background-color: rgb(118, 147, 255);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+#dropdown-basic-button {
+    margin-top: 5px;
+    background-color: rgb(98, 132, 255);
+    /* box-shadow: #000; */
+    border: #000;
+}
+
+.flex {
+    display: flex;
+    padding-top: 5px;
+}
+
+.pad {
+    padding-left: 30px;
+}
+
+.removebtn {
+    background-color: #ff6d6d;
+    /* margin-left: 150px; */
+}
+
+.removebtn:hover {
+    background-color: rgb(250, 145, 137);
+}
+
+.characteradd {
+    margin-top: 20px;
+    position: relative;
+
+}
+
+.addeventbtn {
+    background-color: #03e2aa;
+    /* border-radius: 20%;
+    float: inline-end;
+    margin-top: 15px; */
+}
+
+.addeventbtn:hover {
+    background-color: #3bffce;
+}
+
+.delbtn {
+    background-color: #ff6d6d;
+}
+
+.delbtn:hover {
+    background-color: rgb(250, 145, 137);
+}
+
+.sections {
+    padding-top: 20px;
+}
+
+.addchar {
+    max-width: fit-content;
+    background-color: #6fa6ff;
+    float: right;
+    margin-right: 10px;
+}
+
+.addchar:hover {
+    background-color: #72cbff;
+}
+
+.padtop {
+    padding-top: 10px;
+}
