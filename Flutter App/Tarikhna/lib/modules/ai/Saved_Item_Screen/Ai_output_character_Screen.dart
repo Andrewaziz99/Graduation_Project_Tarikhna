@@ -3,16 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/models/Get_All_SavedItemmodel.dart';
-<<<<<<< HEAD
-=======
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/savedState.dart';
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 import 'package:timeline_tile/timeline_tile.dart';
-
-import '../../../models/AI_Save_Item_model.dart';
-import '../cubit/cubit.dart';
-import '../cubit/states.dart';
 
 class Saved_Caracter_Screen extends StatelessWidget {
   final String? id;
@@ -22,11 +15,7 @@ class Saved_Caracter_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Use the id as needed in this page
-<<<<<<< HEAD
-    return BlocConsumer<AICubit, AIStates>(
-=======
     return BlocProvider(create:(context)=>SavedCubit()..getAllSavedItem() ,child: BlocConsumer<SavedCubit, SavedState>(
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
       listener: (BuildContext context, state) {
         // if (state is SavedModelLoadingState) {
         //   // Handle loading state
@@ -39,13 +28,8 @@ class Saved_Caracter_Screen extends StatelessWidget {
       builder: (BuildContext context, Object? state) {
         print("Listener");
 
-<<<<<<< HEAD
-        print(AICubit.get(context).AiModel?.data?.characters?.length);
-        var cubit = AICubit.get(context);
-=======
         print(SavedCubit.get(context).getSavedItemModel?.data?[0].characters);
         var cubit = SavedCubit.get(context);
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
         var savedItemModel = cubit.getSavedItemModel;
 
         var data = savedItemModel?.data?.firstWhere((element) => element.sId == id);
@@ -59,9 +43,6 @@ class Saved_Caracter_Screen extends StatelessWidget {
         }
 
 
-<<<<<<< HEAD
-
-=======
         if (savedItemModel == null || savedItemModel.data == null) {
           // Handle the case where savedItemModel or its data is null
           print('Data is null or empty');
@@ -70,7 +51,6 @@ class Saved_Caracter_Screen extends StatelessWidget {
             // Return an empty Scaffold or any other widget to indicate the absence of data
           );
         }
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 
 
 
@@ -85,26 +65,6 @@ class Saved_Caracter_Screen extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: Column(
                 children: [
-<<<<<<< HEAD
-                  // if (data?.characters[0].nameOfCharacter != null)
-                  Container(
-                    width: 300,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "TEXT OUTPUT",
-                        style: TextStyle(
-                          fontFamily: 'JacquesFrancois',
-                          fontSize: 40,
-                        ),
-                      ),
-                    ),
-                  ),
-=======
                   if (data!.characters?[0].nameOfCharacter != null)
                     Container(
                       width: 300,
@@ -123,7 +83,6 @@ class Saved_Caracter_Screen extends StatelessWidget {
                         ),
                       ),
                     ),
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                   ListView.separated(
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
@@ -177,11 +136,7 @@ class Saved_Caracter_Screen extends StatelessWidget {
           ),
         );
       },
-<<<<<<< HEAD
-    );
-=======
     ),);
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
   }
 }
 
@@ -233,11 +188,7 @@ Widget TextSummarizedBuilder(SavedCharacters? character, int index, int length) 
                                   ),
                                   // SizedBox(height: 5), // Add space between events
                                   if(character.events!.length >1)
-<<<<<<< HEAD
-                                  Container(width: double.infinity,height:
-=======
                                     Container(width: double.infinity,height:
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                                     1,color: Colors.white,)
                                 ],
                               ),

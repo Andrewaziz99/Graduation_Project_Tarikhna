@@ -1,23 +1,17 @@
 // Navigation_Screen.dart
 
-<<<<<<< HEAD
-=======
 
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:cherry_toast/resources/arrays.dart';
 
 
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-<<<<<<< HEAD
-=======
 
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
 
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/states.dart';
 import 'package:tarikhna/modules/ai/ai_output_screen.dart';
@@ -43,7 +37,7 @@ class Navigate_Screen extends StatelessWidget {
             builder: (context) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Material(
+                const Material(
                   elevation: 10,
                   shadowColor: Colors.white,
                   borderOnForeground: true,
@@ -56,7 +50,7 @@ class Navigate_Screen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 100),
+                const SizedBox(height: 100),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -75,7 +69,7 @@ class Navigate_Screen extends StatelessWidget {
                           onPressed: () {
                             navigateTo(context, AiOutputScreen());
                           },
-                          child: Text(
+                          child: const Text(
                             "Characters",
                             style: TextStyle(
                               color: Colors.white,
@@ -86,7 +80,7 @@ class Navigate_Screen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 40),
+                    const SizedBox(width: 40),
                     Material(
                       elevation: 15,
                       shadowColor: Colors.white,
@@ -100,9 +94,9 @@ class Navigate_Screen extends StatelessWidget {
                         ),
                         child: MaterialButton(
                           onPressed: () {
-                            navigateTo(context, Ai_output_dates_screen());
+                            navigateTo(context, const Ai_output_dates_screen());
                           },
-                          child: Text(
+                          child: const Text(
                             "Dates",
                             style: TextStyle(
                               color: Colors.white,
@@ -115,7 +109,7 @@ class Navigate_Screen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Material(
                   elevation: 15,
                   shadowColor: Colors.white,
@@ -133,39 +127,24 @@ class Navigate_Screen extends StatelessWidget {
                         final aiModel = AICubit.get(context).AiModel;
                         if (aiModel != null && aiModel.data != null) {
                           // Pass the data to SavedItems if available
-<<<<<<< HEAD
-                          AICubit.get(context).SavedItems(
-                            // dataModel: aiModel.data!,
-                            data: aiModel.data!, // Corrected parameter
-                          );
-                          navigateTo(context, Save_Item_Screen());
-=======
                           SavedCubit.get(context).SavedItems(
                             // dataModel: aiModel.data!,
                             data: aiModel.data!, // Corrected parameter
                           );
                           CherryToast.success(
                             title: const Text('Success Save Item'),
-                                  autoDismiss: true,
-                                  toastPosition: Position.bottom,
-                                  animationType: AnimationType.fromLeft,
-                                  toastDuration: const Duration(seconds: 5),
-                                  animationDuration: const Duration(milliseconds: 500),
-                                ).show(context);
-
-                          // navigateTo(context, Save_Item_Screen());
-
-
-
-
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
-
+                            autoDismiss: true,
+                            toastPosition: Position.bottom,
+                            animationType: AnimationType.fromLeft,
+                            toastDuration: const Duration(seconds: 5),
+                            animationDuration: const Duration(milliseconds: 500),
+                          ).show(context);
                         } else {
                           // Handle null data case, perhaps show a message or perform some action
                           print("AiModel or its data is null");
                         }
                       },
-                      child: Text(
+                      child: const Text(
                         "Save Data",
                         style: TextStyle(
                           color: Colors.white,
@@ -176,37 +155,10 @@ class Navigate_Screen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // SizedBox(height: 30),
-                // Material(
-                //   elevation: 15,
-                //   shadowColor: Colors.white,
-                //   borderOnForeground: true,
-                //   child: Container(
-                //     width: 150,
-                //     height: 100.0,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10),
-                //       color: HexColor('5E8BFF'),
-                //     ),
-                //     child: MaterialButton(
-                //       onPressed: () {
-                //         navigateTo(context, Save_Item_Screen());
-                //       },
-                //       child: Text(
-                //         "shoe saved items",
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //           fontSize: 20,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
             condition: state is TextSummarizedSuccessState,
-            fallback: (context) => Center(child: CircularProgressIndicator()),
+            fallback: (context) => const Center(child: CircularProgressIndicator()),
           ),
         );
       },

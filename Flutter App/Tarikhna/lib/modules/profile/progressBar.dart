@@ -23,119 +23,114 @@ class Profile_Page_Screen extends StatelessWidget {
         var cubit = ProfileCubit.get(context);
         var profileModel = cubit.profileModel;
         return Scaffold(
-          body: SingleChildScrollView(
-            child: ConditionalBuilder(
-                condition: profileModel != null,
-                builder: (BuildContext context) {
-                  return Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 30),
-                        Stack(children: [
-                          Container(
-                              padding: const EdgeInsets.only(top: 20),
-                              width: 200,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 4, color: Colors.white),
-                                boxShadow: [
-                                  BoxShadow(
-                                      spreadRadius: 2,
-                                      blurRadius: 10,
-                                      color: Colors.black.withOpacity(0.1))
-                                ],
-                                shape: BoxShape.circle,
-                                image: const DecorationImage(
-                                  image: AssetImage("images/profile.png"),
-                                  fit: BoxFit.cover,
-
-
-
-
-                                ),
-                              )),
-                        ]),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Name: ${profileModel!.data!.name}',
-                                style: const TextStyle(fontSize: 20)),
-                            const SizedBox(height: 30),
-                          ],
-                        ),
-                        // SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Email: ${profileModel.data!.email}',
-                                style: const TextStyle(fontSize: 20)),
-                          ],
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(20.0),
-                        ),
-                        Container(
-                          child: Column(
-                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: CircularPercentIndicator(
-                                  animation: true,
-                                  animationDuration: 500,
-                                  radius: 50,
-                                  lineWidth: 15,
-                                  percent: 0.5,
-                                  linearGradient: const LinearGradient(
-                                    colors: [Colors.green, Colors.blue],
-                                  ),
-                                  circularStrokeCap: CircularStrokeCap.round,
-                                  center: const Text(
-                                    "50%",
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              defaultButton(
-                                background: AppColors10.bluecielcolor,
-                                function: () {
-                                  navigateTo(context, profile());
-                                },
-                                text: 'Edit Profile',
-                              ),
-                              const SizedBox(height: 20),
-                              defaultButton(
-                                background: Colors.blue,
-                                function: () {
-                                  navigateTo(context, ChangePassScreen());
-                                },
-                                text: 'Change Password',
-                              ),
-                              const SizedBox(height: 20),
-                              defaultButton(
-                                background: Colors.red,
-                                function: () {
-                                  signOut(context);
-                                },
-                                text: 'Sign out',
-                              ),
+          body: ConditionalBuilder(
+            condition: profileModel != null,
+            builder: (BuildContext context) => SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 30),
+                    Stack(children: [
+                      Container(
+                          padding: const EdgeInsets.only(top: 20),
+                          width: 200,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 4, color: Colors.white),
+                            boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  color: Colors.black.withOpacity(0.1))
                             ],
-                          ),
-                        )
+                            shape: BoxShape.circle,
+                            image: const DecorationImage(
+                              image: AssetImage("images/profile.png"),
+                              fit: BoxFit.cover,
+
+
+
+
+                            ),
+                          )),
+                    ]),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Name: ${profileModel!.data!.name}',
+                            style: const TextStyle(fontSize: 20)),
+                        const SizedBox(height: 30),
                       ],
                     ),
-                  );
-                },
-                fallback: (BuildContext context) => const Center(
-<<<<<<< HEAD
-                      child: Center(child: CircularProgressIndicator()),
-=======
-                      child: CircularProgressIndicator(),
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
-                    )),
-          ),
+                    // SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Email: ${profileModel.data!.email}',
+                            style: const TextStyle(fontSize: 20)),
+                      ],
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(20.0),
+                    ),
+                    Container(
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: CircularPercentIndicator(
+                              animation: true,
+                              animationDuration: 500,
+                              radius: 50,
+                              lineWidth: 15,
+                              percent: 0.5,
+                              linearGradient: const LinearGradient(
+                                colors: [Colors.green, Colors.blue],
+                              ),
+                              circularStrokeCap: CircularStrokeCap.round,
+                              center: const Text(
+                                "50%",
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          defaultButton(
+                            background: AppColors10.bluecielcolor,
+                            function: () {
+                              navigateTo(context, profile());
+                            },
+                            text: 'Edit Profile',
+                          ),
+                          const SizedBox(height: 20),
+                          defaultButton(
+                            background: Colors.blue,
+                            function: () {
+                              navigateTo(context, ChangePassScreen());
+                            },
+                            text: 'Change Password',
+                          ),
+                          const SizedBox(height: 20),
+                          defaultButton(
+                            background: Colors.red,
+                            function: () {
+                              signOut(context);
+                            },
+                            text: 'Sign out',
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            fallback: (BuildContext context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            ),
         );
       },
     );

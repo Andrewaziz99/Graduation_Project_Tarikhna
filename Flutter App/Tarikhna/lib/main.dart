@@ -1,32 +1,15 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tarikhna/layout/home_layout.dart';
 import 'package:tarikhna/modules/Exam/cubit/exam_cubit.dart';
-import 'package:tarikhna/modules/Exam/exam_leading_page.dart';
-import 'package:tarikhna/modules/ai/Saved_Item_Screen/Saved_Item_Screen.dart';
-<<<<<<< HEAD
-=======
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
-import 'package:tarikhna/modules/ai/ai_input_screen.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
-import 'package:tarikhna/modules/ai/pdf_screen.dart';
-import 'package:tarikhna/modules/arModule/ar_main_page.dart';
 import 'package:tarikhna/modules/arModule/cubit/ar_cubit.dart';
-import 'package:tarikhna/modules/arModule/model_viewer.dart';
 import 'package:tarikhna/modules/home/cubit/home_page_cubit.dart';
-import 'package:tarikhna/modules/home/homePage.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/login/login_screen.dart';
 import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
 import 'package:tarikhna/modules/navbar/navbar.dart';
-import 'package:tarikhna/modules/navbar/notification.dart';
 import 'package:tarikhna/modules/profile/cubit/cubit.dart';
-import 'package:tarikhna/modules/profile/progressBar.dart';
-import 'package:tarikhna/modules/quiz/quiz_screen.dart';
-import 'package:tarikhna/modules/register/register_screen.dart';
 import 'package:tarikhna/shared/bloc_observer.dart';
 import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
@@ -46,11 +29,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-<<<<<<< HEAD
-   MyApp({super.key});
-=======
   MyApp({super.key});
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
 
   bool token = CacheHelper.getData(key: 'token') == null ? false : true;
 
@@ -60,24 +39,12 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ProfileCubit()..getProfile()),
         BlocProvider(create: (context) => LessonsCubit()..getLessons()),
-<<<<<<< HEAD
-        BlocProvider(create: (context) => AICubit()..getAllSavedItem()),
-=======
         BlocProvider(create: (context) => SavedCubit()..getAllSavedItem()),
-        // BlocProvider(create: (context) => SavedCubit()),
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
         BlocProvider(create: (context) => ExamCubit()),
         BlocProvider(create: (context) => NavbarCubit()),
         BlocProvider(create: (context) => HomePageCubit()),
         BlocProvider(create: (context) => ArCubit()),
-<<<<<<< HEAD
-
- 
-=======
         BlocProvider(create: (context) => AICubit()),
-
-
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
