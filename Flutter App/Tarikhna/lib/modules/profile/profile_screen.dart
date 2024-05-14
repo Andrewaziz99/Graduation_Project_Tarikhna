@@ -2,18 +2,13 @@ import 'package:cherry_toast/cherry_toast.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/profile/cubit/cubit.dart';
 import 'package:tarikhna/modules/profile/cubit/states.dart';
-import 'package:tarikhna/modules/profile/progressBar.dart';
 import 'package:tarikhna/shared/components/components.dart';
 import 'package:tarikhna/shared/styles/colors.dart';
 
-//import 'colors.dart';
 
 class profile extends StatelessWidget {
-  // bool isObscurePassword = true;
-  // String dropdownValue = "one";
 
   var items = [
     const DropdownMenuItem(
@@ -42,19 +37,19 @@ class profile extends StatelessWidget {
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (BuildContext context, state) {
         if (state is ProfileSuccessState) {
-          if (state.profileModel!.status!) {
+          if (state.profileModel.status!) {
             CherryToast.success(
               toastDuration: const Duration(seconds: 5),
               title: const Text('Success'),
               enableIconAnimation: true,
-              description: Text(state.profileModel!.message!),
+              description: Text(state.profileModel.message!),
             ).show(context);
           } else {
             CherryToast.error(
               toastDuration: const Duration(seconds: 5),
               title: const Text('Error'),
               enableIconAnimation: true,
-              description: Text(state.profileModel!.message!),
+              description: Text(state.profileModel.message!),
             ).show(context);
           }
         }
@@ -64,7 +59,7 @@ class profile extends StatelessWidget {
             toastDuration: const Duration(seconds: 5),
             title: const Text('Error'),
             enableIconAnimation: true,
-            description: Text(state.error!),
+            description: Text(state.error),
           ).show(context);
         }
       },
@@ -76,24 +71,20 @@ class profile extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        usernameController.text = profileModel!.data!.name!;
+        usernameController.text = profileModel.data!.name!;
         emailController.text = profileModel.data!.email!;
         academicYearController.text = profileModel.data!.year!.toString();
 
 
-        return ConditionalBuilder(
-          condition: profileModel != null,
-          builder: (BuildContext context) =>  Scaffold(
-            appBar: AppBar(
-<<<<<<< HEAD
-              title: const Text("Edit Profile",style: TextStyle(fontFamily:'Roboto'), 
-=======
-              title: const Text("Edit Profile",style: TextStyle(fontFamily:'Roboto'),
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
-              ),
-              centerTitle: true,
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Edit Profile",style: TextStyle(fontFamily:'Roboto'),
             ),
-            body: SingleChildScrollView(
+            centerTitle: true,
+          ),
+          body: ConditionalBuilder(
+            condition: profileModel.status == true,
+            builder: (BuildContext context) => SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -103,30 +94,10 @@ class profile extends StatelessWidget {
                       child: CircleAvatar(
                         radius: 60,
                         backgroundColor: AppColors3.navypink,
-
-<<<<<<< HEAD
-                        
-                         backgroundImage: AssetImage("images/profile.png"),
-                                      // Image.asset(
-              //   'assets/images/background.png',
-                //fit: BoxFit.cover,
-              // ),
-                           
-                        ),
-                      ),
-                    
-=======
-
                         backgroundImage: AssetImage("images/profile.png"),
-                        // Image.asset(
-                        //   'assets/images/background.png',
-                        //fit: BoxFit.cover,
-                        // ),
-
                       ),
                     ),
 
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                     const SizedBox(height: 20),
                     defaultFormField(
                       controller: usernameController,
@@ -143,14 +114,14 @@ class profile extends StatelessWidget {
                       prefix: Icons.email,
                       validate: (value){},
                     ),
-                    const SizedBox(height: 10),
-                    defaultFormField(
-                      controller: oldPasswordController,
-                      type: TextInputType.text,
-                      label: "Password",
-                      prefix: Icons.lock,
-                      validate: (value){},
-                    ),
+                    // const SizedBox(height: 10),
+                    // defaultFormField(
+                    //   controller: oldPasswordController,
+                    //   type: TextInputType.text,
+                    //   label: "Password",
+                    //   prefix: Icons.lock,
+                    //   validate: (value){},
+                    // ),
                     const SizedBox(height: 10),
                     DropdownButtonFormField(
                         items: items,
@@ -165,45 +136,24 @@ class profile extends StatelessWidget {
                       background: Colors.blue,
                       function: () {
                         newPasswordController.text = oldPasswordController.text;
-<<<<<<< HEAD
-                          cubit.updateProfile(
-                            name: usernameController.text,
-                            email: emailController.text,
-                            year: academicYearController.text,
-
-                          );
-                      },
-                      text: 'update',
-                    
-                      
-=======
                         cubit.updateProfile(
                           name: usernameController.text,
                           email: emailController.text,
                           year: academicYearController.text,
-
                         );
                       },
                       text: 'update',
-
-
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38
                     ),
-
-
                   ],
                 ),
               ),
             ),
+            fallback: (BuildContext context) => const Center(
+              child: CircularProgressIndicator(),
+            )
           ),
-          fallback: (BuildContext context) => const Center(child: CircularProgressIndicator()),
-
         );
       },
     );
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 50e36da92b6d1633d3ce83860fb6db4ab43b8c38

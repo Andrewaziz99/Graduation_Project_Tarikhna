@@ -64,7 +64,7 @@ emit(UpdateProfileLoadingState());
       getProfile();
       LessonsCubit().getLessons();
       print(value.data);
-      profileModel = ProfileModel.fromJson(value.data);
+      updateProfileModel = UpdateProfileModel.fromJson(value.data);
       emit(UpdateProfileSuccessState(profileModel!));
     }).catchError((error) {
       print(error.toString());
