@@ -36,7 +36,8 @@ class MainExamScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [gradientStartColor, titleTextColor],
+                         //colors: [gradientStartColor, titleTextColor],
+                         colors: [Colors.white10, Colors.white12],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         stops: const [0.3, 0.98],
@@ -56,10 +57,12 @@ class MainExamScreen extends StatelessWidget {
                                   const Text(
                                     "Exam",
                                     style: TextStyle(
-                                      color: titleTextColor,
+                                      color: Color.fromARGB(191, 0, 0, 0),
+                                      //color: titleTextColor,
                                       fontSize: 45,
+                                    
                                       fontWeight: FontWeight.w900,
-                                      fontFamily: 'Avenir',
+                                      fontFamily: 'Roboto',
                                     ),
                                   ),
                                   const Spacer(),
@@ -126,7 +129,7 @@ class MainExamScreen extends StatelessWidget {
                                   color: primaryTextColor,
                                   fontSize: 30,
                                   fontWeight: FontWeight.w900,
-                                  fontFamily: 'Avenir',
+                                  fontFamily: 'Roboto',
                                 ),
                               ),
                             ),
@@ -196,7 +199,7 @@ class MainExamScreen extends StatelessWidget {
                                               children: [
                                                 Container(
                                                   decoration: BoxDecoration(
-                                                    color: Colors
+                                                    color:  Colors
                                                         .lightBlueAccent
                                                         .withOpacity(0.6),
                                                     borderRadius:
@@ -213,7 +216,7 @@ class MainExamScreen extends StatelessWidget {
                                                         FontWeight
                                                             .w900,
                                                         fontFamily:
-                                                        'Avenir',
+                                                        'Roboto',
                                                       ),
                                                       textAlign:
                                                       TextAlign.right,
@@ -371,14 +374,15 @@ class MainExamScreen extends StatelessWidget {
                   body: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [gradientStartColor, titleTextColor],
+                        //colors: [gradientStartColor, titleTextColor],
+                         colors: [Colors.white10, Colors.white12],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         stops: const [0.3, 0.98],
                       ),
                     ),
                     child: const Center(
-                      child: Text("No Exam Found"),
+                      child: Text("No Exam Found",),
                     ),
                   ),
                 );

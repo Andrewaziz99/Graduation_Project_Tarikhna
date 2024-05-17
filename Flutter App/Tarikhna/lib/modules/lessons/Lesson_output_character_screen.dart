@@ -82,7 +82,7 @@ class Lesson_output_character_screen extends StatelessWidget {
                                 child: TimelineTile(
                                   isFirst: isFirst,
                                   isLast: isLast,
-                                  beforeLineStyle: LineStyle(color: HexColor('D3C5C5')),
+                                  beforeLineStyle: LineStyle(color: AppColors8.navypurple),
                                   indicatorStyle: IndicatorStyle(
                                     width: 40,
                                     color: AppColors8.navypurple,
@@ -126,45 +126,44 @@ Widget TextSummarizedBuilder(CharacterModel? character, DateModel date, int inde
     padding: EdgeInsets.all(20),
     child: Column(
       children: [
-        Column(
-          children: [
-            Container(
-              width: 300,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color.fromARGB(255, 185, 212, 246),
-                  border: Border.all(
-                  color: Colors.black,
-                  //Appcolrs.navypurple
-                    // Border color
-                       width: 2,            // Border width
-                    ),
-                
-              ),
-              child: ListTile(
-                title: Text(character?.events ?? '',
-                textAlign: TextAlign.center, 
-                  style: TextStyle(fontWeight: FontWeight.w900),
-                  
-                ),
-                leading: CircleAvatar(
-                  child: Text(character?.nameOfCharacter ?? '',
+        Container(
+          constraints: BoxConstraints(minWidth: 300, minHeight: 100), // Minimum size constraints
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: Color.fromARGB(255, 185, 212, 246),
+            //border: Border.all(
+             // color: Colors.black,
+             // width: 1,
+           // ),
+          ),
+          child: ListTile(
+            title: Text(
+              character?.events ?? '',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.w900),
+            ),
+            leading: CircleAvatar(
+              child: FittedBox(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0), // Add some padding to avoid text overflow
+                  child: Text(
+                    character?.nameOfCharacter ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w900,fontSize: 16
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 30,
                     ),
                   ),
-                  radius:30,
-                  backgroundColor: AppColors8.navypurple
-                  ,
                 ),
               ),
+              radius: 30,
+              backgroundColor: Colors.white,
             ),
-          ],
+          ),
         ),
       ],
     ),
   );
 }
+

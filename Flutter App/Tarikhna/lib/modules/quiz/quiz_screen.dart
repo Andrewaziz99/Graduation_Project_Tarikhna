@@ -52,7 +52,9 @@ class QuizScreen extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
-                              colors: [gradientStartColor, titleTextColor],
+                             colors: [Colors.white10, Colors.white12],
+                             // colors: [gradientStartColor, titleTextColor],
+
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               stops: const [0.3, 0.98])),
@@ -71,7 +73,8 @@ class QuizScreen extends StatelessWidget {
                                       const Text(
                                         "Quiz",
                                         style: TextStyle(
-                                            color: titleTextColor,
+                                            color:  Colors.black,
+                                            //titleTextColor,
                                             fontSize: 45,
                                             fontWeight: FontWeight.w900,
                                             fontFamily: 'Avenir'),

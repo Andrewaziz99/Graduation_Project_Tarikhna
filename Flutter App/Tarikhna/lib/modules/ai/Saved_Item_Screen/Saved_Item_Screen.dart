@@ -8,6 +8,7 @@ import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/savedState.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/states.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 
 class Save_Item_Screen extends StatelessWidget {
   const Save_Item_Screen({Key? key}) : super(key: key);
@@ -17,66 +18,91 @@ class Save_Item_Screen extends StatelessWidget {
     return BlocProvider(
       create: (context) => SavedCubit()..getAllSavedItem(),
       child: Scaffold(
-        backgroundColor: HexColor("FFF9F9"),
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: HexColor("EDDCDC"),
+          backgroundColor: CustomPrimaryColor,
           title: Text(
-            "Saves item",
+            "Saved items",
             style: TextStyle(fontSize: 30),
           ),
         ),
-        body: BlocProvider(create:(context)=>SavedCubit()..getAllSavedItem() ,child: BlocConsumer<SavedCubit, SavedState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            var cubit = context.watch<SavedCubit>();
-            var allSavedData = cubit.getSavedItemModel;
-            print(allSavedData?.data?.length);
+        
+        body: BlocProvider(
+          create: (context) => SavedCubit()..getAllSavedItem(),
+          child: BlocConsumer<SavedCubit, SavedState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              var cubit = context.watch<SavedCubit>();
+              var allSavedData = cubit.getSavedItemModel;
+              print(allSavedData?.data?.length);
 
-            return ListView.separated(
-              itemBuilder: (context, index) {
-                // Check if allSavedData is not null and has data
-                if (allSavedData != null && allSavedData.data != null) {
-                  String? title = allSavedData?.data?[index].title;
-                  print(title);
-                  print("title");
-                  String? id = allSavedData?.data![index].sId;
+              return ListView.separated(
+                itemBuilder: (context, index) {
+                  // Check if allSavedData is not null and has data
+                  if (allSavedData != null && allSavedData.data != null) {
+                    String? title = allSavedData.data?[index].title;
+                    print(title);
+                    print("title");
+                    String? id = allSavedData.data![index].sId;
 
-                  return GestureDetector(
-                    onTap: () {
-                      // Navigate to the Saved_Caracter_Screen and pass the ID
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Navigate_Saved_Screen(id),
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to the Saved_Caracter_Screen and pass the ID
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Navigate_Saved_Screen(id),
+                          ),
+                        );
+                      },
+                    
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                        child: Material(
+                          elevation: 5, // Add elevation here
+                          borderRadius: BorderRadius.circular(8), // Rounded corners
+                          child: ListTile(
+                            title: Text(title ?? ""),
+                            leading: Container(
+                              width: 40, // Adjust to the desired size of the avatar
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.black, // Border color
+                                  width: 2.0, // Border width
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                child: Image.asset(
+                                  "images/history.png",
+                                  fit: BoxFit.contain,
+                                  width: 24, // Adjust width to fit your needs
+                                  height: 24, // Adjust height to fit your needs
+                                ),
+                              ),
+                            ),
+                            trailing: Image.asset("images/cloud.png"),
+                          ),
                         ),
-                      );
-                    },
-                    child: ListTile(
-                      title: Text(title ?? ""),
-                      leading: CircleAvatar(
-                        backgroundColor: HexColor("EDDCDC"),
-                        child: Icon(Icons.history_edu_outlined),
                       ),
-                      trailing: Icon(Icons.save_alt_outlined),
-                    ),
-                  );
-                } else {
-                  // If allSavedData is null or has no data, show a placeholder widget
-                  return Container(); // You can return any placeholder widget here
-                }
-              },
-              separatorBuilder: (context, index) => Padding(
-                padding: EdgeInsets.only(left: 30),
-                child: Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.grey,
+                    );
+                  } else {
+                    // If allSavedData is null or has no data, show a placeholder widget
+                    return Container(); // You can return any placeholder widget here
+                  }
+                },
+                separatorBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                 // child: Divider(color: Colors.grey),
                 ),
-              ),
-              itemCount: allSavedData?.data?.length ?? 0,
-            );
-          },
-        ),),
+                itemCount: allSavedData?.data?.length ?? 0,
+                padding: const EdgeInsets.only(top: 20.0),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

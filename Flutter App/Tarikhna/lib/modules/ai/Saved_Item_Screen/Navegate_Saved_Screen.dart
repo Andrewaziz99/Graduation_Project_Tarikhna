@@ -12,6 +12,7 @@ import 'package:tarikhna/modules/ai/ai_output_screen.dart';
 import 'package:tarikhna/modules/ai/ai_output_dates_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 
 
 
@@ -23,89 +24,125 @@ class Navigate_Saved_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor("FFF9F9"),
       appBar: AppBar(
-        backgroundColor: HexColor("FFF9F9"),
+         title: Text(
+          'Select Summarize',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Roboto',
+          ),
+        ),
+         backgroundColor: CustomPrimaryColor,
+        elevation: 0,
+        centerTitle: true,
+
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Material(
-            elevation: 10,
-            shadowColor: Colors.white,
-            borderOnForeground: true,
-            child: Text(
-              'Select Summarize',
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'JacquesFrancois',
-              ),
+      body: Stack(
+        children:[  
+          ClipPath(
+           clipper: MyClipper(),
+            child: Container(
+              color: CustomPrimaryColor,
+              height: 500,
+              width: double.infinity,
             ),
           ),
-          SizedBox(height: 100),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Material(
-                elevation: 15,
-                shadowColor: Colors.white,
-                borderOnForeground: true,
-                child: Container(
-                  width: 150,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: HexColor('5E8BFF'),
-                  ),
-                  child: MaterialButton(
-                    onPressed: () {
-                      navigateTo(context, Saved_Caracter_Screen(id));
-                    },
-                    child: Text(
-                      "Characters",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+          Positioned(
+            top: 300, // Adjust this value to position the buttons correctly
+            left: 0,
+            right: 0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'What do you want to summarize?',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Roboto',
                   ),
                 ),
-              ),
-SizedBox(width: 30,),
+            SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton.icon(onPressed: () {
+                        navigateTo(context, Saved_Caracter_Screen(id));
+                      }, 
+                       style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors4.navyblue,
+                        //Color.fromARGB(255, 185, 212, 246),
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          //side: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      icon: Image.asset("images/nefertiti_11263517.png"),
+                      label: Text(
+                        "Characters",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
 
-              Material(
-                elevation: 15,
-                shadowColor: Colors.white,
-                borderOnForeground: true,
-                child: Container(
-                  width: 150,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: HexColor('5E8BFF'),
-                  ),
-                  child: MaterialButton(
-                    onPressed: () {
-                      navigateTo(context, Saved_Date_Screen(id));
-                    },
-                    child: Text(
-                      "Date",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+
+                      ),
+                       SizedBox(width: 10),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        navigateTo(context, Saved_Date_Screen(id));
+                      },
+                   
+                      
+                     style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors4.navyblue,
+                        //Color.fromARGB(255, 185, 212, 246),
+                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          //side: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      icon: Image.asset("images/hourglass_2191902.png"),
+                      label: Text(
+                        "Date",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-
-            ],
+              ],
+            ),
           ),
         ],
+       
       ),
     );
+  }
+}
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height - 50);
+    path.quadraticBezierTo(
+        size.width / 2, size.height, size.width, size.height - 50);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

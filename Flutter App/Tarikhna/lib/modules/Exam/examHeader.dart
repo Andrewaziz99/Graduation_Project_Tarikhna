@@ -15,7 +15,7 @@ class HeaderWidget extends StatelessWidget {
               color: titleTextColor,
               fontSize: 45,
               fontWeight: FontWeight.w900,
-              fontFamily: 'Avenir'),
+              fontFamily: 'Roboto'),
         ),
       ]),
     );

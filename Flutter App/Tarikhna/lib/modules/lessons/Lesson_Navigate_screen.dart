@@ -29,26 +29,26 @@ class Lesson_Navigate_Screen extends StatelessWidget {
             fontFamily: 'Roboto',
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: CustomPrimaryColor,
         elevation: 0,
         centerTitle: true,
       ),
       body: Stack(
         children: [
-          // Container(
-          //   decoration: BoxDecoration(
-          //     // gradient: LinearGradient(
-          //     //   begin: Alignment.topCenter,
-          //     //   end: Alignment.bottomCenter,
-          //     //   colors: [Colors.blue, Colors.white],
-          //     //   stops: [0.5, 0.5],
-          //     // ),
-          //   ),
-          // ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
+          ClipPath(
+            clipper: MyClipper(),
+            child: Container(
+              color: CustomPrimaryColor,
+              height: 500,
+              width: double.infinity,
+            ),
+          ),
+          Positioned(
+            top: 300, // Adjust this value to position the buttons correctly
+            left: 0,
+            right: 0,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   'What do you want to summarize?',
@@ -58,7 +58,7 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                     fontFamily: 'Roboto',
                   ),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -67,12 +67,12 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                         navigateTo(context, Lesson_output_character_screen(id));
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 185, 212, 246),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        backgroundColor: AppColors4.navyblue,
+                        //Color.fromARGB(255, 185, 212, 246),
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.black),
-                          //HexColor("B1AEFC")
+                          //side: BorderSide(color: Colors.black),
                         ),
                       ),
                       icon: Image.asset("images/nefertiti_11263517.png"),
@@ -85,19 +85,21 @@ class Lesson_Navigate_Screen extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(width: 10),
                     ElevatedButton.icon(
                       onPressed: () {
                         navigateTo(context, Lesson_output_date_screen(id));
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 185, 212, 246),
-                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        backgroundColor: AppColors4.navyblue,
+                        //Color.fromARGB(255, 185, 212, 246),
+                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(color: Colors.black),
+                          //side: BorderSide(color: Colors.black),
                         ),
                       ),
-                      icon:Image.asset("images/hourglass_2191902.png"),
+                      icon: Image.asset("images/hourglass_2191902.png"),
                       label: Text(
                         "Date",
                         style: TextStyle(
@@ -115,5 +117,23 @@ class Lesson_Navigate_Screen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height - 50);
+    path.quadraticBezierTo(
+        size.width / 2, size.height, size.width, size.height - 50);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

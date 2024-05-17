@@ -120,50 +120,40 @@ Widget TextSummarizedBuilder(DateModel date, int index, int length) {
     padding: EdgeInsets.all(20),
     child: Column(
       children: [
-        Column(
-          children: [
-            Container(
-               width: 300,
-              height: 100,
-
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-               color: Color.fromARGB(255, 185, 212, 246),
-                  border: Border.all(
-                   color: Colors.black,
-                   //AppColors8.navypurple,  // Border color
-                       width: 2,            // Border width
-                    ),
-              ),
-              child: ListTile(
-                title: Text(
-                  date.event ?? '',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.w900),
-                ),
-                leading: Container(
-                  alignment: Alignment.center,
-                  width: 85, // Adjust width according to your requirement
-                  height: 85, // Adjust height according to your requirement
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-
-
-                    color: Colors.white, // Change color here
-                  ),
-                  
-                  child: Center(child: Text(
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+            color: Color.fromARGB(255, 185, 212, 246),
+            // border: Border.all(
+            //   color: Colors.black,
+            //   width: 1,
+           // ),
+          ),
+          child: ListTile(
+            title: Text(
+              date.event ?? '',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.w900),
+            ),
+            leading: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 30,
+              child: FittedBox(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0), // Add some padding to avoid text overflow
+                  child: Text(
                     date.date ?? '',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.black, // Change text color here
-                        fontWeight: FontWeight.w900,fontSize:15
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 30,
                     ),
-                  ),),
+                  ),
                 ),
               ),
             ),
-          ],
+          ),
         ),
       ],
     ),

@@ -14,6 +14,7 @@ import 'package:tarikhna/shared/bloc_observer.dart';
 import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
 import 'package:tarikhna/shared/styles/themes.dart';
+import 'package:tarikhna/modules/Exam/examMain.dart';
 
 
 void main() async {
@@ -49,8 +50,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
-        home: token ? NavBar_Page() : LoginScreen(),
-        //  home:LoginScreen(),
+        //home: token ? NavBar_Page() : LoginScreen(),
+       home:LoginScreen(),
+         
+
 
       ),
     );

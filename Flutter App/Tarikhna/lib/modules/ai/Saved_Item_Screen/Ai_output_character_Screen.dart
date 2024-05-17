@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/models/Get_All_SavedItemmodel.dart';
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/savedState.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class Saved_Caracter_Screen extends StatelessWidget {
@@ -56,9 +57,9 @@ class Saved_Caracter_Screen extends StatelessWidget {
 
 
         return Scaffold(
-          backgroundColor: HexColor("FFF9F9"),
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: HexColor("FFF9F9"),
+            backgroundColor: Colors.white,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -77,7 +78,7 @@ class Saved_Caracter_Screen extends StatelessWidget {
                         child: Text(
                           "TEXT OUTPUT",
                           style: TextStyle(
-                            fontFamily: 'JacquesFrancois',
+                            fontFamily: 'Roboto',
                             fontSize: 40,
                           ),
                         ),
@@ -99,14 +100,14 @@ class Saved_Caracter_Screen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: SizedBox(
-                              height: 400,
+                              height: 250,
                               child: TimelineTile(
                                 isFirst: First,
                                 isLast: Last,
-                                beforeLineStyle: LineStyle(color: HexColor('D3C5C5')),
+                                beforeLineStyle: LineStyle(color: AppColors8.navypurple),
                                 indicatorStyle: IndicatorStyle(
                                   width: 40,
-                                  color: HexColor('D3C5C5'),
+                                  color:AppColors8.navypurple,
                                   iconStyle: IconStyle(
                                     iconData: Icons.arrow_downward_rounded,
                                     color: Colors.white,
@@ -149,9 +150,10 @@ Widget TextSummarizedBuilder(SavedCharacters? character, int index, int length) 
           children: [
             if (character?.nameOfCharacter != null)
               Container(
+                 constraints: BoxConstraints(minWidth: 300, minHeight: 100), // Minimum size constraint
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: HexColor('D3C5C5'),
+                   color: Color.fromARGB(255, 185, 212, 246),
                 ),
                 child: ListTile(
                   title: Column(
