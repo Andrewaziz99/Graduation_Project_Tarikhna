@@ -332,41 +332,39 @@ Widget lessonItemBuilder(model) => Material(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Expanded(
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                // print(model.sId);
-                showLessonBottomSheet(model!.sId!);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${model.title}',
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textDirection: TextDirection.rtl,
+          child: GestureDetector(
+            onTap: () {
+              // print(model.sId);
+              showLessonBottomSheet(model!.sId!);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '${model.title}',
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(
-                      height: 40.0,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  const SizedBox(
+                    height: 40.0,
+                  ),
+                  Text(
+                    'Unit ${model.unit}',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: Colors.grey[800],
                     ),
-                    Text(
-                      'Unit ${model.unit}',
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.grey[800],
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
           ),
