@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../models/AI_model.dart';
@@ -25,9 +26,9 @@ class Ai_output_dates_screen extends StatelessWidget {
         var data = cubit.AiModel?.data;
 
         return Scaffold(
-          backgroundColor: HexColor("FFF9F9"),
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: HexColor("FFF9F9"),
+            backgroundColor: Colors.white,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -51,7 +52,7 @@ class Ai_output_dates_screen extends StatelessWidget {
                             child: Text(
                               "TEXT OUTPUT",
                               style: TextStyle(
-                                fontFamily: 'JacquesFrancois',
+                                fontFamily: 'Roboto',
                                 fontSize: 40,
                               ),
                             ),
@@ -74,10 +75,10 @@ class Ai_output_dates_screen extends StatelessWidget {
                                       isFirst: isFirst,
                                       isLast: isLast,
                                       beforeLineStyle:
-                                          LineStyle(color: HexColor('D3C5C5')),
+                                          LineStyle(color: AppColors8.navypurple),
                                       indicatorStyle: IndicatorStyle(
                                         width: 40,
-                                        color: HexColor('D3C5C5'),
+                                        color: AppColors8.navypurple,
                                         iconStyle: IconStyle(
                                           iconData:
                                               Icons.arrow_downward_rounded,

@@ -7,6 +7,7 @@ import 'package:tarikhna/modules/ai/ai_output_dates_screen.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class AiOutputScreen extends StatelessWidget {
@@ -23,9 +24,9 @@ class AiOutputScreen extends StatelessWidget {
         CharactersModel? characterModel;
 
         return Scaffold(
-          backgroundColor: HexColor("FFF9F9"),
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: HexColor("FFF9F9"),
+            backgroundColor: Colors.white,
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -46,7 +47,7 @@ class AiOutputScreen extends StatelessWidget {
                           child: Text(
                             "TEXT OUTPUT",
                             style: TextStyle(
-                              fontFamily: 'JacquesFrancois',
+                              fontFamily: 'Roboto',
                               fontSize: 40,
                             ),
                           ),
@@ -73,10 +74,10 @@ class AiOutputScreen extends StatelessWidget {
                                   isFirst: First,
                                   isLast: Last,
                                   beforeLineStyle:
-                                  LineStyle(color: HexColor('D3C5C5')),
+                                  LineStyle(color: AppColors8.navypurple),
                                   indicatorStyle: IndicatorStyle(
                                     width: 40,
-                                    color: HexColor('D3C5C5'),
+                                    color: AppColors8.navypurple,
                                     iconStyle: IconStyle(
                                       iconData: Icons.arrow_downward_rounded,
                                       color: Colors.white,
@@ -123,9 +124,10 @@ class AiOutputScreen extends StatelessWidget {
             children: [
               if (character.nameOfCharacter != null)
                 Container(
+                  constraints: BoxConstraints(minWidth: 300, minHeight: 100),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: HexColor('D3C5C5'),
+                    color: Color.fromARGB(255, 185, 212, 246),
                   ),
                   child: ListTile(
                     title: Column(
