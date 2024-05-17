@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/modules/profile/cubit/cubit.dart';
 import 'package:tarikhna/modules/profile/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
+import 'package:tarikhna/shared/components/constants.dart';
+import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/styles/colors.dart';
 
 
@@ -36,6 +38,15 @@ class profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (BuildContext context, state) {
+
+        if (state is UpdateProfileSuccessState){
+          CacheHelper.saveData(
+              key: 'token', value: state.updateProfileModel.data!)
+              .then((value) {
+            TOKEN = state.updateProfileModel.data!;
+          });
+        }
+
         if (state is ProfileSuccessState) {
           if (state.profileModel.status!) {
             CherryToast.success(
