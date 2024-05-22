@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/modules/Exam/cubit/exam_cubit.dart';
+import 'package:tarikhna/modules/ai/Navigation_Screen.dart';
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/arModule/cubit/ar_cubit.dart';
@@ -51,7 +52,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         //home: token ? NavBar_Page() : LoginScreen(),
-       home:LoginScreen(),
+       //home:LoginScreen(),
+       home:  Navigate_Screen(),
          
 
 

@@ -318,60 +318,66 @@ class Tcircularcontainer extends StatelessWidget {
 
 
 
-Widget lessonItemBuilder(model) => Material(
-  elevation: 5, // Set the elevation value
-  borderRadius: BorderRadius.circular(15.0),
-  child: Container(
-    
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(15.0),
-      color: Colors.white,
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                // print(model.sId);
-                showLessonBottomSheet(model!.sId!);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${model.title}',
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+Widget lessonItemBuilder(model) => GestureDetector(
+  onTap: () {
+    // print(model.sId);
+    showLessonBottomSheet(model!.sId!);
+  },
+  child: Material(
+    elevation: 5, // Set the elevation value
+    borderRadius: BorderRadius.circular(15.0),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
+        color: Colors.white,
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(15.0), // Ensures the ripple effect matches the shape
+        onTap: () {
+          // print(model.sId);
+          showLessonBottomSheet(model!.sId!);
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${model.title}',
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textDirection: TextDirection.rtl,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textDirection: TextDirection.rtl,
-                    ),
-                    const SizedBox(
-                      height: 40.0,
-                    ),
-                    Text(
-                      'Unit ${model.unit}',
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.grey[800],
+                      const SizedBox(
+                        height: 40.0,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                      Text(
+                        'Unit ${model.unit}',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.grey[800],
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     ),
   ),
 );

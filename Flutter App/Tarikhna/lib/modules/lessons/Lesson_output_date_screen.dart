@@ -135,9 +135,13 @@ Widget TextSummarizedBuilder(DateModel date, int index, int length) {
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
-            leading: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 30,
+            leading: Container(
+              alignment: Alignment.center,
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                      borderRadius: BorderRadius.circular(30)),
               child: FittedBox(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0), // Add some padding to avoid text overflow

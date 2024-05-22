@@ -18,6 +18,7 @@ import 'package:tarikhna/modules/ai/ai_output_screen.dart';
 import 'package:tarikhna/modules/ai/ai_output_dates_screen.dart';
 import 'package:tarikhna/shared/components/components.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 
 import 'Saved_Item_Screen/Saved_Item_Screen.dart';
 
@@ -29,9 +30,18 @@ class Navigate_Screen extends StatelessWidget {
     return BlocConsumer<AICubit, AIStates>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: HexColor("FFF9F9"),
+          backgroundColor: CustomPrimaryColor,
           appBar: AppBar(
-            backgroundColor: HexColor("FFF9F9"),
+            backgroundColor: CustomPrimaryColor,
+            title: const Text(
+          'Select Summarize',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Roboto',
+          ),
+          ),
           ),
           body: ConditionalBuilder(
             builder: (context) => Column(
@@ -49,6 +59,7 @@ class Navigate_Screen extends StatelessWidget {
                       fontFamily: 'JacquesFrancois',
                     ),
                   ),
+                  
                 ),
                 const SizedBox(height: 100),
                 Row(

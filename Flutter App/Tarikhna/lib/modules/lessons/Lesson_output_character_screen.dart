@@ -142,24 +142,23 @@ Widget TextSummarizedBuilder(CharacterModel? character, DateModel date, int inde
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
-            leading: CircleAvatar(
-              child: FittedBox(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0), // Add some padding to avoid text overflow
-                  child: Text(
-                    character?.nameOfCharacter ?? '',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 30,
+             leading: Container(
+                    alignment: Alignment.center,
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        // shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(30)
+                    ),
+                    child: Text(
+                      character?.nameOfCharacter ?? '',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w900,fontSize: 10
+                        // Adjust the fontSize as needed
+                      ),
                     ),
                   ),
-                ),
-              ),
-              radius: 30,
-              backgroundColor: Colors.white,
-            ),
           ),
         ),
       ],
