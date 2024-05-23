@@ -2,13 +2,14 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const config = require('./config')
-const AIrouter = require('./AI_Summerization')
-const userRouter = require('./User')
-const authMiddleware = require('./authentication/authMiddleware')
-const authRouter = require('./authentication')
+// const AIrouter = require('./AI_Summerization')
+// const userRouter = require('./User')
+// const authMiddleware = require('./authentication/authMiddleware')
+// const authRouter = require('./authentication')
 const lessonRouter =  require('./lesson/lessonRouter')
-const quizRouter = require('./quiz/quizRouter')
-const examRouter = require('./exam')
+const fileUpload = require("express-fileupload");
+const quesRouter = require('./questions/quesRouter')
+
 const connectDb = require('./dbConnection')
 connectDb()
 
@@ -18,12 +19,13 @@ app.use(cors({
     origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"]
 }))
-app.use('/AI_Summary', AIrouter)
-app.use('/auth', authRouter)
-app.use('/user', authMiddleware ,userRouter)
-app.use('/lesson',authMiddleware, lessonRouter)
-app.use('/quiz',authMiddleware ,quizRouter)
-app.use('/exam',authMiddleware, examRouter)
+// app.use(fileUpload())
+
+// app.use('/AI_Summary', AIrouter)
+// app.use('/auth', authRouter)
+// app.use('/user', authMiddleware ,userRouter)
+app.use('/lesson',lessonRouter)
+app.use('/questions', quesRouter)
 
 
 

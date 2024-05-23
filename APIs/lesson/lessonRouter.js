@@ -14,8 +14,6 @@ router.get('/getLessons', (req, res) => {
         }
     })
 
-
-
 })
 
 //search for lesson
@@ -65,6 +63,40 @@ router.get('/filter', (req, res) => {
 
     }
 
+})
+
+//Admin
+//Show all lessons
+router.get('/getAllLessons', (req,res)=>{
+    try {
+        lessonController.getAllLessons((err, lessons)=>{
+            if (err) {
+                return res.send({ status: false, message: err, data: null })
+            }
+
+            return res.send({ status: true, message: "Lessons retrieved successfully", data: lessons })
+        })
+    } catch (error) {
+        return res.send({ status: false, message: "Error has occured, please try again after some time", data: null })
+
+    }
+})
+
+//Admin
+//Add Lesson
+router.post('/addLesson', (req, res)=>{
+    console.log(req.body);
+    try {
+        lessonController.addLesson(req.body, (err, lesson)=>{
+            if (err) {
+                return res.send({ status: false, message: err, data: null })
+            }
+            return res.send({ status: true, message: "Lesson added successfully", data: lesson })
+        })
+    } catch (error) {
+        return res.send({ status: false, message: "Error has occured, please try again after some time", data: null })
+
+    }
 })
 
 module.exports = router

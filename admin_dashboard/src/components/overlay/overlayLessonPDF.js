@@ -4,20 +4,61 @@ import Modal from 'react-bootstrap/Modal';
 import './overlay.css'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import axios from 'axios';
+
 
 function Overlay(props) {
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  
     const [character, setCharacter] = useState([{ nameOfCharacter: '', Events: [] }]);
-    // if (props.buttonTitle == "Edit") {
-    //     setCharacter(props.summaryText);
-    // }
     const [date, setDate] = useState([{ date: '', event: [] }]);
     const[title, setTitle] = useState('')
     const[unit, setUnit] = useState('')
     const[grade, setGrade]= useState('')
+    const [file, setFile] = useState();
+    const [showOverlay, setShowOverlay] = useState(false)
+    // if (props.buttonTitle == "Edit") {
+    //     setCharacter(props.summaryText);
+    // }
+    
+    const handleClose = () =>{
+        setShow(false);
+        setCharacter([{ nameOfCharacter: '', Events: [] }])
+        setDate([{ date: '', event: [] }])
+        setTitle('')
+        setUnit('Choose unit')
+        setGrade('Choose grade')
+        setFile('')
+    }
+    const handleShow = () => setShow(true);
+
+    let summarizedLesson
+    const upload =async ()=>{
+        handleShow()
+        const formData = new FormData()
+        formData.append('file', file)
+        try {
+            const res = await axios.post('http://localhost:8888/lesson/uploadPdf',formData)
+            if (res.data.status) {
+                // console.log(res.data.data);
+                summarizedLesson = res.data.data
+                console.log(summarizedLesson);
+                setTitle(summarizedLesson.Title)
+                setUnit(summarizedLesson.unit)
+                setGrade(summarizedLesson.year)
+                setCharacter(summarizedLesson.characters)
+                setDate(summarizedLesson.dates)
+            }else{
+            console.log(res.data.message);
+            alert(res.data.message)
+            }
+
+        } catch (error) {
+            console.log(error);
+            alert("An error has occured, please try again later")
+        }
+    }
     
     const handleAddTitle = (value)=>{
         setTitle(value)
@@ -40,14 +81,14 @@ function Overlay(props) {
         // console.log(date);
         // console.log(title);
         // console.log(grade);
-        const lessonData = {
+        const data = {
             characters: character,
             dates: date,
             Title: title,
             unit: unit,
             year: grade
         }
-        console.log(lessonData.characters);
+        console.log(data.characters);
         const myHeaders = new Headers();
         myHeaders.append('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlkIjoiNjY0MjlkNDAxNWI4Y2E1NTNmNGFjNzY2IiwibmFtZSI6IlRob21hcyIsImVtYWlsIjoidGhvbWFzbWFnZWQyQGdtYWlsLmNvbSIsInllYXIiOiI2IiwiaWF0IjoxNzE1NjUzMjMxfQ.2cXsUtJ8GFN-jn62wIjUv59jqIEqmjaVIZnS-1Ujd_M');
         myHeaders.append('Content-Type', 'application/json')
@@ -56,19 +97,17 @@ function Overlay(props) {
             let response = await fetch("http://localhost:8888/lesson/addLesson", {
                 method: "POST",
                 headers: myHeaders,
-                body: JSON.stringify(lessonData) 
+                body: JSON.stringify(data) 
             })
-            const data = await response.json();
-            if (data.status) {
+    
+            if (response.ok) {
+                const data = await response.json();
                 console.log(data); // Handle the response data as needed
-                alert(data.message)
             } else {
-                console.error(data.message);
-                alert(data.message)
+                console.error(`HTTP ${response.status}: ${response.statusText}`);
             }
         } catch (error) {
             console.log(error);
-            alert("An error has occured, please try again later")
         }
     }
     const handleCharacterChange = (index, value) => {
@@ -139,7 +178,8 @@ function Overlay(props) {
 
     return (
         <>
-            <Button className={props.buttonStyle} onClick={handleShow}>
+            <input type='file' onChange={(e)=>{setFile(e.target.files[0])}}></input>
+            <Button className={props.buttonStyle} onClick={upload}>
                 <i className={props.buttonIcon}></i>
                 {props.buttonTitle}
             </Button>
@@ -158,11 +198,11 @@ function Overlay(props) {
                     <div className="row">
                         <div className="col">
                             <label>Lesson Title</label>
-                            <input type="text" className="form-control" onChange={(e)=>{handleAddTitle(e.target.value)}} placeholder='Lesson title' />
+                            <input type="text" className="form-control" onChange={(e)=>{handleAddTitle(e.target.value)}} value={title} placeholder='Lesson title' />
                         </div>
                         <div className="col">
                             <label>Unit</label>
-                            <select className="form-select" onChange={(e)=>{handleAddUnit(e.target.value)}}>
+                            <select className="form-select" onChange={(e)=>{handleAddUnit(e.target.value)}} >
                                 <option >Choose unit</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -173,7 +213,7 @@ function Overlay(props) {
                         </div>
                         <div className="col">
                             <label>Grade</label>
-                            <select className="form-select" onChange={(e)=>{handleAddGrade(e.target.value)}}>
+                            <select className="form-select" onChange={(e)=>{handleAddGrade(e.target.value)}} >
                                 <option >Choose grade</option>
                                 <option>4</option>
                                 <option>5</option>
@@ -187,6 +227,7 @@ function Overlay(props) {
                             <button className='col btn addchar' onClick={handleAddInput}>+ Character</button>
                         </div>
                         {character.map((input, index) => (
+                            
                             <div key={index}>
                                 <div className='flex input-group'>
                                     <OverlayTrigger
@@ -202,7 +243,7 @@ function Overlay(props) {
                                         type="text"
                                         className='form-control'
                                         placeholder="Enter a character"
-                                        value={input.character}
+                                        value={input.nameOfCharacter    }
                                         onChange={(e) => handleCharacterChange(index, e.target.value)}
                                     />
                                     <button className='btn addeventbtn' onClick={() => handleAddEvent(index)}>Add Event</button>

@@ -5,6 +5,8 @@ import Home from "./components/home/Home";
 import Questions from "./components/Questions/Questions";
 import Lessons from "./components/lesson/Lessons";
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
+
 const App = () => {
 
   return (<div className="App">

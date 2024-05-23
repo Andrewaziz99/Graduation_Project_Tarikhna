@@ -23,4 +23,23 @@ const searchLesson = (wordToSearch, year, done)=>{
         done("errorr occured while retrieving lessons data", undefined)
     })
 }
-module.exports = {getLessonsByYear, searchLesson}
+
+const getAllLessons = (done)=>{
+    lessonModel.find().then(res=>{
+        if (res.length == 0) {
+            return done("No lessons found", undefined)
+        }
+        return done(undefined, res)
+    }).catch(err=>{
+        return done(err, undefined)
+    })
+}
+
+const addLesson = (data, done)=>{
+    lessonModel.create(data).then(res=>{
+        return done(undefined, res)
+    }).catch(err=>{
+        return done(err, undefined)
+    })
+}
+module.exports = {getLessonsByYear, searchLesson, getAllLessons, addLesson}

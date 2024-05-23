@@ -6,10 +6,12 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 function OverlayEditLesson(props) {
     const [show, setShow] = useState(false);
+    
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     var summary = props.summaryText;
+    console.log(summary);
     var input = [{}];
     summary.map((les, index) => {
         input[index] = les;
@@ -24,21 +26,64 @@ function OverlayEditLesson(props) {
     })
 
     const [date, setDate] = useState(inputDate);
+    const[title, setTitle] = useState(props.lessonTitle)
+    const[unit, setUnit] = useState(props.unit)
+    const[grade, setGrade]= useState(props.grade)
 
+    const handleAddTitle = (value)=>{
+        setTitle(value)
+    }
+    const handleAddUnit = (value)=>{
+        setUnit(value)
+    }
+    const handleAddGrade = (value)=>{
+        setGrade(value)
+    }
     const handleAddInput = () => {
-        setCharacter([...character, { character: '', events: [] }]);
+        setCharacter([...character, { character: '', Events: [] }]);
     };
     const handleAddDate = () => {
-        setDate([...date, { date: '', events: [] }]);
+        setDate([...date, { date: '', event: [] }]);
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         console.log(character);
         console.log(date);
+        console.log(title);
+        const updatedLessonsData = {
+            lessonID: props.lessonID,
+            lessonTitle: title,
+            lessonUnit: parseInt(unit),
+            lessonGrade: parseInt(grade),
+            characters: character,
+            dates: date
+        }
+        console.log("updatedLessonsData.characters");
+        console.log(updatedLessonsData.characters);
+        try {
+            const response = await fetch('http://localhost:8888/lesson/editLesson/',{
+                method: "PUT",
+                body: JSON.stringify(updatedLessonsData),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            })
+            const data = await response.json()
+            if (data.status) {
+                console.log(data.data);
+                alert(data.message)
+            }else{
+                console.error(data.message);
+                alert(data.message)
+            }
+        } catch (error) {
+            console.log(error);
+            alert("An error has occured, please try again later")
+        }
     }
     const handleCharacterChange = (index, value) => {
         const updatedInputs = [...character];
-        updatedInputs[index].character = value;
+        updatedInputs[index].nameOfCharacter = value;
         setCharacter(updatedInputs);
     };
     const handleDateChange = (index, value) => {
@@ -48,22 +93,22 @@ function OverlayEditLesson(props) {
     };
     const handleEventChange = (index, eventIndex, value) => {
         const updatedInputs = [...character];
-        updatedInputs[index].events[eventIndex] = value;
+        updatedInputs[index].Events[eventIndex] = value;
         setCharacter(updatedInputs);
     };
     const handleDateEventChange = (index, eventIndex, value) => {
         const updatedInputs = [...date];
-        updatedInputs[index].events[eventIndex] = value;
+        updatedInputs[index].event[eventIndex] = value;
         setDate(updatedInputs);
     };
     const handleAddEvent = (index) => {
         const updatedInputs = [...character];
-        updatedInputs[index].events.push('');
+        updatedInputs[index].Events.push('');
         setCharacter(updatedInputs);
     };
     const handleAddDateEvent = (index) => {
         const updatedInputs = [...date];
-        updatedInputs[index].events.push('');
+        updatedInputs[index].event.push('');
         setDate(updatedInputs);
     };
     const handleRemoveInput = (index) => {
@@ -78,12 +123,12 @@ function OverlayEditLesson(props) {
     };
     const handleRemoveEvent = (index, eventIndex) => {
         const updatedInputs = [...character];
-        updatedInputs[index].events.splice(eventIndex, 1);
+        updatedInputs[index].Events.splice(eventIndex, 1);
         setCharacter(updatedInputs);
     };
     const handleRemoveDateEvent = (index, eventIndex) => {
         const updatedInputs = [...date];
-        updatedInputs[index].events.splice(eventIndex, 1);
+        updatedInputs[index].event.splice(eventIndex, 1);
         setDate(updatedInputs);
     };
     const renderTooltipDelCharacter = (props) => (
@@ -122,11 +167,22 @@ function OverlayEditLesson(props) {
                     <div className="row">
                         <div className="col">
                             <label>Lesson Title</label>
-                            <input type="text" className="form-control" value={props.lessonTitle} />
+                            <input type="text" className="form-control" value={title} onChange={(e)=>{handleAddTitle(e.target.value)}} />
+                        </div>
+                        <div className="col">
+                            <label>Unit</label>
+                            <select className="form-select" value={unit} onChange={(e)=>{handleAddUnit(e.target.value)}}>
+                                <option >Choose unit</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
                         </div>
                         <div className="col">
                             <label>Grade</label>
-                            <select className="form-select">
+                            <select className="form-select" value={grade} onChange={(e)=>{handleAddGrade(e.target.value)}}>
                                 <option >Choose grade</option>
                                 <option>4</option>
                                 <option>5</option>
@@ -137,8 +193,9 @@ function OverlayEditLesson(props) {
                     <div >
                         <div className='row sections'>
                             <h5 className='col'>Character summary section</h5>
-                            <button className='col btn addchar' onClick={handleAddDate}>+ Character</button>
+                            <button className='col btn addchar' onClick={handleAddInput}>+ Character</button>
                         </div>
+                        {character.map((input, index)=>{console.log(index);})}
                         {character.map((input, index) => (
                             <div key={index}>
                                 <div className='flex input-group'>
@@ -155,13 +212,13 @@ function OverlayEditLesson(props) {
                                         type="text"
                                         className='form-control'
                                         placeholder="Enter a character"
-                                        value={input.character}
+                                        value={input.nameOfCharacter}
                                         onChange={(e) => handleCharacterChange(index, e.target.value)}
                                     />
                                     <button className='btn btn-success' onClick={() => handleAddEvent(index)}>Add Event</button>
 
                                 </div>
-                                {input.events.map((event, eventIndex) => (
+                                {input.Events.map((event, eventIndex) => (
                                     <div key={eventIndex} className="flex input-group pad">
                                         <input
                                             type="text"
@@ -188,7 +245,7 @@ function OverlayEditLesson(props) {
                             <h5 className='col'>Date summary section</h5>
                             <button className='col btn addchar' onClick={handleAddDate}>+ Date</button>
                         </div>
-
+                        {date.map((input)=>{console.log("hellloooooooooooooooooo");})}
                         {date.map((input, index) => (
                             <div key={index}>
                                 <div className='flex input-group'>
@@ -208,7 +265,7 @@ function OverlayEditLesson(props) {
                                     />
                                     <button className='btn btn-success' onClick={() => handleAddDateEvent(index)}>Add Event</button>
                                 </div>
-                                {input.events.map((event, eventIndex) => (
+                                {input.event.map((event, eventIndex) => (
                                     <div key={eventIndex} className="flex input-group pad">
                                         <input
                                             type="text"
