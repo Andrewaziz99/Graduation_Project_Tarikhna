@@ -29,7 +29,7 @@ void showLessonBottomSheet(String id) {
                 minimumSize: const Size(100, 50),
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
                 backgroundColor:HexColor("B1AEFC")
-               , // Change button color
+                , // Change button color
               ),
               onPressed: () {
                 navigateTo(context, Lesson_Navigate_Screen(id));
@@ -101,7 +101,7 @@ class LessonsScreen extends StatelessWidget {
         return Stack(
           fit: StackFit.expand,
           children: [
-          
+
             ClipPath(
               clipper: MyClipper(),
               child: Container(
@@ -134,8 +134,8 @@ class LessonsScreen extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 title: const Center(child: Text('Lessons',style: TextStyle(fontSize: 25.0),
-                    
-                          )),
+
+                )),
                 actions: [
                   IconButton(
                     onPressed: () {
@@ -238,9 +238,9 @@ class LessonsScreen extends StatelessWidget {
                             itemBuilder: (context, index) =>
                                 lessonItemBuilder(lesson[index]),
                             separatorBuilder: (context, index) =>
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
                             itemCount: lesson!.length),
                         fallback: (BuildContext context) {
                           if (cubit.lesson?.status == false) {
@@ -313,7 +313,7 @@ class Tcircularcontainer extends StatelessWidget {
     );
   }
 }
-     
+
 
 
 
@@ -338,41 +338,37 @@ Widget lessonItemBuilder(model) => GestureDetector(
           showLessonBottomSheet(model!.sId!);
         },
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Expanded(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(9.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${model.title}',
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textDirection: TextDirection.rtl,
-                      ),
-                      const SizedBox(
-                        height: 40.0,
-                      ),
-                      Text(
-                        'Unit ${model.unit}',
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.grey[800],
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '${model.title}',
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textDirection: TextDirection.rtl,
                   ),
-                ),
+                  const SizedBox(
+                    height: 40.0,
+                  ),
+                  Text(
+                    'Unit ${model.unit}',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: Colors.grey[800],
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
           ],
