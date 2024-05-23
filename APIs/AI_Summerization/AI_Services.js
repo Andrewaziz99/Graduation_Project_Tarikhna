@@ -11,37 +11,38 @@ const summarizeText = async (historicalText, done) => {
     historicalText = JSON.stringify(historicalText)
 
     prompt =
-  '\
-. Summarize the following text.\
-. From the translated text, extract the names of characters mentioned.\
-. From the translated text, extract the events related to the names of characters mentioned.\
-. From the translated text, extract the dates mentioned arranged in a simple format.\
-. From the translated text, extract the events related to the dates mentioned.\
-. Output the above steps in a json format as following:\
-{\
-    "historicalORNot" : "true or false", // if not then return data : null\
-    "data" : {\
-        "characters" : [\
-        {"nameOfCharacter" : "name1",\
-        "Events" : ["event1", "event2", ...]\
-        },\
-        {"nameOfCharacter" : "name2",\
-        "Events" : ["event1", "event2", ...]\
-    },\
-        ...\
-        ],\
-        "dates" : [\
-        {"date" : "date1",\
-        "event" : ["event1", "event2", ...]\
-        },\
-        {"date" : "date2",\
-        "event" : ["event1", "event2", ...]\
-    },\
-        ...\
-        ]\
-        "Title" : "Generate title for the summarized text"\
-    }\
-    }' + historicalText;
+    '\
+  . لخّص النص التالي.\
+  . من النص المترجم، استخرج أسماء الشخصيات المذكورة.\
+  . من النص المترجم، استخرج الأحداث المتعلقة بالشخصيات المذكورة.\
+  . من النص المترجم، استخرج التواريخ المذكورة مرتبة بصيغة بسيطة.\
+  . من النص المترجم، استخرج الأحداث المتعلقة بالتواريخ المذكورة.\
+  . اعرض الخطوات أعلاه في تنسيق JSON كما يلي:\
+  {\
+      "historicalORNot" : true or false, // إذا لم يكن النص تاريخيًا، اجعل قيمة البيانات: false\
+      "data" : {\
+          "characters" : [\
+          {"nameOfCharacter" : "الاسم1",\
+          "Events" : ["حدث1", "حدث2", ...]\
+          },\
+          {"nameOfCharacter" : "الاسم2",\
+          "Events" : ["حدث1", "حدث2", ...]\
+          },\
+          ...\
+          ],\
+          "dates" : [\
+          {"date" : "تاريخ1",\
+          "event" : ["حدث1", "حدث2", ...]\
+          },\
+          {"date" : "تاريخ2",\
+          "event" : ["حدث1", "حدث2", ...]\
+          },\
+          ...\
+          ],\
+          "Title" : "إنشاء عنوان للنص الملخص"\
+      }\
+      }' + historicalText;
+  
 
 
     try {
