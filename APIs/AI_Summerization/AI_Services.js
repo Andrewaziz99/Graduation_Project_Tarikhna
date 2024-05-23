@@ -11,37 +11,37 @@ const summarizeText = async (historicalText, done) => {
     historicalText = JSON.stringify(historicalText)
 
     prompt =
-    '\
-  . لخّص النص التالي.\
-  . من النص المترجم، استخرج أسماء الشخصيات المذكورة.\
-  . من النص المترجم، استخرج الأحداث المتعلقة بالشخصيات المذكورة.\
-  . من النص المترجم، استخرج التواريخ المذكورة مرتبة بصيغة بسيطة.\
-  . من النص المترجم، استخرج الأحداث المتعلقة بالتواريخ المذكورة.\
-  . اعرض الخطوات أعلاه في تنسيق JSON كما يلي:\
-  {\
-      "historicalORNot" : true or false, // إذا لم يكن النص تاريخيًا، اجعل قيمة البيانات: false\
-      "data" : {\
-          "characters" : [\
-          {"nameOfCharacter" : "الاسم1",\
-          "Events" : ["حدث1", "حدث2", ...]\
-          },\
-          {"nameOfCharacter" : "الاسم2",\
-          "Events" : ["حدث1", "حدث2", ...]\
-          },\
-          ...\
-          ],\
-          "dates" : [\
-          {"date" : "تاريخ1",\
-          "event" : ["حدث1", "حدث2", ...]\
-          },\
-          {"date" : "تاريخ2",\
-          "event" : ["حدث1", "حدث2", ...]\
-          },\
-          ...\
-          ],\
-          "Title" : "إنشاء عنوان للنص الملخص"\
-      }\
-      }' + historicalText;
+      '\
+    . لخّص النص التالي باللغة العربية فقط.\
+    . من النص الملخص، استخرج أسماء الشخصيات المذكورة.\
+    . من النص الملخص، استخرج الأحداث المتعلقة بالشخصيات المذكورة.\
+    . من النص الملخص، استخرج التواريخ المذكورة مرتبة بصيغة بسيطة.\
+    . من النص الملخص، استخرج الأحداث المتعلقة بالتواريخ المذكورة.\
+    . اعرض الخطوات أعلاه في تنسيق JSON كما يلي:\
+    {\
+        "historicalORNot" : true or false, // إذا لم يكن النص تاريخيًا، اجعل قيمة البيانات: false\
+        "data" : {\
+            "characters" : [\
+            {"nameOfCharacter" : "الاسم1",\
+            "Events" : ["حدث1", "حدث2", ...]\
+            },\
+            {"nameOfCharacter" : "الاسم2",\
+            "Events" : ["حدث1", "حدث2", ...]\
+            },\
+            ...\
+            ],\
+            "dates" : [\
+            {"date" : "تاريخ1",\
+            "event" : ["حدث1", "حدث2", ...]\
+            },\
+            {"date" : "تاريخ2",\
+            "event" : ["حدث1", "حدث2", ...]\
+            },\
+            ...\
+            ],\
+            "Title" : "إنشاء عنوان للنص الملخص"\
+        }\
+        }' + historicalText;
   
 
 
@@ -50,7 +50,7 @@ const summarizeText = async (historicalText, done) => {
             model: 'gpt-3.5-turbo-0125',
             response_format: { type: "json_object" },
             messages: [{ "role": "user", "content": prompt }],
-            max_tokens: 1000,
+            max_tokens: 2000,
             temperature: 0
         })
         return done(undefined, JSON.parse(response.choices[0].message.content))

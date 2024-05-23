@@ -1,5 +1,5 @@
 class AIModel {
-  String? historicalORNot;
+  bool? historicalORNot;
   DataM? data;
 
   AIModel({this.historicalORNot, this.data});
