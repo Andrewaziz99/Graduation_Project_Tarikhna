@@ -18,7 +18,6 @@ class AiOutputScreen extends StatelessWidget {
         // Handle listener events if needed
       },
       builder: (BuildContext context, Object? state) {
-        print("Listener");
         var cubit = AICubit.get(context);
         var data = cubit.AiModel?.data;
         CharactersModel? characterModel;

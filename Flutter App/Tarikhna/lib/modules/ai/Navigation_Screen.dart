@@ -30,146 +30,122 @@ class Navigate_Screen extends StatelessWidget {
     return BlocConsumer<AICubit, AIStates>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: CustomPrimaryColor,
           appBar: AppBar(
-            backgroundColor: CustomPrimaryColor,
             title: const Text(
-          'Select Summarize',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Roboto',
+              'Select Summarize',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Roboto',
+              ),
+            ),
+            backgroundColor: CustomPrimaryColor,
+            elevation: 0,
+            centerTitle: true,
           ),
-          ),
-          ),
-          body: ConditionalBuilder(
-            builder: (context) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Material(
-                  elevation: 10,
-                  shadowColor: Colors.white,
-                  borderOnForeground: true,
-                  child: Text(
-                    'Select Summarize',
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'JacquesFrancois',
-                    ),
-                  ),
-                  
+          body: Stack(
+            children: [
+              ClipPath(
+                clipper: MyClipper(),
+                child: Container(
+                  color: CustomPrimaryColor,
+                  height: 600,
+                  width: double.infinity,
                 ),
-                const SizedBox(height: 100),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              Positioned(
+                top: 200, // Adjust this value to position the buttons correctly
+                left: 0,
+                right: 0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Material(
-                      elevation: 15,
-                      shadowColor: Colors.white,
-                      borderOnForeground: true,
-                      child: Container(
-                        width: 150,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: HexColor('5E8BFF'),
-                        ),
-                        child: MaterialButton(
+                    // const Text(
+                    //   'What do you want to summarize?',
+                    //   style: TextStyle(
+                    //     fontSize: 20,
+                    //     fontWeight: FontWeight.bold,
+                    //     fontFamily: 'Roboto',
+                    //   ),
+                    // ),
+                    const SizedBox(height: 50),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton.icon(
                           onPressed: () {
-                            navigateTo(context, AiOutputScreen());
+
                           },
-                          child: const Text(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors4.navyblue,
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          icon: Image.asset("images/nefertiti_11263517.png"),
+                          // icon: const Icon(Icons.person, color: Colors.blue),
+                          label: const Text(
                             "Characters",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
+                              color: Colors.blue,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(width: 40),
-                    Material(
-                      elevation: 15,
-                      shadowColor: Colors.white,
-                      borderOnForeground: true,
-                      child: Container(
-                        width: 150,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: HexColor('5E8BFF'),
-                        ),
-                        child: MaterialButton(
+                        ElevatedButton.icon(
                           onPressed: () {
-                            navigateTo(context, const Ai_output_dates_screen());
+
                           },
-                          child: const Text(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors4.navyblue,
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          icon: Image.asset("images/hourglass_2191902.png"),
+                          // icon: const Icon(Icons.calendar_today, color: Colors.blue),
+                          label: const Text(
                             "Dates",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
+                              color: Colors.blue,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Placeholder action for Save Data button
+                        print("Save Data button pressed");
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.greenAccent[400],
+                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      icon: const Icon(Icons.save, color: Colors.white),
+                      label: const Text(
+                        "Save Data",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
-                Material(
-                  elevation: 15,
-                  shadowColor: Colors.white,
-                  borderOnForeground: true,
-                  child: Container(
-                    width: 150,
-                    height: 100.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: HexColor('5E8BFF'),
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {
-                        // Check if AiModel and its data are not null before accessing
-                        final aiModel = AICubit.get(context).AiModel;
-                        if (aiModel != null && aiModel.data != null) {
-                          // Pass the data to SavedItems if available
-                          SavedCubit.get(context).SavedItems(
-                            // dataModel: aiModel.data!,
-                            data: aiModel.data!, // Corrected parameter
-                          );
-                          CherryToast.success(
-                            title: const Text('Success Save Item'),
-                            autoDismiss: true,
-                            toastPosition: Position.bottom,
-                            animationType: AnimationType.fromLeft,
-                            toastDuration: const Duration(seconds: 5),
-                            animationDuration: const Duration(milliseconds: 500),
-                          ).show(context);
-                        } else {
-                          // Handle null data case, perhaps show a message or perform some action
-                          print("AiModel or its data is null");
-                        }
-                      },
-                      child: const Text(
-                        "Save Data",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            condition: state is TextSummarizedSuccessState,
-            fallback: (context) => const Center(child: CircularProgressIndicator()),
+              ),
+            ],
           ),
         );
       },
@@ -177,5 +153,23 @@ class Navigate_Screen extends StatelessWidget {
 
       },
     );
+  }
+}
+
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height - 50);
+    path.quadraticBezierTo(
+        size.width / 2, size.height, size.width, size.height - 50);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

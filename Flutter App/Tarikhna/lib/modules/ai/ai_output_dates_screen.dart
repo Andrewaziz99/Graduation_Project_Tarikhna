@@ -21,7 +21,6 @@ class Ai_output_dates_screen extends StatelessWidget {
         // Handle listener events
       },
       builder: (BuildContext context, Object? state) {
-        print("Listener");
         var cubit = AICubit.get(context);
         var data = cubit.AiModel?.data;
 
@@ -130,7 +129,7 @@ class Ai_output_dates_screen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: HexColor('D3C5C5'),
+              color: Color.fromARGB(255, 185, 212, 246),
             ),
             child: ListTile(
               leading: Container(
