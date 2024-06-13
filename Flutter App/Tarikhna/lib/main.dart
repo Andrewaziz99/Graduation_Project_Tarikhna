@@ -51,9 +51,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
-        //home: token ? NavBar_Page() : LoginScreen(),
+        home: token ? NavBar_Page() : LoginScreen(),
        //home:LoginScreen(),
-       home:  Navigate_Screen(),
+       // home:  Navigate_Screen(),
          
 
 

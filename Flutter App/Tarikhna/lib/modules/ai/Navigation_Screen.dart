@@ -75,7 +75,7 @@ class Navigate_Screen extends StatelessWidget {
                       children: [
                         ElevatedButton.icon(
                           onPressed: () {
-
+                            navigateTo(context, AiOutputScreen());
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors4.navyblue,
@@ -97,7 +97,7 @@ class Navigate_Screen extends StatelessWidget {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
-
+                            navigateTo(context, Ai_output_dates_screen());
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors4.navyblue,
@@ -122,8 +122,25 @@ class Navigate_Screen extends StatelessWidget {
                     const SizedBox(height: 40),
                     ElevatedButton.icon(
                       onPressed: () {
-                        // Placeholder action for Save Data button
-                        print("Save Data button pressed");
+                        final aiModel = AICubit.get(context).AiModel;
+                        if (aiModel != null && aiModel.data != null) {
+                          // Pass the data to SavedItems if available
+                          SavedCubit.get(context).SavedItems(
+                            // dataModel: aiModel.data!,
+                            data: aiModel.data!, // Corrected parameter
+                          );
+                          CherryToast.success(
+                            title: const Text('Success Save Item'),
+                            autoDismiss: true,
+                            toastPosition: Position.bottom,
+                            animationType: AnimationType.fromLeft,
+                            toastDuration: const Duration(seconds: 5),
+                            animationDuration: const Duration(milliseconds: 500),
+                          ).show(context);
+                        } else {
+                          // Handle null data case, perhaps show a message or perform some action
+                          print("AiModel or its data is null");
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.greenAccent[400],
