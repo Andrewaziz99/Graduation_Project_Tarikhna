@@ -128,10 +128,48 @@ class profile extends StatelessWidget {
                     // const SizedBox(height: 10),
                     // defaultFormField(
                     //   controller: oldPasswordController,
+<<<<<<< HEAD
                     //   type: TextInputType.text,
                     //   label: "Password",
                     //   prefix: Icons.lock,
                     //   validate: (value){},
+=======
+                    //   type: TextInputType.visiblePassword,
+                    //   isPassword: cubit.isPassword,
+                    //   label: 'Old Password',
+                    //   prefix: Icons.lock,
+                    //   validate: (value) {},
+                    //   suffix: cubit.suffix,
+                    //   suffixPressed: () {
+                    //     cubit.changePasswordVisibility();
+                    //   },
+                    // ),
+                    // const SizedBox(height: 10),
+                    // defaultFormField(
+                    //   controller: newPasswordController,
+                    //   type: TextInputType.visiblePassword,
+                    //   isPassword: cubit.isPassword,
+                    //   label: 'New Password',
+                    //   prefix: Icons.lock,
+                    //   validate: (value) {},
+                    //   suffix: cubit.suffix,
+                    //   suffixPressed: () {
+                    //     cubit.changePasswordVisibility();
+                    //   },
+                    // ),
+                    // const SizedBox(height: 10),
+                    // defaultFormField(
+                    //   controller: confirmNewPasswordController,
+                    //   type: TextInputType.visiblePassword,
+                    //   isPassword: cubit.isPassword,
+                    //   label: 'Confirm New Password',
+                    //   prefix: Icons.lock,
+                    //   validate: (value) {},
+                    //   suffix: cubit.suffix,
+                    //   suffixPressed: () {
+                    //     cubit.changePasswordVisibility();
+                    //   },
+>>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                     // ),
                     const SizedBox(height: 10),
                     DropdownButtonFormField(

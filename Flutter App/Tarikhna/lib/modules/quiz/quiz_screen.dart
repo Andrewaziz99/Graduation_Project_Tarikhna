@@ -24,8 +24,12 @@ class QuizScreen extends StatelessWidget {
       create: (BuildContext context) => QuizCubit()..getQuiz(id),
       child: BlocConsumer<QuizCubit, QuizStates>(
         listener: (BuildContext context, state) {
+<<<<<<< HEAD
           if (state is QuizErrorState ||
               QuizCubit.get(context).quizModel == null) {
+=======
+          if (state is QuizErrorState || QuizCubit.get(context).quizModel == null) {
+>>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
             AwesomeDialog(
               context: context,
               dialogType: DialogType.warning,
@@ -83,7 +87,11 @@ class QuizScreen extends StatelessWidget {
                                       IconButton(
                                         onPressed: () {
                                           navigateAndFinish(
+<<<<<<< HEAD
                                               context, const NavBar_Page());
+=======
+                                              context, NavBar_Page());
+>>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                                         },
                                         icon: const Icon(Icons.home),
                                       ),
@@ -173,6 +181,7 @@ class QuizScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return Column(
                                   children: [
+<<<<<<< HEAD
                                     Expanded(
                                       child: Card(
                                         elevation: 8,
@@ -245,6 +254,221 @@ class QuizScreen extends StatelessWidget {
                                                         val);
                                                   },
                                                 ),
+=======
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 400,
+                                          child: Card(
+                                            elevation: 8,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(32)),
+                                            color: Colors.white,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(34.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      maxLines: 3,
+                                                      cubit
+                                                              .quizModel
+                                                              ?.data
+                                                              ?.questions?[index]
+                                                              .questions ??
+                                                          '',
+                                                      style: TextStyle(
+                                                          color: primaryTextColor,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          fontFamily: 'Avenir',
+                                                          fontSize: 20),
+                                                      textAlign: TextAlign.right,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 24,
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      Row(children: [
+                                                        Expanded(
+                                                            child:
+                                                                RadioMenuButton(
+                                                          value: 0,
+                                                          groupValue: cubit
+                                                              .selectedOption,
+                                                          style: ButtonStyle(
+                                                            shape: MaterialStatePropertyAll(
+                                                                RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10))),
+                                                            elevation:
+                                                                const MaterialStatePropertyAll(
+                                                                    2),
+                                                            backgroundColor:
+                                                                MaterialStatePropertyAll(
+                                                                    meduim),
+                                                          ),
+                                                          onChanged: (val) {
+                                                            cubit.selectedOption =
+                                                                val;
+                                                            cubit
+                                                                .changeSelectedOption(
+                                                                    val);
+                                                          },
+                                                          child: Expanded(
+                                                            child: Text(
+                                                                maxLines: 1,
+                                                                overflow: TextOverflow.fade,
+                                                                cubit
+                                                                    .quizModel
+                                                                    ?.data
+                                                                    ?.questions?[
+                                                                        index]
+                                                                    .choices?[0] ??
+                                                                ''),
+                                                          ),
+                                                        )),
+                                                        const SizedBox(
+                                                          width: 5.0,
+                                                        ),
+                                                        Expanded(
+                                                            child:
+                                                                RadioMenuButton(
+                                                          value: 1,
+                                                          groupValue: cubit
+                                                              .selectedOption,
+                                                          style: ButtonStyle(
+                                                            shape: MaterialStatePropertyAll(
+                                                                RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10))),
+                                                            elevation:
+                                                                const MaterialStatePropertyAll(
+                                                                    2),
+                                                            backgroundColor:
+                                                                MaterialStatePropertyAll(
+                                                                    meduim),
+                                                          ),
+                                                          onChanged: (val) {
+                                                            cubit.selectedOption =
+                                                                val;
+                                                            cubit
+                                                                .changeSelectedOption(
+                                                                    val);
+                                                          },
+                                                          child: Expanded(
+                                                            child: Text(
+                                                                maxLines: 1,
+                                                                cubit
+                                                                    .quizModel
+                                                                    ?.data
+                                                                    ?.questions?[
+                                                                        index]
+                                                                    .choices?[1] ??
+                                                                ''),
+                                                          ),
+                                                        ))
+                                                      ]),
+                                                      const SizedBox(
+                                                        height: 24,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                              child:
+                                                                  RadioMenuButton(
+                                                            value: 2,
+                                                            groupValue: cubit
+                                                                .selectedOption,
+                                                            style: ButtonStyle(
+                                                              shape: MaterialStatePropertyAll(
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10))),
+                                                              elevation:
+                                                                  const MaterialStatePropertyAll(
+                                                                      2),
+                                                              backgroundColor:
+                                                                  MaterialStatePropertyAll(
+                                                                      meduim),
+                                                            ),
+                                                            onChanged: (val) {
+                                                              cubit.selectedOption =
+                                                                  val;
+                                                              cubit
+                                                                  .changeSelectedOption(
+                                                                      val);
+                                                            },
+                                                            child: Expanded(
+                                                              child: Text(
+                                                                  maxLines: 1,
+                                                                  overflow: TextOverflow.fade,
+                                                                  cubit
+                                                                      .quizModel
+                                                                      ?.data
+                                                                      ?.questions?[
+                                                                          index]
+                                                                      .choices?[2] ??
+                                                                  ''),
+                                                            ),
+                                                          )),
+                                                          const SizedBox(
+                                                            width: 5.0,
+                                                          ),
+                                                          Expanded(
+                                                              child:
+                                                                  RadioMenuButton(
+                                                            value: 3,
+                                                            groupValue: cubit
+                                                                .selectedOption,
+                                                            style: ButtonStyle(
+                                                              shape: MaterialStatePropertyAll(
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10))),
+                                                              elevation:
+                                                                  const MaterialStatePropertyAll(
+                                                                      2),
+                                                              backgroundColor:
+                                                                  MaterialStatePropertyAll(
+                                                                      meduim),
+                                                            ),
+                                                            onChanged: (val) {
+                                                              cubit.selectedOption =
+                                                                  val;
+                                                              cubit
+                                                                  .changeSelectedOption(
+                                                                      val);
+                                                            },
+                                                            child: Text(
+                                                                maxLines: 1,
+                                                                overflow: TextOverflow.fade,
+                                                                cubit
+                                                                    .quizModel
+                                                                    ?.data
+                                                                    ?.questions?[
+                                                                        index]
+                                                                    .choices?[3] ??
+                                                                ''),
+                                                          ))
+                                                        ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+>>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                                               ),
                                               const SizedBox(
                                                 height: 10,

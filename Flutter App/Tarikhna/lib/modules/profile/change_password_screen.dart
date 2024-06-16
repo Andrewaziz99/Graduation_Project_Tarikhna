@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +80,11 @@ class ChangePassScreen extends StatelessWidget {
                         height: 20.0,
                       ),
                       defaultButton(
+<<<<<<< HEAD
                         background: Colors.blue,
+=======
+                        background: PrimaryColor,
+>>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                         function: () {
                           cubit.updateProfile(
                             name: cubit.profileModel!.data!.name!,

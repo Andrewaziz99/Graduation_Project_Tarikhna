@@ -7,7 +7,12 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
+<<<<<<< HEAD
         baseUrl: 'http://192.168.1.3:8080/', //Change to your IP address but make sure to use the same port
+=======
+        baseUrl:
+            'http://192.168.1.103:8080/', //Change to your IP address but make sure to use the same port
+>>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
         receiveDataWhenStatusError: true,
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
