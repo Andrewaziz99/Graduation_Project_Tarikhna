@@ -15,7 +15,8 @@ const summarizeLessonSchema = mongoose.Schema({
     dates: { type: [dateSchema], required: true },
     Title: { type: String, required: true },
     unit: {type: Number, required: true},
-    year: {type: Number, required: true}
+    year: {type: Number, required: true},
+    AR_Text: {type: String, required: true}
 });
 
 const summarizedLessonModel = mongoose.model('lessons', summarizeLessonSchema)

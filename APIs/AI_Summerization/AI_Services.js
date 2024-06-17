@@ -1,80 +1,68 @@
-const OpenAI = require('openai')
-const AI_DAO = require('./AI_DAO')
-const config = require('../config')
-
+const AI_DAO = require("./AI_DAO");
 
 const summarizeText = async (historicalText, done) => {
-    const openai = new OpenAI({
-        apiKey: config.API_KEY
-    })
-    // const jsonFormat = "extract all the characters in this text and all the events related to the characters and also all the dates and its events and given a title to the text in a json format like this :{ 'historicalORNot': /*boolean value if the text related to historical events*/, 'data': {characters': [{ 'nameOfCharacter': /*name of the character*/, 'Events': /*All events related to the character*/ }], 'dates': [{ 'date': /*The date*/, 'event': /*the event related to the date*/ }], 'Title': /*related title to the text*/ }}"
-    historicalText = JSON.stringify(historicalText)
 
-    prompt =
-  '\
-. Summarize the following text.\
-. From the translated text, extract the names of characters mentioned.\
-. From the translated text, extract the events related to the names of characters mentioned.\
-. From the translated text, extract the dates mentioned arranged in a simple format.\
-. From the translated text, extract the events related to the dates mentioned.\
-. Output the above steps in a json format as following:\
-{\
-    "historicalORNot" : "true or false", // if not then return data : null\
-    "data" : {\
-        "characters" : [\
-        {"nameOfCharacter" : "name1",\
-        "Events" : ["event1", "event2", ...]\
-        },\
-        {"nameOfCharacter" : "name2",\
-        "Events" : ["event1", "event2", ...]\
-    },\
-        ...\
-        ],\
-        "dates" : [\
-        {"date" : "date1",\
-        "event" : ["event1", "event2", ...]\
-        },\
-        {"date" : "date2",\
-        "event" : ["event1", "event2", ...]\
-    },\
-        ...\
-        ]\
-        "Title" : "Generate title for the summarized text"\
-    }\
-    }' + historicalText;
+  const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+  // Access your API key as an environment variable (see "Set up your API key" below)
+  const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
-    try {
-        const response = await openai.chat.completions.create({
-            model: 'gpt-3.5-turbo-0125',
-            response_format: { type: "json_object" },
-            messages: [{ "role": "user", "content": prompt }],
-            max_tokens: 1000,
-            temperature: 0
-        })
-        return done(undefined, JSON.parse(response.choices[0].message.content))
-        // responseInJSON = JSON.parse(response.choices[0].message.content)
-        // console.log(responseInJSON.choices[0].message.content.historicalORNot);
-        // if (response.choices[0].message.content.historicalORNot) {
-        //     return done(undefined, response.choices[0].message.content)
-        // }else{
-        //     return done("This text is not related to history", undefined)
-        
-        // }
-        console.log(response.choices[0].message.content);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    } catch (error) {
-        done(error, undefined)
-    }
+  historicalText = JSON.stringify(historicalText);
 
-}
+  prompt =
+    '\
+    . لخّص النص التالي باللغة العربية فقط.\
+    . من النص الملخص، استخرج أسماء الشخصيات المذكورة.\
+    . من النص الملخص، استخرج الأحداث المتعلقة بالشخصيات المذكورة.\
+    . من النص الملخص، استخرج التواريخ المذكورة مرتبة بصيغة بسيطة.\
+    . من النص الملخص، استخرج الأحداث المتعلقة بالتواريخ المذكورة.\
+    . اعرض الخطوات أعلاه في تنسيق JSON كما يلي:\
+    . Remove (``` json ... ```) from the response and return data as a text\
+    {\
+        "historicalORNot" : true or false, // إذا لم يكن النص تاريخيًا، اجعل قيمة البيانات: false\
+        "data" : {\
+            "characters" : [\
+            {"nameOfCharacter" : "الاسم1",\
+            "Events" : ["حدث1", "حدث2", ...]\
+            },\
+            {"nameOfCharacter" : "الاسم2",\
+            "Events" : ["حدث1", "حدث2", ...]\
+            },\
+            ...\
+            ],\
+            "dates" : [\
+            {"date" : "تاريخ1",\
+            "event" : ["حدث1", "حدث2", ...]\
+            },\
+            {"date" : "تاريخ2",\
+            "event" : ["حدث1", "حدث2", ...]\
+            },\
+            ...\
+            ],\
+            "Title" : "إنشاء عنوان للنص الملخص"\
+        }\
+        }' + historicalText;
 
-const saveSummarizedItem = (data, done)=>{
-    AI_DAO.saveSummarizedItem(data, done)
-}
+  try {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    console.log("text: ", text);
+    return done(undefined, JSON.parse(text));
+  } catch (error) {
+    console.log(error);
+    return done(error, undefined);
+  }
+};
 
-const getAllSavedItems = (userID,done)=>{
-    AI_DAO.getAllSavedItems(userID, done)
-}
+const saveSummarizedItem = (data, done) => {
+  AI_DAO.saveSummarizedItem(data, done);
+};
 
-module.exports = {summarizeText, getAllSavedItems, saveSummarizedItem}
+const getAllSavedItems = (userID, done) => {
+  AI_DAO.getAllSavedItems(userID, done);
+};
+
+module.exports = { summarizeText, getAllSavedItems, saveSummarizedItem };

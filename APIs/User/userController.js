@@ -93,12 +93,8 @@ const userUpdate = async (currentUserData, userID, newName, newEmail, oldPass, n
         }
     }
 
-<<<<<<< HEAD
     const newJWT = authServices.createJWT(currentUserData)
     return done(undefined, newJWT);
-=======
-    return done(undefined, currentUserData);
->>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
 }
 
 module.exports = {findUser, userUpdate}

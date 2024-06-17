@@ -30,11 +30,7 @@ router.get('/', (req, res)=>{
 
 router.put('/update', (req, res) => {
     const currentUserData = {
-<<<<<<< HEAD
         id: req.claims.id,
-=======
-        _id: req.claims.id,
->>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
         name: req.claims.name,
         email: req.claims.email,
         // password: req.claims.password,

@@ -50,8 +50,8 @@ function Overlay(props) {
                 setCharacter(summarizedLesson.characters)
                 setDate(summarizedLesson.dates)
             }else{
-            console.log(res.data.message);
-            alert(res.data.message)
+            console.log(res.data.message.error.message);
+            alert(res.data.message.error.message)
             }
 
         } catch (error) {

@@ -45,7 +45,8 @@ function Overlay(props) {
             dates: date,
             Title: title,
             unit: unit,
-            year: grade
+            year: grade,
+            AR_Text: ""
         }
         console.log(lessonData.characters);
         const myHeaders = new Headers();
@@ -53,6 +54,8 @@ function Overlay(props) {
         myHeaders.append('Content-Type', 'application/json')
 
         try {
+            console.log("data");
+            console.log(lessonData.AR_Text);
             let response = await fetch("http://localhost:8888/lesson/addLesson", {
                 method: "POST",
                 headers: myHeaders,
