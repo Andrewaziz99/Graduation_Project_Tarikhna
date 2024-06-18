@@ -48,10 +48,6 @@ class Profile_Page_Screen extends StatelessWidget {
                             image: const DecorationImage(
                               image: AssetImage("images/profile.png"),
                               fit: BoxFit.cover,
-
-
-
-
                             ),
                           )),
                     ]),
@@ -79,24 +75,24 @@ class Profile_Page_Screen extends StatelessWidget {
                       child: Column(
                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: CircularPercentIndicator(
-                              animation: true,
-                              animationDuration: 500,
-                              radius: 50,
-                              lineWidth: 15,
-                              percent: 0.5,
-                              linearGradient: const LinearGradient(
-                                colors: [Colors.green, Colors.blue],
-                              ),
-                              circularStrokeCap: CircularStrokeCap.round,
-                              center: const Text(
-                                "50%",
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(15.0),
+                          //   child: CircularPercentIndicator(
+                          //     animation: true,
+                          //     animationDuration: 500,
+                          //     radius: 50,
+                          //     lineWidth: 15,
+                          //     percent: 0.5,
+                          //     linearGradient: const LinearGradient(
+                          //       colors: [Colors.green, Colors.blue],
+                          //     ),
+                          //     circularStrokeCap: CircularStrokeCap.round,
+                          //     center: const Text(
+                          //       "50%",
+                          //     ),
+                          //   ),
+                          // ),
+                          const SizedBox(height: 100),
                           defaultButton(
                             background: AppColors10.bluecielcolor,
                             function: () {
