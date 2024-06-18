@@ -58,15 +58,11 @@ class Lesson_output_date_screen extends StatelessWidget {
                     ListView.separated(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
-                      itemCount: data?.Dates?.length ?? 0, // Use the length of data.Dates
+                      itemCount: data?.Dates?.length ?? 0,
                       itemBuilder: (context, index) {
-                        // if (data?.Dates == null || index >= data!.Dates!.length) {
-                        //   return SizedBox.shrink();
-                        // }
-
-                        DateModel dateModel = DateModel.fromJson(data!.Dates![index].toJson()); // Convert DatesModel to DateModel
+                        DateModel dateModel = data.Dates![index];
                         bool isFirst = index == 0;
-                        bool isLast = index >= (data!.Dates!.length - 1); // Check if it's the last item
+                        bool isLast = index >= (data.Dates!.length - 1);
                         return Row(
                           children: [
                             Expanded(
@@ -78,7 +74,7 @@ class Lesson_output_date_screen extends StatelessWidget {
                                   beforeLineStyle: LineStyle(color: AppColors8.navypurple),
                                   indicatorStyle: IndicatorStyle(
                                     width: 40,
-                                    color:AppColors8.navypurple,
+                                    color: AppColors8.navypurple,
                                     iconStyle: IconStyle(
                                       iconData: Icons.arrow_downward_rounded,
                                       color: Colors.white,
@@ -89,7 +85,7 @@ class Lesson_output_date_screen extends StatelessWidget {
                               flex: 2,
                             ),
                             Expanded(
-                              child: TextSummarizedBuilder(dateModel, index, data!.Dates!.length),
+                              child: TextSummarizedBuilder(dateModel, index, data.Dates!.length),
                               flex: 16,
                             )
                           ],
@@ -99,9 +95,6 @@ class Lesson_output_date_screen extends StatelessWidget {
                         height: 1.0,
                       ),
                     ),
-
-
-
                   SizedBox(
                     height: 10,
                   ),
@@ -124,38 +117,59 @@ Widget TextSummarizedBuilder(DateModel date, int index, int length) {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(30)),
             color: Color.fromARGB(255, 185, 212, 246),
-            // border: Border.all(
-            //   color: Colors.black,
-            //   width: 1,
-           // ),
           ),
           child: ListTile(
-            title: Text(
-              date.event ?? '',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.w900),
-            ),
             leading: Container(
               alignment: Alignment.center,
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                      borderRadius: BorderRadius.circular(30)),
-              child: FittedBox(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0), // Add some padding to avoid text overflow
-                  child: Text(
-                    date.date ?? '',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 30,
-                    ),
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Center(
+                child: Text(
+                  date.date ?? '',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
               ),
+            ),
+            title: Column(
+              children: [
+                SizedBox(height: 5),
+                Column(
+                  children: [
+                    for (String event in date.event ?? [])
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              event,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                            child: Text(
+                              '•',
+                              style: TextStyle(fontSize: 40),
+                            ),
+                          ),
+                        ],
+                      ),
+                    if (date.event!.length > 1)
+                      Container(
+                        width: double.infinity,
+                        height: 1,
+                        color: Colors.white,
+                      )
+                  ],
+                ),
+              ],
             ),
           ),
         ),

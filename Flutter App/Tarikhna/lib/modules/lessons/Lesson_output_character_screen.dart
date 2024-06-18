@@ -10,7 +10,6 @@ import 'package:timeline_tile/timeline_tile.dart';
 import '../../../models/AI_Save_Item_model.dart';
 import 'cubit/states.dart';
 
-
 class Lesson_output_character_screen extends StatelessWidget {
   final String? id;
 
@@ -22,9 +21,9 @@ class Lesson_output_character_screen extends StatelessWidget {
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, Object? state) {
         var cubit = LessonsCubit.get(context);
-        var lessonmodel = cubit.lesson;
+        var lessonModel = cubit.lesson;
 
-        var data = lessonmodel?.data?.firstWhere((element) => element.sId == id);
+        var data = lessonModel?.data?.firstWhere((element) => element.sId == id);
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -58,22 +57,15 @@ class Lesson_output_character_screen extends StatelessWidget {
                     ListView.separated(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
-                      itemCount: data?.Characters?.length ?? 1,
+                      itemCount: data.Characters!.length,
                       itemBuilder: (context, index) {
-                        CharacterModel? character = data!.Characters?[index];
-                        DateModel dateModel = (data!.Dates!.isNotEmpty && index < data!.Dates!.length
-                            ? DateModel.fromJson(data!.Dates![index].toJson())
+                        CharacterModel? character = data.Characters?[index];
+                        DateModel dateModel = (data.Dates!.isNotEmpty && index < data.Dates!.length
+                            ? DateModel.fromJson(data.Dates![index].toJson())
                             : DateModel());
 
-                        // Assuming DatesModel can be used as DateModel
-                        DateModel date = DateModel(
-                          sId: dateModel.sId,
-                          date: dateModel.date,
-                          event: dateModel.event,
-                        );
-
                         bool isFirst = index == 0;
-                        bool isLast = index >= (data!.Characters?.length)! - 1;
+                        bool isLast = index >= data.Characters!.length - 1;
                         return Row(
                           children: [
                             Expanded(
@@ -96,7 +88,7 @@ class Lesson_output_character_screen extends StatelessWidget {
                               flex: 2,
                             ),
                             Expanded(
-                              child: TextSummarizedBuilder(character, date, index, data.Characters!.length),
+                              child: TextSummarizedBuilder(character, index, data.Characters!.length),
                               flex: 16,
                             )
                           ],
@@ -119,50 +111,80 @@ class Lesson_output_character_screen extends StatelessWidget {
   }
 }
 
-
-
-Widget TextSummarizedBuilder(CharacterModel? character, DateModel date, int index, int length) {
+Widget TextSummarizedBuilder(CharacterModel? character, int index, int length) {
   return Padding(
     padding: EdgeInsets.all(20),
     child: Column(
       children: [
-        Container(
-          constraints: BoxConstraints(minWidth: 300, minHeight: 100), // Minimum size constraints
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            color: Color.fromARGB(255, 185, 212, 246),
-            //border: Border.all(
-             // color: Colors.black,
-             // width: 1,
-           // ),
-          ),
-          child: ListTile(
-            title: Text(
-              character?.events ?? '',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.w900),
-            ),
-             leading: Container(
+        Column(
+          children: [
+            if (character?.nameOfCharacter != null)
+              Container(
+                constraints: BoxConstraints(minWidth: 300, minHeight: 100), // Minimum size constraint
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: Color.fromARGB(255, 185, 212, 246),
+                ),
+                child: ListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 5),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (character?.events != null && character!.events!.isNotEmpty)
+                            for (String event in character.events ?? [])
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          event,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                        child: Text('•', style: TextStyle(fontSize: 40)), // Bullet
+                                      ),
+                                    ],
+                                  ),
+                                  if (character.events!.length > 1)
+                                    Container(
+                                      width: double.infinity,
+                                      height: 1,
+                                      color: Colors.white,
+                                    )
+                                ],
+                              ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  leading: Container(
                     alignment: Alignment.center,
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        // shape: BoxShape.circle,
-                        borderRadius: BorderRadius.circular(30)
-                    ),
+                        borderRadius: BorderRadius.circular(30)),
                     child: Text(
                       character?.nameOfCharacter ?? '',
                       style: TextStyle(
-                          fontWeight: FontWeight.w900,fontSize: 10
-                        // Adjust the fontSize as needed
+                          fontWeight: FontWeight.w900, fontSize: 10
                       ),
                     ),
                   ),
-          ),
+                ),
+              ),
+          ],
         ),
       ],
     ),
   );
 }
-

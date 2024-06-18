@@ -92,6 +92,7 @@ class Data {
   List<CharacterModel>? Characters;
   List<DateModel>? Dates;
   String? title;
+  String? AR_Text;
   int? unit;
   int? year;
 
@@ -100,6 +101,7 @@ class Data {
         this.Characters,
         this.Dates,
         this.title,
+        this.AR_Text,
         this.unit,
         this.year});
 
@@ -118,6 +120,7 @@ class Data {
       });
     }
     title = json['Title'];
+    AR_Text = json['AR_Text'];
     unit = json['unit'];
     year = json['year'];
   }
@@ -133,6 +136,7 @@ class Data {
       // data['dates'] = this.dates!.map((v) => v.toJson()).toList();
     }
     data['Title'] = this.title;
+    data['AR_Text'] = this.AR_Text;
     data['unit'] = this.unit;
     data['year'] = this.year;
     return data;
@@ -142,23 +146,19 @@ class Data {
 class CharacterModel {
   String? sId;
   String? nameOfCharacter;
-  String? events;
+  List<String>? events;
 
   CharacterModel({this.sId, this.nameOfCharacter, this.events});
 
-  factory CharacterModel.fromJson(Map<String, dynamic> json) {
-    return CharacterModel(
-      sId: json['_id'],
-      nameOfCharacter: json['nameOfCharacter'],
-      events: json['Events'],
-    );
+  CharacterModel.fromJson(Map<String, dynamic> json) {
+    nameOfCharacter = json['nameOfCharacter'];
+    events = json['Events'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['nameOfCharacter'] = this.nameOfCharacter;
-    data['Events'] = this.events;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nameOfCharacter'] = nameOfCharacter;
+    data['Events'] = events;
     return data;
   }
 }
@@ -166,23 +166,19 @@ class CharacterModel {
 class DateModel {
   String? sId;
   String? date;
-  String? event;
+  List<String>? event;
 
   DateModel({this.sId, this.date, this.event});
 
-  factory DateModel.fromJson(Map<String, dynamic> json) {
-    return DateModel(
-      sId: json['_id'],
-      date: json['date'],
-      event: json['event'],
-    );
+  DateModel.fromJson(Map<String, dynamic> json) {
+    date = json['date'];
+    event = json['event'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['date'] = this.date;
-    data['event'] = this.event;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['date'] = date;
+    data['event'] = event;
     return data;
   }
 }

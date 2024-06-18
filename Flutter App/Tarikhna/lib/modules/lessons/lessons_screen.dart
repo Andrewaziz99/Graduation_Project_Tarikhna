@@ -3,7 +3,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:tarikhna/modules/arModule/ar_statless_main.dart';
+import 'package:tarikhna/modules/AR/ar_screen.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/modules/lessons/search_screen.dart';
@@ -46,7 +46,7 @@ void showLessonBottomSheet(String id) {
                 backgroundColor:HexColor("94D5B2"), // Change button color
               ),
               onPressed: () {
-                navigateTo(context, Ar_Main_screen());
+                navigateTo(context, ARScreen(id));
               },
               child: const Text('Ar Model',style: TextStyle(color: Colors.white)),
             ),
