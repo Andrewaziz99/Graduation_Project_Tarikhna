@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tarikhna/modules/AR/cubit/cubit.dart';
 import 'package:tarikhna/modules/Exam/cubit/exam_cubit.dart';
-import 'package:tarikhna/modules/ai/Navigation_Screen.dart';
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/cubit.dart';
-import 'package:tarikhna/modules/arModule/cubit/ar_cubit.dart';
 import 'package:tarikhna/modules/home/cubit/home_page_cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
-import 'package:tarikhna/modules/login/login_screen.dart';
 import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
-import 'package:tarikhna/modules/navbar/navbar.dart';
 import 'package:tarikhna/modules/profile/cubit/cubit.dart';
+import 'package:tarikhna/modules/splash_screen/splash_screen.dart';
 import 'package:tarikhna/shared/bloc_observer.dart';
 import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/network/remote/dio_helper.dart';
 import 'package:tarikhna/shared/styles/themes.dart';
-import 'package:tarikhna/modules/Exam/examMain.dart';
 
 
 void main() async {
@@ -45,15 +42,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ExamCubit()),
         BlocProvider(create: (context) => NavbarCubit()),
         BlocProvider(create: (context) => HomePageCubit()),
-        BlocProvider(create: (context) => ArCubit()),
         BlocProvider(create: (context) => AICubit()),
+        BlocProvider(create: (context) => ARCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
-        home: token ? NavBar_Page() : LoginScreen(),
-       //home:LoginScreen(),
-       // home:  Navigate_Screen(),
+        home: Splash_screen(),
+
          
 
 
