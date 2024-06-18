@@ -1,12 +1,16 @@
-part of 'home_page_cubit.dart';
+abstract class HomePageState {}
 
-@immutable
-sealed class HomePageState {}
+class HomePageInitial extends HomePageState {}
 
-final class HomePageInitial extends HomePageState {}
+class HomePageLoading extends HomePageState {}
 
-class SummaryAIState extends HomePageState {}
+class HomePageSuccess extends HomePageState {}
 
-class NavigateToLessonState extends HomePageState {}
+class HomePageError extends HomePageState {
+  final String error;
 
-class OpenDrawer extends HomePageState {}
+  HomePageError(this.error);
+}
+
+class HomePageChangeBottomNav extends HomePageState {}
+

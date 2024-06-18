@@ -23,6 +23,7 @@ class Profile_Page_Screen extends StatelessWidget {
         var cubit = ProfileCubit.get(context);
         var profileModel = cubit.profileModel;
         return Scaffold(
+          backgroundColor: CustomPrimaryColor,
           body: ConditionalBuilder(
             condition: profileModel != null,
             builder: (BuildContext context) => SingleChildScrollView(

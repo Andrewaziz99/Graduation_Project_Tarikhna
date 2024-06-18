@@ -1,20 +1,22 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:tarikhna/shared/components/constants.dart';
-import 'package:tarikhna/shared/network/local/cache_helper.dart';
-import 'package:tarikhna/shared/network/remote/dio_helper.dart';
-
-part 'home_page_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tarikhna/models/profile_model.dart';
+import 'package:tarikhna/modules/home/cubit/home_page_state.dart';
+import 'package:tarikhna/modules/profile/cubit/cubit.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit() : super(HomePageInitial());
-  getLessonPage() => emit(NavigateToLessonState());
-  getAISummary() => {
-        emit(SummaryAIState()),
-        // DioHelper.getData(
-        //   url: AI_summarization,
-        //   token: CacheHelper.getData(key: 'token'),
-        // )
-      };
-  getDrawer() => emit(OpenDrawer());
+
+  static HomePageCubit get(context) => BlocProvider.of(context);
+
+  ProfileModel? profileModel;
+
+  void loadHome(context) {
+    emit(HomePageLoading());
+    try {
+      profileModel = ProfileCubit.get(context).profileModel;
+      emit(HomePageSuccess());
+    } catch (e) {
+      emit(HomePageError(e.toString()));
+    }
+  }
 }
