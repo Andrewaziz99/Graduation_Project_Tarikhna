@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +23,24 @@ class AiInputScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AICubit, AIStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is TextSummarizedSuccessState) {
+          if (state.AiModel?.historicalORNot == false) {
+            CherryToast.error(
+              title: const Text('This is not a historical text'),
+              autoDismiss: true,
+              toastPosition: Position.bottom,
+              animationType: AnimationType.fromLeft,
+              toastDuration: const Duration(seconds: 5),
+              animationDuration: const Duration(milliseconds: 500),
+            ).show(context);
+
+          } else {
+            // navigateTo(context, Navigate_Screen());
+
+          }
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           backgroundColor: HexColor("FFF9F9"),
@@ -107,7 +126,7 @@ class AiInputScreen extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    
+
                     children: [
                       ElevatedButton(
                         onPressed: () async {

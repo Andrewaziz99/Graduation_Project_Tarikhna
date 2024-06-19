@@ -106,7 +106,7 @@ class Home_Page_Screen extends StatelessWidget {
                   ],
                   options: CarouselOptions(
                     aspectRatio: 16/9,
-                    height: 400.0,
+                    height: 200.0,
                     initialPage: 0,
                     viewportFraction: 1.0,
                     enableInfiniteScroll: true,

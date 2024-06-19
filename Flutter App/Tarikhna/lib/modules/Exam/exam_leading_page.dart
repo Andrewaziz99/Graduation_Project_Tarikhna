@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/modules/Exam/cubit/exam_cubit.dart';
 import 'package:tarikhna/modules/Exam/examMain.dart';
@@ -22,7 +22,6 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
   @override
   void initState() {
     super.initState();
-
     _isSelectedMap = {}; // Initialize the map
   }
 
@@ -34,7 +33,6 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
         // Implement listener if needed
       },
       builder: (context, state) {
-        print(cubit.lesson?.data?.length);
         return Scaffold(
           body: Column(
             children: [
@@ -51,8 +49,6 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                         fontSize: 45,
                         fontWeight: FontWeight.w900,
                         fontFamily: 'Roboto',
-                        
-                        
                       ),
                     ),
                   ],
@@ -67,20 +63,24 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(
-                  5,
-                      (index) => ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        level = index + 1;
-                        print(level);
-                      });
-                    },
-                    child: Text('${index + 1}'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SegmentedButton<int>(
+                  segments: List.generate(
+                    5,
+                        (index) => ButtonSegment<int>(
+                      value: index + 1,
+                      label: Text('${index + 1}'),
+                    ),
                   ),
-                ).toList(),
+                  selected: {level},
+                  onSelectionChanged: (selectedLevel) {
+                    setState(() {
+                      level = selectedLevel.first;
+                      print(level);
+                    });
+                  },
+                ),
               ),
               Container(
                 alignment: Alignment.centerLeft,
@@ -109,13 +109,12 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                   ),
                 ),
                 fallback: (context) =>
-                    const Center(child: CircularProgressIndicator()),
+                const Center(child: CircularProgressIndicator()),
               ),
               Container(
                 alignment: Alignment.bottomRight,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 child: ElevatedButton(
-
                   onPressed: () {
                     var cubit = LessonsCubit.get(context);
                     var cubitExam = ExamCubit.get(context);
@@ -138,7 +137,6 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                         btnOkText: 'Start Exam',
                         btnOkOnPress: () {
                           navigateTo(context,  MainExamScreen(lessonIds: selectedLessonIds, level: level));
-
                         },
                       ).show();
                     } else {
@@ -208,7 +206,7 @@ class _ExamLeadingPageState extends State<ExamLeadingPage> {
                     : null,
               ),
               const SizedBox(width: 8.0),
-              Text(label),
+              Expanded(child: Text(label),)
             ],
           ),
         ),

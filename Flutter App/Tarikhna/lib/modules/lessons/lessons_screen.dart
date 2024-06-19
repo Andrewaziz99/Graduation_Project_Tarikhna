@@ -349,7 +349,7 @@ Widget lessonItemBuilder(model) => GestureDetector(
                   Text(
                     '${model.title}',
                     style: const TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 2,

@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -26,7 +27,7 @@ class Save_Item_Screen extends StatelessWidget {
             style: TextStyle(fontSize: 30),
           ),
         ),
-        
+
         body: BlocProvider(
           create: (context) => SavedCubit()..getAllSavedItem(),
           child: BlocConsumer<SavedCubit, SavedState>(
@@ -36,7 +37,7 @@ class Save_Item_Screen extends StatelessWidget {
               var allSavedData = cubit.getSavedItemModel;
               print(allSavedData?.data?.length);
 
-              return ListView.separated(
+              return ConditionalBuilder(condition: allSavedData != null, builder: (context)=>ListView.separated(
                 itemBuilder: (context, index) {
                   // Check if allSavedData is not null and has data
                   if (allSavedData != null && allSavedData.data != null) {
@@ -55,7 +56,7 @@ class Save_Item_Screen extends StatelessWidget {
                           ),
                         );
                       },
-                    
+
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                         child: Material(
@@ -95,11 +96,11 @@ class Save_Item_Screen extends StatelessWidget {
                 },
                 separatorBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                 // child: Divider(color: Colors.grey),
+                  // child: Divider(color: Colors.grey),
                 ),
                 itemCount: allSavedData?.data?.length ?? 0,
                 padding: const EdgeInsets.only(top: 20.0),
-              );
+              ), fallback: (context)=> Center(child: CircularProgressIndicator(),));
             },
           ),
         ),
