@@ -39,7 +39,7 @@ class Navigate_Screen extends StatelessWidget {
             centerTitle: true,
           ),
           body: ConditionalBuilder(
-            condition: aiModel?.data != null,
+            condition: aiModel?.historicalORNot != null&& state is TextSummarizedSuccessState,
             builder: (context) {
               if (aiModel!.data == null) {
                 return Center(

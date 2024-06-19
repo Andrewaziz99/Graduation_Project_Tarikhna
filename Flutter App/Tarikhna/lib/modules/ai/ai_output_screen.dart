@@ -114,16 +114,16 @@ class AiOutputScreen extends StatelessWidget {
     );
   }
 
-  Widget TextSummarizedBuilder( CharactersModel character) {
+  Widget TextSummarizedBuilder(CharactersModel? character) {
     return Padding(
       padding: EdgeInsets.all(20),
       child: Column(
         children: [
           Column(
             children: [
-              if (character.nameOfCharacter != null)
+              if (character?.nameOfCharacter != null)
                 Container(
-                  constraints: BoxConstraints(minWidth: 300, minHeight: 100),
+                  constraints: BoxConstraints(minWidth: 300, minHeight: 100), // Minimum size constraint
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: Color.fromARGB(255, 185, 212, 246),
@@ -136,8 +136,8 @@ class AiOutputScreen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (character.events != null && character.events!.isNotEmpty)
-                              for (String event in character.events ?? [])
+                            if (character?.events != null && character!.events!.isNotEmpty)
+                              for (String event in character?.events ?? [])
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -153,7 +153,7 @@ class AiOutputScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        // SizedBox(width: 1),
+                                        // SizedBox(width: 10),
                                         SizedBox(
                                           width: 10,
                                           // Adjust the space between the bullet and the text
@@ -161,9 +161,10 @@ class AiOutputScreen extends StatelessWidget {
                                         ),
                                       ],
                                     ),
+                                    // SizedBox(height: 5), // Add space between events
                                     if(character.events!.length >1)
                                       Container(width: double.infinity,height:
-                                      1,color: Colors.white,) // Add space between events
+                                      1,color: Colors.white,)
                                   ],
                                 ),
                           ],
@@ -172,20 +173,21 @@ class AiOutputScreen extends StatelessWidget {
                     ),
 
                     leading: Container(
-                        alignment: Alignment.center,
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            // shape: BoxShape.circle,
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Text(
-                          character.nameOfCharacter ?? '',
-                          style: TextStyle(
+                      alignment: Alignment.center,
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          // shape: BoxShape.circle,
+                          borderRadius: BorderRadius.circular(30)
+                      ),
+                      child: Text(
+                        character?.nameOfCharacter ?? '',
+                        style: TextStyle(
                             fontWeight: FontWeight.w900,fontSize: 10
-                            // Adjust the fontSize as needed
-                          ),
+                          // Adjust the fontSize as needed
                         ),
+                      ),
                     ),
                   ),
                 ),
