@@ -32,7 +32,6 @@ class Home_Page_Screen extends StatelessWidget {
         var cubit = HomePageCubit.get(context);
         cubit.loadHome(context);
         return Scaffold(
-          backgroundColor: CustomPrimaryColor,
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
@@ -67,13 +66,13 @@ class Home_Page_Screen extends StatelessWidget {
                                     cubit.profileModel!.data!.name!,
                                     style: const TextStyle(
                                       fontStyle: FontStyle.italic,
-                                      color: Colors.white,
+                                      color: Colors.blue,
                                     ),
                                   ),
                                   fallback: (BuildContext context) =>
                                       const Text('Iwy em hotep', style: TextStyle(
                                         fontStyle: FontStyle.italic,
-                                        color: Colors.white,
+                                        color: Colors.blue,
                                       ),),
                                 ),
                                 Padding(
