@@ -61,11 +61,11 @@ class Questions {
 
   Questions(
       {this.sId,
-      this.questions,
-      this.choices,
-      this.correctAns,
-      this.level,
-      this.lessonID});
+        this.questions,
+        this.choices,
+        this.correctAns,
+        this.level,
+        this.lessonID});
 
   Questions.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];

@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/modules/profile/cubit/cubit.dart';
 import 'package:tarikhna/modules/profile/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
-import 'package:tarikhna/shared/components/constants.dart';
-import 'package:tarikhna/shared/network/local/cache_helper.dart';
 import 'package:tarikhna/shared/styles/colors.dart';
 
 
@@ -38,15 +36,6 @@ class profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (BuildContext context, state) {
-
-        if (state is UpdateProfileSuccessState){
-          CacheHelper.saveData(
-              key: 'token', value: state.updateProfileModel.data!)
-              .then((value) {
-            TOKEN = state.updateProfileModel.data!;
-          });
-        }
-
         if (state is ProfileSuccessState) {
           if (state.profileModel.status!) {
             CherryToast.success(
@@ -128,48 +117,10 @@ class profile extends StatelessWidget {
                     // const SizedBox(height: 10),
                     // defaultFormField(
                     //   controller: oldPasswordController,
-<<<<<<< HEAD
                     //   type: TextInputType.text,
                     //   label: "Password",
                     //   prefix: Icons.lock,
                     //   validate: (value){},
-=======
-                    //   type: TextInputType.visiblePassword,
-                    //   isPassword: cubit.isPassword,
-                    //   label: 'Old Password',
-                    //   prefix: Icons.lock,
-                    //   validate: (value) {},
-                    //   suffix: cubit.suffix,
-                    //   suffixPressed: () {
-                    //     cubit.changePasswordVisibility();
-                    //   },
-                    // ),
-                    // const SizedBox(height: 10),
-                    // defaultFormField(
-                    //   controller: newPasswordController,
-                    //   type: TextInputType.visiblePassword,
-                    //   isPassword: cubit.isPassword,
-                    //   label: 'New Password',
-                    //   prefix: Icons.lock,
-                    //   validate: (value) {},
-                    //   suffix: cubit.suffix,
-                    //   suffixPressed: () {
-                    //     cubit.changePasswordVisibility();
-                    //   },
-                    // ),
-                    // const SizedBox(height: 10),
-                    // defaultFormField(
-                    //   controller: confirmNewPasswordController,
-                    //   type: TextInputType.visiblePassword,
-                    //   isPassword: cubit.isPassword,
-                    //   label: 'Confirm New Password',
-                    //   prefix: Icons.lock,
-                    //   validate: (value) {},
-                    //   suffix: cubit.suffix,
-                    //   suffixPressed: () {
-                    //     cubit.changePasswordVisibility();
-                    //   },
->>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                     // ),
                     const SizedBox(height: 10),
                     DropdownButtonFormField(

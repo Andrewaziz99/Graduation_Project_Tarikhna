@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const cors = require('cors')
 const config = require('./config')
 const AIrouter = require('./AI_Summerization')
 const userRouter = require('./User')
@@ -14,10 +13,6 @@ connectDb()
 
 
 app.use(express.json())
-app.use(cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"]
-}))
 app.use('/AI_Summary', AIrouter)
 app.use('/auth', authRouter)
 app.use('/user', authMiddleware ,userRouter)

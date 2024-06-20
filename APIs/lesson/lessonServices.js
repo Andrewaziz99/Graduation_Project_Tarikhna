@@ -30,13 +30,4 @@ const lessonFilteration = (status, allLessons, filteredQuizes)=>{
     return completedLessons
 }
 
-const getAllLessons = (done)=>{
-    lessonDAO.getAllLessons(done)
-}
-
-const addLesson = (data, done)=>{
-    lessonDAO.addLesson(data, done)
-}
-
-
-module.exports = {getLessonsByYear, searchLesson, lessonFilteration, getAllLessons, addLesson}
+module.exports = {getLessonsByYear, searchLesson, lessonFilteration}

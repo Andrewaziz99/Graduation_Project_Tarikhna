@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +17,28 @@ class ChangePassScreen extends StatelessWidget {
     var confirmNewPasswordController = TextEditingController();
 
     return BlocConsumer<ProfileCubit, ProfileStates>(
-      listener: (BuildContext context, state) {},
+      listener: (BuildContext context, state) {
+        if (state is UpdateProfileErrorState) {
+          CherryToast.error(
+            title: const Text('Error while changing password'),
+            toastPosition: Position.bottom,
+            animationType: AnimationType.fromLeft,
+            toastDuration: const Duration(seconds: 5),
+            animationDuration: const Duration(milliseconds: 500),
+            autoDismiss: true,
+          ).show(context);
+        }
+        if (state is UpdateProfileSuccessState) {
+          CherryToast.success(
+            title: const Text('Password changed successfully'),
+            toastPosition: Position.bottom,
+            animationType: AnimationType.fromLeft,
+            toastDuration: const Duration(seconds: 5),
+            animationDuration: const Duration(milliseconds: 500),
+            autoDismiss: true,
+          ).show(context);
+        }
+      },
       builder: (BuildContext context, Object? state) {
         var cubit = ProfileCubit.get(context);
         return Scaffold(
@@ -80,11 +100,7 @@ class ChangePassScreen extends StatelessWidget {
                         height: 20.0,
                       ),
                       defaultButton(
-<<<<<<< HEAD
                         background: Colors.blue,
-=======
-                        background: PrimaryColor,
->>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                         function: () {
                           cubit.updateProfile(
                             name: cubit.profileModel!.data!.name!,

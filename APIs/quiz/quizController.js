@@ -82,4 +82,3 @@ const updateToNextLevel = (lessonID, userID, done)=>{
 
 
 module.exports = { getQuiz, updateToNextLevel }
-

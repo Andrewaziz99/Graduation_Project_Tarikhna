@@ -62,10 +62,11 @@ emit(UpdateProfileLoadingState());
       token: CacheHelper.getData(key: 'token'),
     ).then((value) {
       getProfile();
-      LessonsCubit().getLessons();
-      print(value.data);
+      // print(value.data);
       updateProfileModel = UpdateProfileModel.fromJson(value.data);
-      emit(UpdateProfileSuccessState(updateProfileModel!));
+      CacheHelper.saveData(key: 'token', value: updateProfileModel!.data!);
+      LessonsCubit().getLessons();
+      emit(UpdateProfileSuccessState(profileModel!));
     }).catchError((error) {
       print(error.toString());
       emit(UpdateProfileErrorState(error.toString()));

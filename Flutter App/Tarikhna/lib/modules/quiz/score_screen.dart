@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:tarikhna/modules/lessons/lessons_screen.dart';
-import 'package:tarikhna/modules/navbar/navbar.dart';
 import 'package:tarikhna/modules/quiz/cubit/cubit.dart';
 import 'package:tarikhna/modules/quiz/cubit/states.dart';
 import 'package:tarikhna/modules/quiz/quiz_screen.dart';
@@ -29,62 +27,35 @@ class ScoreScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              constraints: const BoxConstraints(
-                maxWidth: 220,
-              ),
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                    Text('Correct Answers: ${correctAnswers}'),
-                  ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.check,
+                  color: Colors.green,
                 ),
-              ),
+                Text('Correct Answers: ${correctAnswers}'),
+              ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              constraints: const BoxConstraints(
-                maxWidth: 220,
-              ),
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ),
-                    Text('Wrong Answers: ${wrongAnswers}'),
-                  ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.close,
+                  color: Colors.red,
                 ),
-              ),
+                Text('Wrong Answers: ${wrongAnswers}'),
+              ],
             ),
             const SizedBox(
               height: 20,
             ),
             defaultButton(
-              background: SecondaryColor,
+              background: PrimaryColor,
               function: () {
-                navigateAndFinish(context, NavBar_Page());
+                navigateAndFinish(context, LessonsScreen());
               },
               text: 'Home',
             ),
@@ -92,7 +63,7 @@ class ScoreScreen extends StatelessWidget {
               height: 20,
             ),
             defaultButton(
-              background: HexColor('007900'),
+              background: PrimaryColor,
               function: () {
                 navigateTo(context, QuizScreen(lessonID));
               },

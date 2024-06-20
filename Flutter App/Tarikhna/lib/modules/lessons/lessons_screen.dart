@@ -3,7 +3,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:tarikhna/modules/arModule/ar_statless_main.dart';
+import 'package:tarikhna/modules/AR/ar_screen.dart';
 import 'package:tarikhna/modules/lessons/cubit/cubit.dart';
 import 'package:tarikhna/modules/lessons/cubit/states.dart';
 import 'package:tarikhna/modules/lessons/search_screen.dart';
@@ -29,7 +29,7 @@ void showLessonBottomSheet(String id) {
                 minimumSize: const Size(100, 50),
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40), // Adjust button size
                 backgroundColor:HexColor("B1AEFC")
-               , // Change button color
+                , // Change button color
               ),
               onPressed: () {
                 navigateTo(context, Lesson_Navigate_Screen(id));
@@ -46,7 +46,7 @@ void showLessonBottomSheet(String id) {
                 backgroundColor:HexColor("94D5B2"), // Change button color
               ),
               onPressed: () {
-                navigateTo(context, Ar_Main_screen());
+                navigateTo(context, ARScreen(id));
               },
               child: const Text('Ar Model',style: TextStyle(color: Colors.white)),
             ),
@@ -101,7 +101,7 @@ class LessonsScreen extends StatelessWidget {
         return Stack(
           fit: StackFit.expand,
           children: [
-          
+
             ClipPath(
               clipper: MyClipper(),
               child: Container(
@@ -134,8 +134,8 @@ class LessonsScreen extends StatelessWidget {
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 title: const Center(child: Text('Lessons',style: TextStyle(fontSize: 25.0),
-                    
-                          )),
+
+                )),
                 actions: [
                   IconButton(
                     onPressed: () {
@@ -238,9 +238,9 @@ class LessonsScreen extends StatelessWidget {
                             itemBuilder: (context, index) =>
                                 lessonItemBuilder(lesson[index]),
                             separatorBuilder: (context, index) =>
-                                const SizedBox(
-                                  height: 10.0,
-                                ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
                             itemCount: lesson!.length),
                         fallback: (BuildContext context) {
                           if (cubit.lesson?.status == false) {
@@ -313,31 +313,35 @@ class Tcircularcontainer extends StatelessWidget {
     );
   }
 }
-     
 
 
 
 
-Widget lessonItemBuilder(model) => Material(
-  elevation: 5, // Set the elevation value
-  borderRadius: BorderRadius.circular(15.0),
-  child: Container(
-    
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(15.0),
-      color: Colors.white,
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              // print(model.sId);
-              showLessonBottomSheet(model!.sId!);
-            },
-            child: Padding(
+
+Widget lessonItemBuilder(model) => GestureDetector(
+  onTap: () {
+    // print(model.sId);
+    showLessonBottomSheet(model!.sId!);
+  },
+  child: Material(
+    elevation: 5, // Set the elevation value
+    borderRadius: BorderRadius.circular(15.0),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
+        color: Colors.white,
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(15.0), // Ensures the ripple effect matches the shape
+        onTap: () {
+          // print(model.sId);
+          showLessonBottomSheet(model!.sId!);
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -345,7 +349,7 @@ Widget lessonItemBuilder(model) => Material(
                   Text(
                     '${model.title}',
                     style: const TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 2,
@@ -367,9 +371,9 @@ Widget lessonItemBuilder(model) => Material(
                 ],
               ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     ),
   ),
 );

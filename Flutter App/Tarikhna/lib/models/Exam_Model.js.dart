@@ -9,8 +9,8 @@ class ExamModel {
       : status = json['status'] ?? false,
         message = json['message'] ?? '',
         data = (json['data'] as List<dynamic>?)
-                ?.map((e) => Data.fromJson(e as Map<String, dynamic>))
-                .toList() ??
+            ?.map((e) => Data.fromJson(e as Map<String, dynamic>))
+            .toList() ??
             [];
 
   Map<String, dynamic> toJson() {
@@ -43,8 +43,8 @@ class Data {
       : sId = json['_id'] ?? '',
         questions = json['question'] ?? '',
         choices = (json['choices'] as List<dynamic>?)
-                ?.map((e) => e.toString())
-                .toList() ??
+            ?.map((e) => e.toString())
+            .toList() ??
             [],
         correctAns = json['correctAns'] ?? 0,
         level = json['level'] ?? 0,

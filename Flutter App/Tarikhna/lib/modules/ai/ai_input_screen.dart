@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'package:cherry_toast/cherry_toast.dart';
+import 'package:cherry_toast/resources/arrays.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -11,7 +11,6 @@ import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/ai/cubit/states.dart';
 import 'package:tarikhna/shared/components/components.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
-import 'package:tarikhna/shared/styles/colors.dart';
 
 class AiInputScreen extends StatelessWidget {
   var inputTextController = TextEditingController();
@@ -24,7 +23,24 @@ class AiInputScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AICubit, AIStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is TextSummarizedSuccessState) {
+          if (state.AiModel?.historicalORNot == false) {
+            CherryToast.error(
+              title: const Text('This is not a historical text'),
+              autoDismiss: true,
+              toastPosition: Position.bottom,
+              animationType: AnimationType.fromLeft,
+              toastDuration: const Duration(seconds: 5),
+              animationDuration: const Duration(milliseconds: 500),
+            ).show(context);
+
+          } else {
+            // navigateTo(context, Navigate_Screen());
+
+          }
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           backgroundColor: HexColor("FFF9F9"),
@@ -66,7 +82,7 @@ class AiInputScreen extends StatelessWidget {
                           //Colors.white.withOpacity(0.7),
                          spreadRadius: 3,
                           blurRadius: 7,
-                         offset: Offset(3,3),
+                         offset: const Offset(3,3),
                         ),
                       ],
                        color: Colors.white.withOpacity(0.9), // Adjust opacity for glassy effect
@@ -90,7 +106,7 @@ class AiInputScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: _hasText ? Colors.black : Colors.blue,
                         ),
-                        contentPadding: EdgeInsets.fromLTRB(85.0,0.0, 0.0, 0.0),
+                        contentPadding: const EdgeInsets.fromLTRB(85.0,0.0, 0.0, 0.0),
                       ),
                     ),
                   ),
@@ -110,7 +126,7 @@ class AiInputScreen extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    
+
                     children: [
                       ElevatedButton(
                         onPressed: () async {
@@ -132,23 +148,23 @@ class AiInputScreen extends StatelessWidget {
                             // User canceled the picker
                           }
                         },
-                        child: Row(
-                          children: [
-                            //Icon(Icons.image, color: Colors.red),
-                             Image.asset("images/photo.png"),
-
-                            SizedBox(width: 1),
-                            Text(
-                              'Upload image',
-                              style: TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ],
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
+                        ),
+                        child: Row(
+                          children: [
+                            //Icon(Icons.image, color: Colors.red),
+                             Image.asset("images/photo.png"),
+
+                            const SizedBox(width: 1),
+                            const Text(
+                              'Upload image',
+                              style: TextStyle(fontSize: 20, color: Colors.black),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(width: 15),
@@ -172,22 +188,22 @@ class AiInputScreen extends StatelessWidget {
                             // User canceled the picker
                           }
                         },
-                        child: Row(
-                          children: [
-                            //Icon(Icons.upload_file, color: Colors.red),
-                             Image.asset("images/upload.png"),
-                            SizedBox(width: 3),
-                            Text(
-                              'Upload pdf',
-                              style: TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ],
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
+                        ),
+                        child: Row(
+                          children: [
+                            //Icon(Icons.upload_file, color: Colors.red),
+                             Image.asset("images/upload.png"),
+                            const SizedBox(width: 3),
+                            const Text(
+                              'Upload pdf',
+                              style: TextStyle(fontSize: 20, color: Colors.black),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -200,24 +216,24 @@ class AiInputScreen extends StatelessWidget {
                       AICubit.get(context).TextSummarization(inputData: inputTextController.text);
                       navigateTo(context, const Navigate_Screen());
                     },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        //Icon(Icons.summarize_sharp, color: Colors.black),
-                         Image.asset("images/contract.png"),
-                        SizedBox(width:5),
-                        Text(
-                          'Summarize',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                        ),
-                      ],
-                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                     maximumSize: Size(250, 70)
+                     maximumSize: const Size(250, 70)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        //Icon(Icons.summarize_sharp, color: Colors.black),
+                         Image.asset("images/contract.png"),
+                        const SizedBox(width:5),
+                        const Text(
+                          'Summarize',
+                          style: TextStyle(fontSize: 20, color: Colors.black),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(

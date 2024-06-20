@@ -54,14 +54,4 @@ const lessonFilteration = (status, year, userID, done)=>{
     })
 }
 
-const getAllLessons = (done)=>{
-    lessonServices.getAllLessons(done)
-}
-
-const addLesson = (data, done)=>{
-    lessonServices.addLesson(data, done)
-}
-
-
-
-module.exports = {getLessonsByYear, searchLesson, lessonFilteration, getAllLessons, addLesson}
+module.exports = {getLessonsByYear, searchLesson, lessonFilteration}

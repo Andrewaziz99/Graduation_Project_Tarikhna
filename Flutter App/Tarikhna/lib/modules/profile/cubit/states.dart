@@ -24,7 +24,7 @@ class ProfileChangePasswordVisibilityState extends ProfileStates {}
 class UpdateProfileLoadingState extends ProfileStates {}
 
 class UpdateProfileSuccessState extends ProfileStates {
-  final UpdateProfileModel updateProfileModel;
+  final ProfileModel updateProfileModel;
 
   UpdateProfileSuccessState(this.updateProfileModel);
 }

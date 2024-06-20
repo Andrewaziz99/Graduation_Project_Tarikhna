@@ -55,11 +55,7 @@ class MainExamScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const Text(
-<<<<<<< HEAD
                                     "Exam",
-=======
-                                    "Quiz",
->>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                                     style: TextStyle(
                                       color: Color.fromARGB(191, 0, 0, 0),
                                       //color: titleTextColor,
@@ -201,7 +197,6 @@ class MainExamScreen extends StatelessWidget {
 
                                             Column(
                                               children: [
-<<<<<<< HEAD
                                                 Container(
                                                   decoration: BoxDecoration(
                                                     color:  Colors
@@ -234,64 +229,6 @@ class MainExamScreen extends StatelessWidget {
                                                       cubit
                                                           .changeSelectedOption(
                                                           val);
-=======
-                                                Text(
-                                                  cubit.quizModel!.data![index].questions,
-                                                  style: TextStyle(
-                                                    color: primaryTextColor,
-                                                    fontWeight: FontWeight.w900,
-                                                    fontFamily: 'Avenir',
-                                                    fontSize: 20,
-
-                                                  ),
-                                                  textAlign: TextAlign.right,
-                                                ),
-                                                const SizedBox(
-                                                  height: 24,
-                                                ),
-
-                                                Column(
-                                                  children: List.generate(
-                                                    cubit.quizModel!.data![index].choices.length * 2 - 1,
-                                                        (choiceIndex) {
-                                                      // If the index is odd, return a separator
-                                                      if (choiceIndex.isOdd) {
-                                                        return const SizedBox(height: 10); // Adjust the height of the separator as needed
-                                                      }
-                                                      // Calculate the actual index of the choice
-                                                      final actualIndex = choiceIndex ~/ 2;
-                                                      var choice = cubit.quizModel!.data![index].choices[actualIndex];
-                                                      return RadioMenuButton(
-                                                        value: actualIndex,
-                                                        groupValue: cubit.selectedOption,
-                                                        style: ButtonStyle(
-                                                          shape: MaterialStatePropertyAll(
-                                                            RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(10),
-                                                            ),
-                                                          ),
-                                                          elevation: MaterialStateProperty.all(2),
-                                                          backgroundColor: MaterialStatePropertyAll(
-                                                            meduim,
-                                                          ),
-                                                        ),
-                                                        onChanged: (val) {
-                                                          cubit.selectedOption = val;
-                                                          print(cubit.selectedOption);
-                                                          cubit.changeSelectedOption(val);
-
-                                                        },
-                                                        child: Expanded(
-                                                          child: Text(choice,
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow.ellipsis,
-                                                            style: const TextStyle(
-                                                              fontSize: 12,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
->>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                                                     },
                                                   ),
                                                 ),

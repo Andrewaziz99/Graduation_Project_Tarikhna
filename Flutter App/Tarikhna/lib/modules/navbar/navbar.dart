@@ -2,14 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tarikhna/modules/Exam/examMain.dart';
 import 'package:tarikhna/modules/Exam/exam_leading_page.dart';
 import 'package:tarikhna/modules/ai/Saved_Item_Screen/Saved_Item_Screen.dart';
-import 'package:tarikhna/modules/arModule/ar_main_page.dart';
 import 'package:tarikhna/modules/home/homepage.dart';
 import 'package:tarikhna/modules/lessons/lessons_screen.dart';
 import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
-import 'package:tarikhna/modules/navbar/notification.dart';
 import 'package:tarikhna/modules/profile/progressBar.dart';
 
 class NavBar_Page extends StatefulWidget {

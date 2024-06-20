@@ -1,38 +1,18 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tarikhna/modules/ai/ai_input_screen.dart';
-import 'package:tarikhna/modules/ai/cubit/cubit.dart';
 import 'package:tarikhna/modules/home/cubit/home_page_cubit.dart';
-import 'package:tarikhna/modules/lessons/lessons_screen.dart';
+import 'package:tarikhna/modules/home/cubit/home_page_state.dart';
 import 'package:tarikhna/modules/navbar/cubit/navbar_cubit.dart';
-import 'package:tarikhna/modules/profile/cubit/cubit.dart';
-export 'homePage.dart';
 import 'package:tarikhna/shared/components/components.dart';
+import 'package:tarikhna/shared/components/constants.dart';
+import 'package:tarikhna/shared/styles/colors.dart';
 
-class Home_Page_Screen extends StatefulWidget {
-  const Home_Page_Screen({super.key});
-
-  @override
-  State<Home_Page_Screen> createState() => _Home_Page_ScreenState();
-}
-
-String Greeting() {
-  var time = DateTime.now().hour;
-  if (time < 12) {
-    return 'Good Morning!';
-  } else if (time < 18) {
-    return 'Good Afternoon!';
-  } else {
-    return 'Good Evening!';
-  }
-}
-
-class _Home_Page_ScreenState extends State<Home_Page_Screen> {
+class Home_Page_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-<<<<<<< HEAD
     String Greeting() {
       var time = DateTime.now().hour;
       if (time < 12) {
@@ -42,117 +22,29 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
       } else {
         return 'Good Evening!';
       }
-    }    var size = MediaQuery.of(context).size;
-    return BlocProvider(
-      create: (context) => HomePageCubit(),
-      child: BlocConsumer<HomePageCubit, HomePageState>(
-        listener: (context, state) {
-          if (state is SummaryAIState) {
-            navigateTo(context, AiInputScreen());
-          } else if (state is NavigateToLessonState) {
-            // navigateTo(context, LessonsScreen());
-          } else if (state is OpenDrawer) {}
-        },
-        builder: (context, state) {
-          var cubit = ProfileCubit.get(context);
-          return Scaffold(
-            body: SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 100, horizontal: 50),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    Greeting(),
-                                    style: const TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                    textScaler: const TextScaler.linear(1.9),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  ConditionalBuilder(
-                                    condition: cubit.profileModel != null,
-                                    builder: (BuildContext context) => Text(
-                                      cubit.profileModel!.data!.name!,
-                                      style: const TextStyle(
-                                        fontStyle: FontStyle.italic,
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                    fallback: (BuildContext context) => const Text('Iwy em hotep'),
+    }
 
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Container(
-                                      height: 30,
-                                      width: 30,
-                                      child: const Image(
-                                          image: AssetImage(
-                                              'images/hand-wave.png')),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 200),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        height: size.height * .225,
-                        width: size.width * .8,
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          color: Color(0x9BE7B7FD),
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(40.0),
-                              bottomRight: Radius.circular(40.0),
-                              topLeft: Radius.circular(40.0),
-                              bottomLeft: Radius.circular(40.0)),
-                        ),
-=======
     var size = MediaQuery.of(context).size;
 
     return BlocConsumer<HomePageCubit, HomePageState>(
-      listener: (context, state) {
-        if (state is SummaryAIState) {
-          navigateTo(context, AiInputScreen());
-        } else if (state is NavigateToLessonState) {
-          // navigateTo(context, LessonsScreen());
-        } else if (state is OpenDrawer) {}
-      },
+      listener: (context, state) {},
       builder: (context, state) {
-        var cubit = ProfileCubit.get(context);
+        var cubit = HomePageCubit.get(context);
+        cubit.loadHome(context);
         return Scaffold(
           body: SingleChildScrollView(
-            child: Stack(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
               children: [
+                SizedBox(
+                  height: size.height * .1,
+                ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 100, horizontal: 50),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
->>>>>>> 5b484e97dc4f801bc418941839f6c26a1177e4cb
                         child: Column(
                           children: [
                             Row(
@@ -172,10 +64,16 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                   condition: cubit.profileModel != null,
                                   builder: (BuildContext context) => Text(
                                     cubit.profileModel!.data!.name!,
-                                    textScaler: const TextScaler.linear(1.5),
+                                    style: const TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.blue,
+                                    ),
                                   ),
-                                  fallback: (BuildContext context) => const Text(''),
-
+                                  fallback: (BuildContext context) =>
+                                      const Text('Iwy em hotep', style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.blue,
+                                      ),),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -184,8 +82,8 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                     height: 30,
                                     width: 30,
                                     child: const Image(
-                                        image: AssetImage(
-                                            'images/hand-wave.png')),
+                                        image:
+                                            AssetImage('images/hand-wave.png')),
                                   ),
                                 ),
                               ],
@@ -196,110 +94,33 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 200),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      height: size.height * .225,
-                      width: size.width * .8,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                        color: Color(0x9BE7B7FD),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(40.0),
-                            bottomRight: Radius.circular(40.0),
-                            topLeft: Radius.circular(40.0),
-                            bottomLeft: Radius.circular(40.0)),
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 30, horizontal: 35),
-                                child: Row(
-                                  children: [
-                                    const Text(
-                                      "Start Learning",
-                                      textScaler: TextScaler.linear(1.5),
-                                    ),
-                                    // Padding(
-                                    //   padding: EdgeInsets.symmetric(
-                                    //       horizontal: 5),
-                                    // ),
-                                    Container(
-                                      height: 50,
-                                      width: 40,
-                                      child: const Image(
-                                          image: AssetImage(
-                                              'images/university1.png')),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                height: 55,
-                                width: 80,
-                                child: const Image(
-                                  image: AssetImage('images/studying1.png'),
-                                ),
-                              ),
-                              // Padding(
-                              //   padding: EdgeInsets.symmetric(horizontal: 5),
-                              // ),
-                              Container(
-                                height: 30,
-                                width: 190,
-                                alignment: Alignment.center,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(40.0),
-                                      bottomRight: Radius.circular(40.0),
-                                      topLeft: Radius.circular(40.0),
-                                      bottomLeft: Radius.circular(40.0)),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      // padding:EdgeInsets.symmetric(horizontal: 0.5),
-                                      height: 10,
-                                      width: 20,
-                                      child: const Image(
-                                        image:
-                                        AssetImage('images/search1.png'),
-                                      ),
-                                    ),
-                                    const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10)),
-                                    Container(
-                                      height: 20,
-                                      width: 100,
-                                      child: const Text(
-                                        'Search',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                CarouselSlider(
+                  items: [
+                    Image.network(img1),
+                    Image.network(img2),
+                    Image.network(img3),
+                    Image.network(img4),
+                    Image.network(img5),
+                    Image.network(img6)
+                  ],
+                  options: CarouselOptions(
+                    aspectRatio: 16/9,
+                    height: 200.0,
+                    initialPage: 0,
+                    viewportFraction: 1.0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 1500),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
                 Padding(
-                  padding:
-                  const EdgeInsets.symmetric(vertical: 430, horizontal: 30),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
                       Row(
@@ -335,8 +156,7 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                               child: InkWell(
                                 child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.symmetric(
@@ -357,10 +177,8 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                                         )),
                                   ],
                                 ),
-                                onTap: () => {
-                                  AICubit.get(context),
-                                  context.read<HomePageCubit>().getAISummary()
-                                },
+                                onTap: () =>
+                                    {navigateTo(context, AiInputScreen())},
                               ),
                             ),
                             const Spacer(),
@@ -378,12 +196,11 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                               child: InkWell(
                                 child: const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding:
-                                      EdgeInsets.symmetric(vertical: 20),
+                                          EdgeInsets.symmetric(vertical: 20),
                                       child: Text('Lessons',
                                           textScaler: TextScaler.linear(1.8)),
                                     ),
@@ -407,35 +224,6 @@ class _Home_Page_ScreenState extends State<Home_Page_Screen> {
                     ],
                   ),
                 ),
-
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    child: Column(
-                      children: [
-                        Align(
-                            alignment: Alignment.topRight,
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 52,
-                              width: 52,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFFFCE1B4),
-                                shape: BoxShape.circle,
-                              ),
-                              child: IconButton(
-                                alignment: Alignment.center,
-                                icon: const Icon(Icons.menu),
-                                onPressed: () =>
-                                    Scaffold.of(context).openEndDrawer(),
-                              ),
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-
               ],
             ),
           ),
