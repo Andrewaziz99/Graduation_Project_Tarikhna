@@ -61,15 +61,15 @@ class Questions {
 
   Questions(
       {this.sId,
-        this.questions,
-        this.choices,
-        this.correctAns,
-        this.level,
-        this.lessonID});
+      this.questions,
+      this.choices,
+      this.correctAns,
+      this.level,
+      this.lessonID});
 
   Questions.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    questions = json['questions'];
+    questions = json['question'];
     choices = json['choices'].cast<String>();
     correctAns = json['correctAns'];
     level = json['level'];
