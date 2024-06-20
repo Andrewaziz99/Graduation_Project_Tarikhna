@@ -41,7 +41,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json)
       : sId = json['_id'] ?? '',
-        questions = json['questions'] ?? '',
+        questions = json['question'] ?? '',
         choices = (json['choices'] as List<dynamic>?)
             ?.map((e) => e.toString())
             .toList() ??
