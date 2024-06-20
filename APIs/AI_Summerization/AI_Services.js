@@ -19,7 +19,6 @@ const summarizeText = async (historicalText, done) => {
     . من النص الملخص، استخرج التواريخ المذكورة مرتبة بصيغة بسيطة.\
     . من النص الملخص، استخرج الأحداث المتعلقة بالتواريخ المذكورة.\
     . اعرض الخطوات أعلاه في تنسيق JSON كما يلي:\
-    . Remove (``` json ... ```) from the response and return data as a text\
     {\
         "historicalORNot" : true or false, // إذا لم يكن النص تاريخيًا، اجعل قيمة البيانات: false\
         "data" : {\

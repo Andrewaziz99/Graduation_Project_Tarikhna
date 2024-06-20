@@ -14,7 +14,7 @@ const getQuiz = (lessonID,userID , done) => {
         if (!quizServices.quizFound(levels)) {
             //create a quiz document in the database
             console.log("quiz must be created");
-            quizServices.createQuiz(lessonID, userID, (err, data)=>{
+            quizServices.createQuiz(lessonID[0], userID, (err, data)=>{
                 if (err) {
                     console.log(err);
                     console.log("error here");
@@ -82,4 +82,3 @@ const updateToNextLevel = (lessonID, userID, done)=>{
 
 
 module.exports = { getQuiz, updateToNextLevel }
-
