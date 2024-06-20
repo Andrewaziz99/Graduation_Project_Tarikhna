@@ -12,7 +12,7 @@ function TableRow(props) {
             <td>{props.id}</td>
             <td>{props.lessonTitle}</td>
             <td>{props.grade}</td>
-            <OverlayEditLesson buttonTitle='Edit' buttonStyle='edit' buttonIcon="bi bi-pencil-square" summaryText={props.summaryText} lessonTitle={props.lessonTitle} summaryByDate={props.summaryByDate} unit={props.unit} grade={props.grade} lessonID={props.id} />
+            <OverlayEditLesson buttonTitle='Edit' buttonStyle='edit' buttonIcon="bi bi-pencil-square" summaryText={props.summaryText} lessonTitle={props.lessonTitle} summaryByDate={props.summaryByDate} unit={props.unit} grade={props.grade} lessonID={props.id} artext={props.artext} />
             <OverlayDel buttonTitle='Delete' buttonStyle='delete' buttonIcon="bi bi-trash3" type={'lesson'} lessonTitle={props.lessonTitle} id={props.id} />
         </tr>
     );

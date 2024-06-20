@@ -15,17 +15,21 @@ function Overlay(props) {
     //     setCharacter(props.summaryText);
     // }
     const [date, setDate] = useState([{ date: '', event: [] }]);
-    const[title, setTitle] = useState('')
-    const[unit, setUnit] = useState('')
-    const[grade, setGrade]= useState('')
-    
-    const handleAddTitle = (value)=>{
+    const [title, setTitle] = useState('')
+    const [unit, setUnit] = useState('')
+    const [grade, setGrade] = useState('')
+    const [arText, setArText] = useState('')
+
+    const handleAddTitle = (value) => {
         setTitle(value)
     }
-    const handleAddUnit = (value)=>{
+    const handleAddArText = (value) => {
+        setArText(value)
+    }
+    const handleAddUnit = (value) => {
         setUnit(value)
     }
-    const handleAddGrade = (value)=>{
+    const handleAddGrade = (value) => {
         setGrade(value)
     }
     const handleAddInput = () => {
@@ -34,7 +38,20 @@ function Overlay(props) {
     const handleAddDate = () => {
         setDate([...date, { date: '', event: [] }]);
     };
-    const handleSubmit = async  (e) => {
+    const checkNull = (event) => {
+        if (title == '') {
+            alert("You must insert lesson Title");
+        } else if (unit == '') {
+            alert("You must insert lesson Unit");
+        } else if (grade == '') {
+            alert("You must choose year");
+        } else if (character[0].nameOfCharacter == '' || character[0].Events == []) {
+            alert("You must insert at least one character");
+        } else if (date[0].date == '' || date[0].event == []) {
+            alert("You must insert at least one date");
+        } else { handleSubmit(event) }
+    };
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(character);
         // console.log(date);
@@ -46,8 +63,9 @@ function Overlay(props) {
             Title: title,
             unit: unit,
             year: grade,
-            AR_Text: ""
+            AR_Text: arText
         }
+
         console.log(lessonData.characters);
         const myHeaders = new Headers();
         myHeaders.append('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlkIjoiNjY0MjlkNDAxNWI4Y2E1NTNmNGFjNzY2IiwibmFtZSI6IlRob21hcyIsImVtYWlsIjoidGhvbWFzbWFnZWQyQGdtYWlsLmNvbSIsInllYXIiOiI2IiwiaWF0IjoxNzE1NjUzMjMxfQ.2cXsUtJ8GFN-jn62wIjUv59jqIEqmjaVIZnS-1Ujd_M');
@@ -56,10 +74,10 @@ function Overlay(props) {
         try {
             console.log("data");
             console.log(lessonData.AR_Text);
-            let response = await fetch("http://localhost:8888/lesson/addLesson", {
+            let response = await fetch("http://localhost:8080/lesson/addLesson", {
                 method: "POST",
                 headers: myHeaders,
-                body: JSON.stringify(lessonData) 
+                body: JSON.stringify(lessonData)
             })
             const data = await response.json();
             if (data.status) {
@@ -73,6 +91,7 @@ function Overlay(props) {
             console.log(error);
             alert("An error has occured, please try again later")
         }
+
     }
     const handleCharacterChange = (index, value) => {
         const updatedInputs = [...character];
@@ -161,12 +180,12 @@ function Overlay(props) {
                     <div className="row">
                         <div className="col">
                             <label>Lesson Title</label>
-                            <input type="text" className="form-control" onChange={(e)=>{handleAddTitle(e.target.value)}} placeholder='Lesson title' />
+                            <input type="text" className="form-control" onChange={(e) => { handleAddTitle(e.target.value) }} placeholder='Lesson title' required />
                         </div>
                         <div className="col">
                             <label>Unit</label>
-                            <select className="form-select" onChange={(e)=>{handleAddUnit(e.target.value)}}>
-                                <option >Choose unit</option>
+                            <select className="form-select" onChange={(e) => { handleAddUnit(e.target.value) }}>
+                                <option ></option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -176,7 +195,7 @@ function Overlay(props) {
                         </div>
                         <div className="col">
                             <label>Grade</label>
-                            <select className="form-select" onChange={(e)=>{handleAddGrade(e.target.value)}}>
+                            <select className="form-select" onChange={(e) => { handleAddGrade(e.target.value) }}>
                                 <option >Choose grade</option>
                                 <option>4</option>
                                 <option>5</option>
@@ -206,6 +225,7 @@ function Overlay(props) {
                                         className='form-control'
                                         placeholder="Enter a character"
                                         value={input.character}
+                                        required
                                         onChange={(e) => handleCharacterChange(index, e.target.value)}
                                     />
                                     <button className='btn addeventbtn' onClick={() => handleAddEvent(index)}>Add Event</button>
@@ -254,6 +274,7 @@ function Overlay(props) {
                                         className='form-control'
                                         placeholder="Enter a Date"
                                         value={input.date}
+                                        required
                                         onChange={(e) => handleDateChange(index, e.target.value)}
                                     />
                                     <button className='btn addeventbtn' onClick={() => handleAddDateEvent(index)}>Add Event</button>
@@ -265,6 +286,7 @@ function Overlay(props) {
                                             className='form-control'
                                             placeholder="Enter an event"
                                             value={event}
+                                            required
                                             onChange={(e) => handleDateEventChange(index, eventIndex, e.target.value)}
                                         />
                                         <OverlayTrigger
@@ -284,12 +306,25 @@ function Overlay(props) {
                         ))}
 
                     </div>
+                    <div>
+                        <div className='row sections'>
+                            <h5 className='col'>AR Text Section</h5>
+                        </div>
+                        <input
+                            type="text"
+                            className='form-control'
+                            placeholder="Enter a Date"
+                            value={arText}
+                            onChange={(e) => { handleAddArText(e.target.value) }}
+                        />
+
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className='cancelmodal' onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button onClick={handleSubmit} className="edit">{props.buttonTitle}</Button>
+                    <Button type='submit' onClick={checkNull} className="edit">{props.buttonTitle}</Button>
                 </Modal.Footer>
             </Modal>
         </>

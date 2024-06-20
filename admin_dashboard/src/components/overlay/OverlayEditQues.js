@@ -25,11 +25,11 @@ function OverlayEditQues(props) {
         setCorrectAns(props.correctAns)
         setLessonID(props.lessonID)
     }
-    const handleShow = () => {setShow(true)};
-    const updateChoices = (index, newValue)=>{
+    const handleShow = () => { setShow(true) };
+    const updateChoices = (index, newValue) => {
         let updatedChoices = [...questionChoices]
         updatedChoices[index] = newValue
-        setQuestionChoices(updatedChoices) 
+        setQuestionChoices(updatedChoices)
         console.log(questionChoices);
     }
     const editQuestion = async () => {
@@ -42,19 +42,19 @@ function OverlayEditQues(props) {
             'lessonID': lessonID
         }
         try {
-            const response = await fetch('http://localhost:8888/questions/editQuestion', {
+            const response = await fetch('http://localhost:8080/questions/editQuestion', {
                 method: 'PUT',
                 body: JSON.stringify(updatedQuestionData),
                 headers: { 'Content-Type': 'application/json' }
             })
             const data = await response.json()
-                if (data.status) {
-                    alert(data.message)
-                    console.log(data);
-                } else {
-                    console.error(`HTTP ${response.status}: ${response.statusText}`);
-                    alert(data.message)
-                }
+            if (data.status) {
+                alert(data.message)
+                console.log(data);
+            } else {
+                console.error(`HTTP ${response.status}: ${response.statusText}`);
+                alert(data.message)
+            }
         } catch (error) {
             alert("An error has occured, please try again later")
         }
@@ -87,9 +87,9 @@ function OverlayEditQues(props) {
                             </div>
                             <div className="col">
                                 <DropdownButton id="dropdown-basic-button" title="Choose lesson">
-                                    {AllLessons.map(les=>{
+                                    {AllLessons.map(les => {
                                         return (
-                                    <Dropdown.Item href="#/action-1" onClick={(e=>{setLessonTitle(les.Title); setLessonID(les._id)})}>{les.Title}</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-1" onClick={(e => { setLessonTitle(les.Title); setLessonID(les._id) })}>{les.Title}</Dropdown.Item>
                                         )
                                     })}
                                 </DropdownButton>
@@ -100,18 +100,18 @@ function OverlayEditQues(props) {
                             </div>
                             <div className="col">
                                 <DropdownButton id="dropdown-basic-button" title="Level">
-                                    <Dropdown.Item href="#/action-1" onClick={(e)=>{setQuestionLevel(1)}}>1</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2" onClick={(e)=>{setQuestionLevel(2)}}>2</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" onClick={(e)=>{setQuestionLevel(3)}}>3</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" onClick={(e)=>{setQuestionLevel(4)}}>4</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" onClick={(e)=>{setQuestionLevel(5)}}>5</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-1" onClick={(e) => { setQuestionLevel(1) }}>1</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2" onClick={(e) => { setQuestionLevel(2) }}>2</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3" onClick={(e) => { setQuestionLevel(3) }}>3</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3" onClick={(e) => { setQuestionLevel(4) }}>4</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3" onClick={(e) => { setQuestionLevel(5) }}>5</Dropdown.Item>
 
                                 </DropdownButton>
                             </div>
                         </div>
                         <div className="width-100">
                             <label className='form-label' value={questionText}>Question Text</label>
-                            <input type="text" className="form-control" value={questionText} onChange={(e)=>{setQuestionText(e.target.value)}}/>
+                            <input type="text" className="form-control" value={questionText} onChange={(e) => { setQuestionText(e.target.value) }} />
                         </div>
                         <div className="row padtop">
                             <div className="col">
@@ -120,10 +120,10 @@ function OverlayEditQues(props) {
                             </div>
                             <div className="col">
                                 <DropdownButton id="dropdown-basic-button" title="Right answer">
-                                    <Dropdown.Item href="#/action-1" onClick={(e)=>{setCorrectAns(0)}}>{questionChoices[0]}</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2" onClick={(e)=>{setCorrectAns(1)}}>{questionChoices[1]}</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" onClick={(e)=>{setCorrectAns(2)}}>{questionChoices[2]}</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3" onClick={(e)=>{setCorrectAns(3)}}>{questionChoices[3]}</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-1" onClick={(e) => { setCorrectAns(0) }}>{questionChoices[0]}</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2" onClick={(e) => { setCorrectAns(1) }}>{questionChoices[1]}</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3" onClick={(e) => { setCorrectAns(2) }}>{questionChoices[2]}</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3" onClick={(e) => { setCorrectAns(3) }}>{questionChoices[3]}</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                         </div>
@@ -133,21 +133,21 @@ function OverlayEditQues(props) {
                             <div className="row">
                                 <div className="col input-group">
                                     <div class="input-group-text">A</div>
-                                    <input type="text" className="form-control" placeholder="Answer" value={questionChoices[0]} onChange={(e)=>{updateChoices(0, e.target.value)}}/>
+                                    <input type="text" className="form-control" placeholder="Answer" value={questionChoices[0]} onChange={(e) => { updateChoices(0, e.target.value) }} />
                                 </div>
                                 <div className="col input-group">
                                     <div class="input-group-text">B</div>
-                                    <input type="text" className="form-control" placeholder="Answer" value={questionChoices[1]} onChange={(e)=>{updateChoices(1, e.target.value)}}/>
+                                    <input type="text" className="form-control" placeholder="Answer" value={questionChoices[1]} onChange={(e) => { updateChoices(1, e.target.value) }} />
                                 </div>
                             </div>
                             <div className="row padtop ">
                                 <div className="col input-group">
                                     <div class="input-group-text">C</div>
-                                    <input type="text" className="form-control" placeholder="Answer" value={questionChoices[2]} onChange={(e)=>{updateChoices(2, e.target.value)}}/>
+                                    <input type="text" className="form-control" placeholder="Answer" value={questionChoices[2]} onChange={(e) => { updateChoices(2, e.target.value) }} />
                                 </div>
                                 <div className="col input-group">
                                     <div class="input-group-text">D</div>
-                                    <input type="text" className="form-control" placeholder="Answer" value={questionChoices[3]} onChange={(e)=>{updateChoices(3, e.target.value)}}/>
+                                    <input type="text" className="form-control" placeholder="Answer" value={questionChoices[3]} onChange={(e) => { updateChoices(3, e.target.value) }} />
                                 </div>
                             </div>
                         </div>
@@ -157,7 +157,7 @@ function OverlayEditQues(props) {
                     <Button className='cancelmodal' onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button className="edit" onClick={(e)=>{editQuestion()}}>{props.buttonTitle}</Button>
+                    <Button className="edit" onClick={(e) => { editQuestion() }}>{props.buttonTitle}</Button>
                 </Modal.Footer>
             </Modal>
         </>

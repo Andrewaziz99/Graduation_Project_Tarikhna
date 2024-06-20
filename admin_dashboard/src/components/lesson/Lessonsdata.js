@@ -19,7 +19,7 @@ async function getAllLessons() {
     // myHeaders.append('Content-Type', 'application/json');
     myHeaders.append('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsImlkIjoiNjY0MjlkNDAxNWI4Y2E1NTNmNGFjNzY2IiwibmFtZSI6IlRob21hcyIsImVtYWlsIjoidGhvbWFzbWFnZWQyQGdtYWlsLmNvbSIsInllYXIiOiI2IiwiaWF0IjoxNzE1NjUzMjMxfQ.2cXsUtJ8GFN-jn62wIjUv59jqIEqmjaVIZnS-1Ujd_M');
     try {
-        let response = await fetch("http://localhost:8888/lesson/getAllLessons", {
+        let response = await fetch("http://localhost:8080/lesson/getAllLessons", {
             method: "GET",
             headers: myHeaders
         })
@@ -36,7 +36,7 @@ async function getAllLessons() {
         alert("Failed to fetch data")
         return []
     }
-    
+
 }
 
 lessonsData = await getAllLessons()

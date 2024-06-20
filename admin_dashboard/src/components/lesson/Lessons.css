@@ -48,7 +48,7 @@ table td {
 
 .span-header {
     display: inline-block;
-    background: #FFCCE1;
+    background: rgb(246, 214, 125);
     padding: 10px 17px;
     font-size: 18px;
     border-radius: 30px;

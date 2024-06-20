@@ -7,19 +7,19 @@ function PDF_Upload(params) {
     let summarizedLesson
     const [file, setFile] = useState();
     const [showOverlay, setShowOverlay] = useState(false)
-    const upload =async ()=>{
+    const upload = async () => {
         const formData = new FormData()
         formData.append('file', file)
         try {
-            const res = await axios.post('http://localhost:8888/lesson/uploadPdf',formData)
+            const res = await axios.post('http://localhost:8080/lesson/uploadPdf', formData)
             if (res.data.status) {
                 console.log(res.data.data);
                 summarizedLesson = res.data.data
                 if (summarizedLesson) {
                     setShowOverlay(true)
                 }
-            }else{
-            console.log(res.data.message);
+            } else {
+                console.log(res.data.message);
             }
 
         } catch (error) {
@@ -27,18 +27,18 @@ function PDF_Upload(params) {
             alert("Failed to reach to server")
         }
 
-        
+
     }
-    return(
+    return (
         <div>
-            <input type='file' onChange={(e)=>{setFile(e.target.files[0])}}></input>
+            <input type='file' onChange={(e) => { setFile(e.target.files[0]) }}></input>
             <Button className='edit' onClick={upload}>
                 upload
             </Button>
             {showOverlay && <Overlay show={true} />}
 
         </div>
-        
+
     )
 }
 

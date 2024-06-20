@@ -13,29 +13,29 @@ function OverlayDel(props) {
         console.log(lessonID);
         try {
             if (props.type == 'question') {
-                const response = await fetch('http://localhost:8888/questions/deleteQuestion/?questionID=' + lessonID, {
+                const response = await fetch('http://localhost:8080/questions/deleteQuestion/?questionID=' + lessonID, {
                     method: "DELETE"
                 })
                 const data = await response.json()
-                    if (data.status) {
-                        console.log(data.data);
-                        alert(data.message)
-                    } else {
-                        console.error(data.message);
-                        alert(data.message)
-                    }
+                if (data.status) {
+                    console.log(data.data);
+                    alert(data.message)
+                } else {
+                    console.error(data.message);
+                    alert(data.message)
+                }
             } else {
-                const response = await fetch('http://localhost:8888/lesson/deleteLesson/?id=' + lessonID, {
+                const response = await fetch('http://localhost:8080/lesson/deleteLesson/?id=' + lessonID, {
                     method: "DELETE"
                 })
                 const data = await response.json()
-                    if (data.status) {
-                        console.log(data.data);
-                        alert(data.message)
-                    } else {
-                        console.error(data.message);
-                        alert(data.message)
-                    }
+                if (data.status) {
+                    console.log(data.data);
+                    alert(data.message)
+                } else {
+                    console.error(data.message);
+                    alert(data.message)
+                }
             }
 
         } catch (error) {
@@ -68,10 +68,10 @@ function OverlayDel(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={()=>{deleteLesson(props.id); handleClose()}}>Delete</Button>
+                    <Button variant="danger" onClick={() => { deleteLesson(props.id); handleClose() }}>Delete</Button>
                 </Modal.Footer>
             </Modal>
         </>
-    ); 
+    );
 }
 export default OverlayDel;

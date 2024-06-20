@@ -48,21 +48,21 @@
 
 let QuestionData
 
-const getAllQuestions = async()=>{
+const getAllQuestions = async () => {
     try {
-        const response = await fetch('http://localhost:8888/questions/getAllQuestions', {
-        method: "GET",
+        const response = await fetch('http://localhost:8080/questions/getAllQuestions', {
+            method: "GET",
 
-    })
-    const data = await response.json()
+        })
+        const data = await response.json()
         if (data.status) {
             console.log(data.data);
             QuestionData = data.data
-        }else{
+        } else {
             console.log(data.message);
             alert(data.message)
         }
-    
+
     } catch (error) {
         console.log(error);
         alert("Failed to fetch data")
