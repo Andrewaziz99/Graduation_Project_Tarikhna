@@ -82,8 +82,7 @@ class QuizScreen extends StatelessWidget {
                                       const Spacer(),
                                       IconButton(
                                         onPressed: () {
-                                          navigateAndFinish(
-                                              context, const NavBar_Page());
+                                          Navigator.pop(context);
                                         },
                                         icon: const Icon(Icons.home),
                                       ),
