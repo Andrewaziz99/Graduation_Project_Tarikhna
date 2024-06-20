@@ -69,7 +69,7 @@ class Questions {
 
   Questions.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    questions = json['questions'];
+    questions = json['question'];
     choices = json['choices'].cast<String>();
     correctAns = json['correctAns'];
     level = json['level'];
