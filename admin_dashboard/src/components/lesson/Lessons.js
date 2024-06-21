@@ -13,7 +13,7 @@ function Lessons() {
     const lesson = lessonsData.map((les) => {
         console.log(les.year);
         return (
-            <TableRow key={les._id} lessonTitle={les.Title} id={les._id} grade={les.year} summaryText={les.characters} summaryByDate={les.dates} unit={les.unit} artext={les.artext} />
+            <TableRow key={les._id} lessonTitle={les.Title} id={les._id} grade={les.year} summaryText={les.characters} summaryByDate={les.dates} unit={les.unit} artext={les.AR_Text} />
             // <TableRow key={les.id} lessonTitle={les.lessonTitle} id={les.id} grade={les.grade} summaryText={les.summaryText} summaryByDate={les.summaryByDate} />
         )
     })

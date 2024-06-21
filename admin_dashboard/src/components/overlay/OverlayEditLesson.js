@@ -73,12 +73,15 @@ function OverlayEditLesson(props) {
             lessonUnit: parseInt(unit),
             lessonGrade: parseInt(grade),
             characters: character,
-            dates: date
+            dates: date,
+            AR_Text: arText
         }
+        console.log("updated lesson");
+        console.log(updatedLessonsData.AR_Text);
         console.log("updatedLessonsData.characters");
-        console.log(updatedLessonsData.characters);
+        console.log(updatedLessonsData);
         try {
-            const response = await fetch('http://localhost:8080/lesson/editLesson/', {
+            const response = await fetch('http://localhost:8888/lesson/editLesson/', {
                 method: "PUT",
                 body: JSON.stringify(updatedLessonsData),
                 headers: {

@@ -13,7 +13,7 @@ function OverlayDel(props) {
         console.log(lessonID);
         try {
             if (props.type == 'question') {
-                const response = await fetch('http://localhost:8080/questions/deleteQuestion/?questionID=' + lessonID, {
+                const response = await fetch('http://localhost:8888/questions/deleteQuestion/?questionID=' + lessonID, {
                     method: "DELETE"
                 })
                 const data = await response.json()
@@ -25,7 +25,7 @@ function OverlayDel(props) {
                     alert(data.message)
                 }
             } else {
-                const response = await fetch('http://localhost:8080/lesson/deleteLesson/?id=' + lessonID, {
+                const response = await fetch('http://localhost:8888/lesson/deleteLesson/?id=' + lessonID, {
                     method: "DELETE"
                 })
                 const data = await response.json()

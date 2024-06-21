@@ -30,8 +30,8 @@ const deleteLesson = (lessonID, done)=>{
   lessonServices.deleteLesson(lessonID, done)
 }
 
-const updateLesson = (lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, done)=>{
-  lessonServices.updateLesson(lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, done)
+const updateLesson = (lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, AR_Text, done)=>{
+  lessonServices.updateLesson(lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, AR_Text, done)
 }
 
 

@@ -39,7 +39,7 @@ function Overlay(props) {
         const formData = new FormData()
         formData.append('file', file)
         try {
-            const res = await axios.post('http://localhost:8080/lesson/uploadPdf', formData)
+            const res = await axios.post('http://localhost:8888/lesson/uploadPdf', formData)
             if (res.data.status) {
                 // console.log(res.data.data);
                 summarizedLesson = res.data.data
