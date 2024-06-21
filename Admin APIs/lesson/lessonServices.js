@@ -13,7 +13,7 @@ const deleteLesson = (lessonID, done)=>{
     lessonDAO.deleteLesson(lessonID, done)
 }
 
-const updateLesson = (lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, done)=>{
-    lessonDAO.updateLesson(lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, done)
+const updateLesson = (lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, AR_Text,  done)=>{
+    lessonDAO.updateLesson(lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, AR_Text, done)
 }
 module.exports = {getAllLessons, addLesson,deleteLesson, updateLesson}

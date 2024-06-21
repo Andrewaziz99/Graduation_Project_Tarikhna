@@ -29,8 +29,8 @@ const deleteLesson = (lessonID, done)=>{
     })
 }
 
-const updateLesson = (lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, done)=>{
-    lessonModel.updateOne({_id: lessonID}, {Title: lessonTitle, unit: lessonUnit, year: lessonGrade, characters: characters, dates: dates}).then(res=>{
+const updateLesson = (lessonID, lessonTitle, lessonUnit, lessonGrade, characters, dates, AR_Text, done)=>{
+    lessonModel.updateOne({_id: lessonID}, {Title: lessonTitle, unit: lessonUnit, year: lessonGrade, characters: characters, dates: dates, AR_Text:AR_Text}).then(res=>{
         console.log(res);
         return done(undefined, res)
     }).catch(error=>{

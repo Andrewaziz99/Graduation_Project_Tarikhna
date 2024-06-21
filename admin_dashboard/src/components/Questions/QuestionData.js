@@ -50,7 +50,7 @@ let QuestionData
 
 const getAllQuestions = async () => {
     try {
-        const response = await fetch('http://localhost:8080/questions/getAllQuestions', {
+        const response = await fetch('http://localhost:8888/questions/getAllQuestions', {
             method: "GET",
 
         })

@@ -94,7 +94,7 @@ router.delete('/deleteLesson/', (req, res) => {
 router.put('/editLesson', (req, res)=>{
     console.log(req.body);
     try {
-        lessonController.updateLesson(req.body.lessonID, req.body.lessonTitle, req.body.lessonUnit, req.body.lessonGrade,req.body.characters, req.body.dates, (err, data)=>{
+        lessonController.updateLesson(req.body.lessonID, req.body.lessonTitle, req.body.lessonUnit, req.body.lessonGrade,req.body.characters, req.body.dates, req.body.AR_Text, (err, data)=>{
             if (err) {
                 return res.send({ status: false, message: err, data: null })
             }

@@ -74,7 +74,7 @@ function Overlay(props) {
         try {
             console.log("data");
             console.log(lessonData.AR_Text);
-            let response = await fetch("http://localhost:8080/lesson/addLesson", {
+            let response = await fetch("http://localhost:8888/lesson/addLesson", {
                 method: "POST",
                 headers: myHeaders,
                 body: JSON.stringify(lessonData)

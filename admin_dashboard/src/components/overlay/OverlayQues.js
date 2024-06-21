@@ -46,7 +46,7 @@ function OverlayQues(props) {
             'lessonID': lessonID
         }
         try {
-            const response = await fetch('http://localhost:8080/questions/addQuestion', {
+            const response = await fetch('http://localhost:8888/questions/addQuestion', {
                 body: JSON.stringify(questionData),
                 method: "POST",
                 headers: { 'Content-Type': 'application/json' }
