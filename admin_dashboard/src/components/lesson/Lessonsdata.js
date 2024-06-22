@@ -29,7 +29,7 @@ async function getAllLessons() {
             return lessonsData
         } else {
             console.error(`HTTP ${response.status}: ${response.statusText}`);
-            alert(data.message)
+            alert("Unexpected error occured")
         }
     } catch (error) {
         console.log(error);

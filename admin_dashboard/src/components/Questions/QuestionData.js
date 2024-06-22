@@ -56,11 +56,12 @@ const getAllQuestions = async () => {
         })
         const data = await response.json()
         if (data.status) {
-            console.log(data.data);
+            console.log(data);
             QuestionData = data.data
         } else {
-            console.log(data.message);
-            alert(data.message)
+            console.log("unexpected error occured");
+            alert("Unexpected error occured")
+            QuestionData = []
         }
 
     } catch (error) {

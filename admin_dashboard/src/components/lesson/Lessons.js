@@ -7,10 +7,13 @@ import SidebarMenu from '../sidebar/Sidebar';
 import OverlayLessonPDF from '../overlay/overlayLessonPDF'
 
 function Lessons() {
-    console.log("lessons data");
     console.log("lesson Data");
     console.log(lessonsData);
-    const lesson = lessonsData.map((les) => {
+    let lesson
+    if (lessonsData == undefined) {
+        lesson = []
+    }
+    lesson = lessonsData.map((les) => {
         console.log(les.year);
         return (
             <TableRow key={les._id} lessonTitle={les.Title} id={les._id} grade={les.year} summaryText={les.characters} summaryByDate={les.dates} unit={les.unit} artext={les.AR_Text} />

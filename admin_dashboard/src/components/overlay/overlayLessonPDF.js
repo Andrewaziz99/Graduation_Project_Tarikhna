@@ -75,6 +75,20 @@ function Overlay(props) {
     const handleAddDate = () => {
         setDate([...date, { date: '', event: [] }]);
     };
+    const checkNull = (event) => {
+        console.log(date[0]);
+        if (title == '') {
+            alert("You must insert lesson Title");
+        } else if (unit == '' || unit == undefined) {
+            alert("You must insert lesson Unit");
+        } else if (grade == '' || grade == undefined) {
+            alert("You must choose year");
+        } else if (character[0] == undefined || character[0].nameOfCharacter == '' || character[0].Events.length == 0) {
+            alert("You must insert at least one character");
+        } else if (date[0] == undefined || date[0].date == '' || date[0].event.length == 0) {
+            alert("You must insert at least one date");
+        } else { handleSubmit(event) }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(character);
@@ -103,6 +117,7 @@ function Overlay(props) {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data); // Handle the response data as needed
+                alert("Lesson added successfully")
             } else {
                 console.error(`HTTP ${response.status}: ${response.statusText}`);
             }
@@ -327,7 +342,7 @@ function Overlay(props) {
                     <Button className='cancelmodal' onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button onClick={handleSubmit} className="edit">{props.buttonTitle}</Button>
+                    <Button onClick={checkNull} className="edit">{props.buttonTitle}</Button>
                 </Modal.Footer>
             </Modal>
         </>

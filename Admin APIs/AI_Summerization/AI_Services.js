@@ -7,7 +7,7 @@ const summarizeText = async (historicalText, done) => {
   // Access your API key as an environment variable (see "Set up your API key" below)
   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { maxOutputTokens: 1000, temperature: 0, responseMimeType: "application/json", responseSchema: { type: "object", properties: { historicalORNot: { type: "boolean" }, data: { type: "object", properties: { characters: { type: "array", items: { type: "object", properties: { nameOfCharacter: { type: "string" }, Events: { type: "array", items: { type: "string" } } } } }, dates: { type: "array", items: { type: "object", properties: { date: { type: "string" }, event: { type: "array", items: { type: "string" } } } } }, Title: { type: "string" } } } } } } });
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig: { maxOutputTokens: 10000, temperature: 0, responseMimeType: "application/json", responseSchema: { type: "object", properties: { historicalORNot: { type: "boolean" }, data: { type: "object", properties: { characters: { type: "array", items: { type: "object", properties: { nameOfCharacter: { type: "string" }, Events: { type: "array", items: { type: "string" } } } } }, dates: { type: "array", items: { type: "object", properties: { date: { type: "string" }, event: { type: "array", items: { type: "string" } } } } }, Title: { type: "string" } } } } } } });
 
   historicalText = JSON.stringify(historicalText);
 
