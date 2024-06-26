@@ -39,7 +39,7 @@ function Overlay(props) {
         const formData = new FormData()
         formData.append('file', file)
         try {
-            const res = await axios.post('http://localhost:8888/lesson/uploadPdf', formData)
+            const res = await axios.post('http://localhost:9000/lesson/uploadPdf', formData)
             if (res.data.status) {
                 // console.log(res.data.data);
                 summarizedLesson = res.data.data
@@ -108,7 +108,7 @@ function Overlay(props) {
         myHeaders.append('Content-Type', 'application/json')
 
         try {
-            let response = await fetch("http://localhost:8888/lesson/addLesson", {
+            let response = await fetch("http://localhost:9000/lesson/addLesson", {
                 method: "POST",
                 headers: myHeaders,
                 body: JSON.stringify(data)

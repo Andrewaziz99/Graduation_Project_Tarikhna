@@ -40,12 +40,17 @@ function Questions() {
             setFilteredQuestions(filteredData)
         }
     }
-    const questions = filteredQuestions
+    let questions
+    if (filteredQuestions == undefined || filteredQuestions.length == 0) {
+         questions = []
+    }else{
+        questions  = filteredQuestions
         .map((ques, index) => {
             return (
                 <QuestionTableRow key={ques._id} id={ques._id} QuestionText={ques.question} correctAns={ques.correctAns} choices={ques.choices} level={ques.level} lessonTitle={ques.lessonTitle} lessonID={ques.lessonID} />
             )
         })
+    }
     return (
         <>
             <div className="row">

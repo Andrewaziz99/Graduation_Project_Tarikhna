@@ -81,7 +81,7 @@ function OverlayEditLesson(props) {
         console.log("updatedLessonsData.characters");
         console.log(updatedLessonsData);
         try {
-            const response = await fetch('http://localhost:8888/lesson/editLesson/', {
+            const response = await fetch('http://localhost:9000/lesson/editLesson/', {
                 method: "PUT",
                 body: JSON.stringify(updatedLessonsData),
                 headers: {

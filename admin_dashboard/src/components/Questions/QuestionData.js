@@ -50,11 +50,13 @@ let QuestionData
 
 const getAllQuestions = async () => {
     try {
-        const response = await fetch('http://localhost:8888/questions/getAllQuestions', {
+        const response = await fetch('http://localhost:9000/questions/getAllQuestions', {
             method: "GET",
 
         })
         const data = await response.json()
+        console.log("questions data in ques data");
+        console.log(data);
         if (data.status) {
             console.log(data);
             QuestionData = data.data

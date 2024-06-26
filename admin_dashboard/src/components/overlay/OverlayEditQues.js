@@ -42,7 +42,7 @@ function OverlayEditQues(props) {
             'lessonID': lessonID
         }
         try {
-            const response = await fetch('http://localhost:8888/questions/editQuestion', {
+            const response = await fetch('http://localhost:9000/questions/editQuestion', {
                 method: 'PUT',
                 body: JSON.stringify(updatedQuestionData),
                 headers: { 'Content-Type': 'application/json' }

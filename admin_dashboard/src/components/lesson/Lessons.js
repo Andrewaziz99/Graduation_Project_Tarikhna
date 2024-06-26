@@ -10,16 +10,14 @@ function Lessons() {
     console.log("lesson Data");
     console.log(lessonsData);
     let lesson
-    if (lessonsData == undefined) {
-        lesson = []
-    }
-    lesson = lessonsData.map((les) => {
-        console.log(les.year);
-        return (
-            <TableRow key={les._id} lessonTitle={les.Title} id={les._id} grade={les.year} summaryText={les.characters} summaryByDate={les.dates} unit={les.unit} artext={les.AR_Text} />
-            // <TableRow key={les.id} lessonTitle={les.lessonTitle} id={les.id} grade={les.grade} summaryText={les.summaryText} summaryByDate={les.summaryByDate} />
-        )
-    })
+        lesson = lessonsData.map((les) => {
+            console.log(les.year);
+            return (
+                <TableRow key={les._id} lessonTitle={les.Title} id={les._id} grade={les.year} summaryText={les.characters} summaryByDate={les.dates} unit={les.unit} artext={les.AR_Text} />
+                // <TableRow key={les.id} lessonTitle={les.lessonTitle} id={les.id} grade={les.grade} summaryText={les.summaryText} summaryByDate={les.summaryByDate} />
+            )
+        })
+    
     return (
         <>
             <div className="row">
